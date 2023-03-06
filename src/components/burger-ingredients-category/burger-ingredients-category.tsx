@@ -3,9 +3,9 @@ import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import ModalOverlay from "../modals/modal-overlay/modal-overlay";
 import ModalIngredientDetails from "../modals/modal-ingredient-details/modal-ingredient-details";
 import styles from "./burger-ingredients-category.module.css";
+import Modal from "../modals/modal/modal";
 
 export default function BurgerIngredientsCategory(props: {
   title: string;
@@ -66,18 +66,18 @@ export default function BurgerIngredientsCategory(props: {
         )}
       </div>
 
-      <ModalOverlay
-        isModalOpen={isModalOpen}
-        isMobile={props.isMobile}
-        title="Детали ингредиента"
-        closeModal={() => setIsModalOpen(false)}
-      >
-        <ModalIngredientDetails
-          closeModal={() => setIsModalOpen(false)}
-          item={itemForModal}
+      {isModalOpen && (
+        <Modal
           isMobile={props.isMobile}
-        />
-      </ModalOverlay>
+          closeModal={() => setIsModalOpen(false)}
+          title="Детали ингредиента"
+        >
+          <ModalIngredientDetails
+            item={itemForModal}
+            isMobile={props.isMobile}
+          />
+        </Modal>
+      )}
     </>
   );
 }

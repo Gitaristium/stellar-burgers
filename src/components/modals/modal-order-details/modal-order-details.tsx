@@ -3,7 +3,6 @@ import vector1 from "../../../images/order-accpeted/vector1.svg";
 import vector2 from "../../../images/order-accpeted/vector2.svg";
 import vector3 from "../../../images/order-accpeted/vector3.svg";
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import CloseModal from "../close-modal/close-modal";
 // import useAnimNum from "../../../hooks/order-count";
 
 export default function ModalOrderDetails(props: {
@@ -11,8 +10,7 @@ export default function ModalOrderDetails(props: {
   closeModal: () => void;
 }) {
   return (
-    <div className={`${styles.modal} pt-30 pb-30 pl-10 pr-10`}>
-      {!props.isMobile && <CloseModal closeModal={props.closeModal} />}
+    <div className={`${styles.modal} p-10`}>
       <p className={`${styles.order__num} text text_type_digits-large mb-8`}>
         034536
       </p>

@@ -1,42 +1,25 @@
-import CloseModal from "../close-modal/close-modal";
 import styles from "./modal-ingredient-details.module.css";
 
-export default function ModalIngredientDetails({
-  closeModal,
-  item,
-  isMobile,
-}: {
-  closeModal: () => void;
+export default function ModalIngredientDetails(props: {
   item: any;
   isMobile: boolean;
 }) {
   return (
-    <div className={`${styles.modal} pt-15 pb-15 pl-10 pr-10`}>
-      {!isMobile && (
-        <>
-          <CloseModal closeModal={closeModal} />
-          <h3
-            className="text text_type_main-large"
-            style={{ textAlign: "left" }}
-          >
-            Детали ингредиента
-          </h3>
-        </>
-      )}
+    <div className={styles.modal}>
       <img
-        src={item.image_large}
-        alt={item.name}
+        src={props.item.image_large}
+        alt={props.item.name}
         style={{ height: "240px", width: "100%", objectFit: "contain" }}
         className="mb-4"
       />
-      <p className="text text_type_main-medium mb-8">{item.name}</p>
+      <p className="text text_type_main-medium mb-8">{props.item.name}</p>
       <ul className={styles.desc}>
         <li className={`${styles.desc__column} mr-10`}>
           <p className="text text_type_main-default text_color_inactive mb-3">
             Калории,ккал
           </p>
           <p className="text text_type_digits-default text_color_inactive">
-            {item.calories}
+            {props.item.calories}
           </p>
         </li>
         <li className={`${styles.desc__column} mr-10`}>
@@ -44,7 +27,7 @@ export default function ModalIngredientDetails({
             Белки, г
           </p>
           <p className="text text_type_digits-default text_color_inactive">
-            {item.proteins}
+            {props.item.proteins}
           </p>
         </li>
         <li className={`${styles.desc__column} mr-10`}>
@@ -52,7 +35,7 @@ export default function ModalIngredientDetails({
             Жиры, г
           </p>
           <p className="text text_type_digits-default text_color_inactive">
-            {item.fat}
+            {props.item.fat}
           </p>
         </li>
         <li className={styles.desc__column}>
@@ -60,7 +43,7 @@ export default function ModalIngredientDetails({
             Углеводы, г
           </p>
           <p className="text text_type_digits-default text_color_inactive">
-            {item.carbohydrates}
+            {props.item.carbohydrates}
           </p>
         </li>
       </ul>

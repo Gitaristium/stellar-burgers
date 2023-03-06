@@ -1,10 +1,12 @@
 .modal__close {
-  position: absolute;
-  top: 70px;
-  right: 40px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
   cursor: pointer;
-  width: 24px;
-  height: 24px;
+  right: -8px;
 }
 @media (hover: hover) {
   .modal__close:hover {
@@ -18,12 +20,5 @@
   }
   100% {
     transform: rotate(-90deg);
-  }
-}
-
-@media (orientation: portrait) or (max-width: 1150px) {
-  .modal__close {
-    top: 20px;
-    right: 8px;
   }
 }

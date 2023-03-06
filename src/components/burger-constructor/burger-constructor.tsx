@@ -5,14 +5,11 @@ import {
 
 import styles from "./burger-constructor-mobile.module.css";
 import { useState } from "react";
-import ModalOverlay from "../modals/modal-overlay/modal-overlay";
 import BurgerConstructorDesktop from "./burger-constructor-desktop";
 import BurgerConstructorMobile from "./burger-constructor-mobile";
+import Modal from "../modals/modal/modal";
 
-export default function BurgerConstructor({
-  ingredients,
-  isMobile,
-}: {
+export default function BurgerConstructor(props: {
   ingredients: any;
   isMobile: boolean;
 }) {
@@ -33,17 +30,17 @@ export default function BurgerConstructor({
 
   return (
     <>
-      {!isMobile ? (
+      {!props.isMobile ? (
         // для десктопа
         <BurgerConstructorDesktop
-          ingredients={ingredients}
+          ingredients={props.ingredients}
           curIngIds={curIngIds}
-          isMobile={isMobile}
+          isMobile={props.isMobile}
         />
       ) : (
         // для мобилки
         <section className={styles.constructor__container}>
-          <div className={`${styles.sum} mt-10 mr-4`}>
+          <div className={`${styles.sum} mt-10`}>
             <span
               className="text text_type_digits-default"
               style={{ display: "flex", alignItems: "center" }}
@@ -65,18 +62,19 @@ export default function BurgerConstructor({
         </section>
       )}
 
-      <ModalOverlay
-        isModalOpen={isModalOpen}
-        isMobile={isMobile}
-        title="Заказ"
-        closeModal={() => setIsModalOpen(false)}
-      >
-        <BurgerConstructorMobile
-          isMobile={isMobile}
-          ingredients={ingredients}
-          curIngIds={curIngIds}
-        />
-      </ModalOverlay>
+      {isModalOpen && (
+        <Modal
+          isMobile={props.isMobile}
+          closeModal={() => setIsModalOpen(false)}
+          title="Заказ"
+        >
+          <BurgerConstructorMobile
+            isMobile={props.isMobile}
+            ingredients={props.ingredients}
+            curIngIds={curIngIds}
+          />
+        </Modal>
+      )}
     </>
   );
 }

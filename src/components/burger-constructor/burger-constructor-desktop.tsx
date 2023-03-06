@@ -7,14 +7,10 @@ import {
 
 import styles from "./burger-constructor-desktop.module.css";
 import { Key, useState } from "react";
-import ModalOverlay from "../modals/modal-overlay/modal-overlay";
 import ModalOrderDetails from "../modals/modal-order-details/modal-order-details";
+import Modal from "../modals/modal/modal";
 
-export default function BurgerConstructorDesktop({
-  ingredients,
-  curIngIds,
-  isMobile,
-}: {
+export default function BurgerConstructorDesktop(props: {
   ingredients: any;
   curIngIds: any;
   isMobile: boolean;
@@ -22,7 +18,7 @@ export default function BurgerConstructorDesktop({
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const findElement = (type: string) => {
-    return ingredients.find((item: { _id: string }) => item._id === type);
+    return props.ingredients.find((item: { _id: string }) => item._id === type);
   };
 
   return (
@@ -34,16 +30,16 @@ export default function BurgerConstructorDesktop({
             <ConstructorElement
               type="top"
               isLocked={true}
-              text={findElement(curIngIds.bun).name + " (верх)"}
-              price={findElement(curIngIds.bun).price}
-              thumbnail={findElement(curIngIds.bun).image}
+              text={findElement(props.curIngIds.bun).name + " (верх)"}
+              price={findElement(props.curIngIds.bun).price}
+              thumbnail={findElement(props.curIngIds.bun).image}
             />
           </article>
 
           <div className={`custom-scroll mt-4 mb-4 pr-4 pl-10 ${styles.stuff}`}>
             <div className={styles.stuff__inner}>
               {/* пробегаемся по массиву ингредиентов и рендерим список */}
-              {curIngIds.ing.map((id: string, index: Key) => {
+              {props.curIngIds.ing.map((id: string, index: Key) => {
                 return (
                   <article className="mr-4 ml-10" key={index}>
                     <span className={styles.draggable}>
@@ -65,9 +61,9 @@ export default function BurgerConstructorDesktop({
             <ConstructorElement
               type="bottom"
               isLocked={true}
-              text={findElement(curIngIds.bun).name + " (низ)"}
-              price={findElement(curIngIds.bun).price}
-              thumbnail={findElement(curIngIds.bun).image}
+              text={findElement(props.curIngIds.bun).name + " (низ)"}
+              price={findElement(props.curIngIds.bun).price}
+              thumbnail={findElement(props.curIngIds.bun).image}
             />
           </article>
         </div>
@@ -91,14 +87,15 @@ export default function BurgerConstructorDesktop({
         </div>
       </section>
 
-      <ModalOverlay
-        isModalOpen={isModalOpen}
-        isMobile={isMobile}
-        title="Заказ оформлен"
-        closeModal={() => setIsModalOpen(false)}
-      >
-        <ModalOrderDetails closeModal={() => setIsModalOpen(false)} />
-      </ModalOverlay>
+      {isModalOpen && (
+        <Modal
+          isMobile={props.isMobile}
+          closeModal={() => setIsModalOpen(false)}
+          title="Заказ оформлен"
+        >
+          <ModalOrderDetails closeModal={() => setIsModalOpen(false)} />
+        </Modal>
+      )}
     </>
   );
 }
