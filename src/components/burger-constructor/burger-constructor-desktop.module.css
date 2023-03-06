@@ -1,0 +1,50 @@
+.constructor__container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.constructor__list {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  flex: 1;
+}
+
+article {
+  position: relative;
+}
+
+.stuff {
+  position: relative;
+  overflow-y: overlay;
+  flex: 1;
+}
+.stuff__inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 16px;
+}
+
+.draggable {
+  position: absolute;
+  top: 50%;
+  left: -13px;
+  transform: translate(-100%, -50%);
+  /* max-height: 50vh; */
+}
+
+.sum {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.sum img,
+.sum svg {
+  margin-left: 9px;
+}

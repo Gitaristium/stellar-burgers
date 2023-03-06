@@ -1,0 +1,29 @@
+.modal__close {
+  position: absolute;
+  top: 70px;
+  right: 40px;
+  cursor: pointer;
+  width: 24px;
+  height: 24px;
+}
+@media (hover: hover) {
+  .modal__close:hover {
+    animation: closeRotate 0.3s;
+  }
+}
+
+@keyframes closeRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-90deg);
+  }
+}
+
+@media (orientation: portrait) or (max-width: 1150px) {
+  .modal__close {
+    top: 20px;
+    right: 8px;
+  }
+}

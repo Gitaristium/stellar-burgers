@@ -1,0 +1,5 @@
+.link {
+  display: flex;
+  justify-items: center;
+  cursor: pointer;
+}
