@@ -1,27 +1,29 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredientsCategory from "../burger-ingredients-category/burger-ingredients-category";
-import { ingredientsPropTypes } from "../../utils/ingredients-prop-types";
+import { ingredientModel } from "../../utils/ingredients-model";
 
 import styles from "./burger-ingredients.module.css";
 
 export default function BurgerIngredients(props: {
   isMobile: boolean;
-  ingredientsList: ingredientsPropTypes[];
+  ingredientsList: ingredientModel[];
 }) {
   // активные табы
   const [current, setCurrent] = useState("bun");
 
   // разбиваем полученный из пропсов массив игредиентов на категории
-
-  const ingredientsBun = props.ingredientsList.filter(
-    (item) => item.type === "bun"
+  const ingredientsBun = useMemo(
+    () => props.ingredientsList.filter((item) => item.type === "bun"),
+    [props.ingredientsList]
   );
-  const ingredientsSauce = props.ingredientsList.filter(
-    (item) => item.type === "sauce"
+  const ingredientsSauce = useMemo(
+    () => props.ingredientsList.filter((item) => item.type === "sauce"),
+    [props.ingredientsList]
   );
-  const ingredientsMain = props.ingredientsList.filter(
-    (item) => item.type === "main"
+  const ingredientsMain = useMemo(
+    () => props.ingredientsList.filter((item) => item.type === "main"),
+    [props.ingredientsList]
   );
 
   return (

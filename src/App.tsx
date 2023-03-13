@@ -3,8 +3,8 @@ import Loading from "./components/loading/loading";
 import AppHeader from "./components/app-header/app-header";
 import BurgerConstructor from "./components/burger-constructor/burger-constructor";
 import BurgerIngredients from "./components/burger-ingredients/burger-ingredients";
-
-const API_URL = "https://norma.nomoreparties.space/api/ingredients";
+import { NORMA_API } from "./utils/burger-api";
+import { checkReponse } from "./utils/check-reponse";
 
 export default function App() {
   const [isMobile, setIsMobile] = useState(false);
@@ -37,15 +37,15 @@ export default function App() {
   useEffect(() => {
     const getIngredients = async () => {
       setState({ hasError: false, isLoading: true });
-      fetch(API_URL)
-        .then((res) => res.json())
+      fetch(`${NORMA_API}/ingredients`)
+        .then(checkReponse)
         .then((res) => {
           setIngredientsList(res.data);
           setState({ ...state, isLoading: false });
         })
-        .catch((e) => {
+        .catch((error) => {
           setState({ hasError: true, isLoading: false });
-          console.log("ERROR: " + e);
+          console.log("ERROR: " + error);
         });
     };
 

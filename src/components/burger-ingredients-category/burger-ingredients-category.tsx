@@ -6,11 +6,11 @@ import {
 import IngredientDetails from "../modals/ingredient-details/ingredient-details";
 import styles from "./burger-ingredients-category.module.css";
 import Modal from "../modals/modal/modal";
-import { ingredientsPropTypes } from "../../utils/ingredients-prop-types";
+import { ingredientModel } from "../../utils/ingredients-model";
 
 export default function BurgerIngredientsCategory(props: {
   title: string;
-  items: ingredientsPropTypes[];
+  items: ingredientModel[];
   isMobile: boolean;
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -25,7 +25,7 @@ export default function BurgerIngredientsCategory(props: {
       <h2 className="text text_type_main-medium mb-6">{props.title}</h2>
       <div className={`${styles.category__list} ml-4 mr-4 mb-2`}>
         {/* пробегаемся по полученному из пропсов массиву, рендерим список ингредиентов */}
-        {props.items.map((item: ingredientsPropTypes) => {
+        {props.items.map((item: ingredientModel) => {
           return (
             <article
               className={`${styles.item} mb-8 remove-select`}

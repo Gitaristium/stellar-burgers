@@ -56,7 +56,9 @@ export default function AppHeader({ isMobile }: { isMobile: boolean }) {
           }`}
         >
           {isMobile && (
-            <p className="text text_type_main-medium pt-4 pb-4 pl-5 pr-5">
+            <p
+              className={`${styles.nav__title} text text_type_main-medium mt-4 mb-4 ml-5 mr-5`}
+            >
               Меню
             </p>
           )}

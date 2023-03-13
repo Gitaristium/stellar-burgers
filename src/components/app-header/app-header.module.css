@@ -22,6 +22,12 @@
   width: 100%;
 }
 
+.nav__title {
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
 .logo {
   position: absolute;
   top: 50%;

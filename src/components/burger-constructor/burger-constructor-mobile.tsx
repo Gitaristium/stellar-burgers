@@ -9,13 +9,13 @@ import styles from "./burger-constructor-mobile.module.css";
 import { Key, useState } from "react";
 import OrderDetails from "../modals/order-details/order-details";
 import Modal from "../modals/modal/modal";
-import { ingredientsPropTypes } from "../../utils/ingredients-prop-types";
+import { ingredientModel } from "../../utils/ingredients-model";
 
 export default function BurgerConstructorMobile(props: {
   isMobile: boolean;
   curIngredients: {
-    bun: ingredientsPropTypes;
-    ingr: ingredientsPropTypes[];
+    bun: ingredientModel;
+    ingr: ingredientModel[];
   };
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -43,7 +43,7 @@ export default function BurgerConstructorMobile(props: {
             <div className={styles.stuff__inner}>
               {/* пробегаемся по массиву ингредиентов и рендерим список */}
               {props.curIngredients.ingr.map(
-                (e: ingredientsPropTypes, index: Key) => {
+                (e: ingredientModel, index: Key) => {
                   return (
                     <article
                       className={`${styles.item}  pt-4 pb-4`}
