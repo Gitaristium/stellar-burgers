@@ -79,3 +79,6 @@ main {
   width: 100% !important;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+.button_size_small {
+  font-family: "Jet Brains Mono" !important;
+}

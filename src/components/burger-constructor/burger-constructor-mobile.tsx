@@ -7,18 +7,17 @@ import CustomConstructorElement from "../custom-ya-constructor-element/custom-co
 import styles from "./burger-constructor-mobile.module.css";
 
 import { Key, useState } from "react";
-import ModalOrderDetails from "../modals/modal-order-details/modal-order-details";
+import OrderDetails from "../modals/order-details/order-details";
 import Modal from "../modals/modal/modal";
+import { ingredientModel } from "../../utils/ingredients-model";
 
 export default function BurgerConstructorMobile(props: {
   isMobile: boolean;
-  ingredients: any;
-  curIngIds: any;
-}) {
-  const findElement = (type: string) => {
-    return props.ingredients.find((item: { _id: string }) => item._id === type);
+  curIngredients: {
+    bun: ingredientModel;
+    ingr: ingredientModel[];
   };
-
+}) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -33,9 +32,9 @@ export default function BurgerConstructorMobile(props: {
             <CustomConstructorElement
               type="top"
               isLocked={true}
-              text={findElement(props.curIngIds.bun).name + " (верх)"}
-              price={findElement(props.curIngIds.bun).price}
-              thumbnail={findElement(props.curIngIds.bun).image}
+              text={props.curIngredients.bun.name + " (верх)"}
+              price={props.curIngredients.bun.price}
+              thumbnail={props.curIngredients.bun.image}
               extraClass={styles.constructor__element}
             />
           </article>
@@ -43,21 +42,26 @@ export default function BurgerConstructorMobile(props: {
           <div className={styles.stuff}>
             <div className={styles.stuff__inner}>
               {/* пробегаемся по массиву ингредиентов и рендерим список */}
-              {props.curIngIds.ing.map((id: string, index: Key) => {
-                return (
-                  <article className={`${styles.item}  pt-4 pb-4`} key={index}>
-                    <span className={styles.draggable}>
-                      <DragIcon type="primary" />
-                    </span>
-                    <CustomConstructorElement
-                      text={findElement(id).name}
-                      price={findElement(id).price}
-                      thumbnail={findElement(id).image}
-                      extraClass={styles.constructor__element}
-                    />
-                  </article>
-                );
-              })}
+              {props.curIngredients.ingr.map(
+                (e: ingredientModel, index: Key) => {
+                  return (
+                    <article
+                      className={`${styles.item}  pt-4 pb-4`}
+                      key={index}
+                    >
+                      <span className={styles.draggable}>
+                        <DragIcon type="primary" />
+                      </span>
+                      <CustomConstructorElement
+                        text={e.name}
+                        price={e.price}
+                        thumbnail={e.image}
+                        extraClass={styles.constructor__element}
+                      />
+                    </article>
+                  );
+                }
+              )}
             </div>
           </div>
 
@@ -66,9 +70,9 @@ export default function BurgerConstructorMobile(props: {
             <CustomConstructorElement
               type="bottom"
               isLocked={true}
-              text={findElement(props.curIngIds.bun).name + " (низ)"}
-              price={findElement(props.curIngIds.bun).price}
-              thumbnail={findElement(props.curIngIds.bun).image}
+              text={props.curIngredients.bun.name + " (низ)"}
+              price={props.curIngredients.bun.price}
+              thumbnail={props.curIngredients.bun.image}
               extraClass={styles.constructor__element}
             />
           </article>
@@ -102,10 +106,7 @@ export default function BurgerConstructorMobile(props: {
           closeModal={() => setIsModalOpen(false)}
           title="Заказ оформлен"
         >
-          <ModalOrderDetails
-            closeModal={() => setIsModalOpen(false)}
-            isMobile={props.isMobile}
-          />
+          <OrderDetails closeModal={() => setIsModalOpen(false)} />
         </Modal>
       )}
     </>

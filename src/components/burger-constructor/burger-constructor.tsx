@@ -8,22 +8,14 @@ import { useState } from "react";
 import BurgerConstructorDesktop from "./burger-constructor-desktop";
 import BurgerConstructorMobile from "./burger-constructor-mobile";
 import Modal from "../modals/modal/modal";
+import { curIngr, curBun } from "../../utils/cur-ingredients";
 
-export default function BurgerConstructor(props: {
-  ingredients: any;
-  isMobile: boolean;
-}) {
+export default function BurgerConstructor(props: { isMobile: boolean }) {
   // временный массив выбраных ингридиентов для конструктора
-  const [curIngIds] = useState({
-    bun: "60666c42cc7b410027a1a9b1",
-    ing: [
-      "60666c42cc7b410027a1a9bf",
-      "60666c42cc7b410027a1a9ba",
-      "60666c42cc7b410027a1a9b6",
-      "60666c42cc7b410027a1a9b5",
-      "60666c42cc7b410027a1a9b8",
-      "60666c42cc7b410027a1a9be",
-    ],
+  // setcurIngredients добавиться позже
+  const [curIngredients] = useState({
+    bun: curBun,
+    ingr: curIngr,
   });
 
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -33,8 +25,7 @@ export default function BurgerConstructor(props: {
       {!props.isMobile ? (
         // для десктопа
         <BurgerConstructorDesktop
-          ingredients={props.ingredients}
-          curIngIds={curIngIds}
+          curIngredients={curIngredients}
           isMobile={props.isMobile}
         />
       ) : (
@@ -70,8 +61,7 @@ export default function BurgerConstructor(props: {
         >
           <BurgerConstructorMobile
             isMobile={props.isMobile}
-            ingredients={props.ingredients}
-            curIngIds={curIngIds}
+            curIngredients={curIngredients}
           />
         </Modal>
       )}

@@ -1,28 +1,29 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredientsCategory from "../burger-ingredients-category/burger-ingredients-category";
+import { ingredientModel } from "../../utils/ingredients-model";
 
 import styles from "./burger-ingredients.module.css";
 
-export default function BurgerIngredients({
-  ingredients,
-  isMobile,
-}: {
-  ingredients: any;
+export default function BurgerIngredients(props: {
   isMobile: boolean;
+  ingredientsList: ingredientModel[];
 }) {
   // активные табы
   const [current, setCurrent] = useState("bun");
 
   // разбиваем полученный из пропсов массив игредиентов на категории
-  const ingredientsBun = ingredients.filter(
-    (item: { type: string }) => item.type === "bun"
+  const ingredientsBun = useMemo(
+    () => props.ingredientsList.filter((item) => item.type === "bun"),
+    [props.ingredientsList]
   );
-  const ingredientsSauce = ingredients.filter(
-    (item: { type: string }) => item.type === "sauce"
+  const ingredientsSauce = useMemo(
+    () => props.ingredientsList.filter((item) => item.type === "sauce"),
+    [props.ingredientsList]
   );
-  const ingredientsMain = ingredients.filter(
-    (item: { type: string }) => item.type === "main"
+  const ingredientsMain = useMemo(
+    () => props.ingredientsList.filter((item) => item.type === "main"),
+    [props.ingredientsList]
   );
 
   return (
@@ -49,17 +50,17 @@ export default function BurgerIngredients({
             <BurgerIngredientsCategory
               title="Булки"
               items={ingredientsBun}
-              isMobile={isMobile}
+              isMobile={props.isMobile}
             />
             <BurgerIngredientsCategory
               title="Соусы"
               items={ingredientsSauce}
-              isMobile={isMobile}
+              isMobile={props.isMobile}
             />
             <BurgerIngredientsCategory
               title="Начинки"
               items={ingredientsMain}
-              isMobile={isMobile}
+              isMobile={props.isMobile}
             />
           </div>
         </div>

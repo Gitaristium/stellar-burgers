@@ -1,7 +1,20 @@
-import styles from "./modal-ingredient-details.module.css";
+import styles from "./ingredient-details.module.css";
 
-export default function ModalIngredientDetails(props: {
-  item: any;
+export default function IngredientDetails(props: {
+  item: {
+    _id: string;
+    name: string;
+    type: string;
+    proteins: number;
+    fat: number;
+    carbohydrates: number;
+    calories: number;
+    price: number;
+    image: string;
+    image_mobile: string;
+    image_large: string;
+    __v: number;
+  };
   isMobile: boolean;
 }) {
   return (
