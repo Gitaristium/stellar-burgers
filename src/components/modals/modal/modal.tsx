@@ -4,7 +4,7 @@ import CloseModal from "../close-modal/close-modal";
 import styles from "./modal.module.css";
 
 export default function Modal(props: {
-  isMobile: boolean;
+  isMobile?: boolean;
   closeModal: () => void;
   title?: string;
   children: React.ReactNode;

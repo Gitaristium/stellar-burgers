@@ -80,9 +80,7 @@ export default function AppHeader({ isMobile }: { isMobile: boolean }) {
               onClick={() => clickLink("feed")}
               className=""
             >
-              <ListIcon
-                type={curLink === "orderList" ? "primary" : "secondary"}
-              />
+              <ListIcon type={curLink === "feed" ? "primary" : "secondary"} />
             </AppHeaderMenu>
 
             <AppHeaderMenu

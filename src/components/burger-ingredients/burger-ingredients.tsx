@@ -1,28 +1,27 @@
 import { useState } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredientsCategory from "../burger-ingredients-category/burger-ingredients-category";
+import { ingredientsPropTypes } from "../../utils/ingredients-prop-types";
 
 import styles from "./burger-ingredients.module.css";
 
-export default function BurgerIngredients({
-  ingredients,
-  isMobile,
-}: {
-  ingredients: any;
+export default function BurgerIngredients(props: {
   isMobile: boolean;
+  ingredientsList: ingredientsPropTypes[];
 }) {
   // активные табы
   const [current, setCurrent] = useState("bun");
 
   // разбиваем полученный из пропсов массив игредиентов на категории
-  const ingredientsBun = ingredients.filter(
-    (item: { type: string }) => item.type === "bun"
+
+  const ingredientsBun = props.ingredientsList.filter(
+    (item) => item.type === "bun"
   );
-  const ingredientsSauce = ingredients.filter(
-    (item: { type: string }) => item.type === "sauce"
+  const ingredientsSauce = props.ingredientsList.filter(
+    (item) => item.type === "sauce"
   );
-  const ingredientsMain = ingredients.filter(
-    (item: { type: string }) => item.type === "main"
+  const ingredientsMain = props.ingredientsList.filter(
+    (item) => item.type === "main"
   );
 
   return (
@@ -49,17 +48,17 @@ export default function BurgerIngredients({
             <BurgerIngredientsCategory
               title="Булки"
               items={ingredientsBun}
-              isMobile={isMobile}
+              isMobile={props.isMobile}
             />
             <BurgerIngredientsCategory
               title="Соусы"
               items={ingredientsSauce}
-              isMobile={isMobile}
+              isMobile={props.isMobile}
             />
             <BurgerIngredientsCategory
               title="Начинки"
               items={ingredientsMain}
-              isMobile={isMobile}
+              isMobile={props.isMobile}
             />
           </div>
         </div>
