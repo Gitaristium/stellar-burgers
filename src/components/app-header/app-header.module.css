@@ -91,7 +91,6 @@
 .menu__mobile .list {
   flex-direction: column;
   align-items: flex-start;
-  /* width: fit-content; */
 }
 .menu__mobile .profile {
   margin: unset;
