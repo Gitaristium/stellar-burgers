@@ -7,52 +7,54 @@ import {
 
 import styles from "./burger-constructor-desktop.module.css";
 import { Key, useState } from "react";
-import ModalOrderDetails from "../modals/modal-order-details/modal-order-details";
+import OrderDetails from "../modals/order-details/order-details";
 import Modal from "../modals/modal/modal";
+import { ingredientModel } from "../../utils/ingredients-model";
 
-export default function BurgerConstructorDesktop(props: {
-  ingredients: any;
-  curIngIds: any;
+function BurgerConstructorDesktop(props: {
   isMobile: boolean;
+  curIngredients: {
+    bun: ingredientModel;
+    ingr: ingredientModel[];
+  };
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const findElement = (type: string) => {
-    return props.ingredients.find((item: { _id: string }) => item._id === type);
-  };
 
   return (
     <>
       <section className={`${styles.constructor__container} pt-15 pb-10`}>
         <div className={styles.constructor__list}>
           {/* фиксированная верхняя булка */}
+
           <article className="mr-4 ml-10">
             <ConstructorElement
               type="top"
               isLocked={true}
-              text={findElement(props.curIngIds.bun).name + " (верх)"}
-              price={findElement(props.curIngIds.bun).price}
-              thumbnail={findElement(props.curIngIds.bun).image}
+              text={props.curIngredients.bun.name + " (верх)"}
+              price={props.curIngredients.bun.price}
+              thumbnail={props.curIngredients.bun.image}
             />
           </article>
 
           <div className={`custom-scroll mt-4 mb-4 pr-4 pl-10 ${styles.stuff}`}>
             <div className={styles.stuff__inner}>
               {/* пробегаемся по массиву ингредиентов и рендерим список */}
-              {props.curIngIds.ing.map((id: string, index: Key) => {
-                return (
-                  <article className="mr-4 ml-10" key={index}>
-                    <span className={styles.draggable}>
-                      <DragIcon type="primary" />
-                    </span>
-                    <ConstructorElement
-                      text={findElement(id).name}
-                      price={findElement(id).price}
-                      thumbnail={findElement(id).image}
-                    />
-                  </article>
-                );
-              })}
+              {props.curIngredients.ingr.map(
+                (e: ingredientModel, index: Key) => {
+                  return (
+                    <article className="mr-4 ml-10" key={index}>
+                      <span className={styles.draggable}>
+                        <DragIcon type="primary" />
+                      </span>
+                      <ConstructorElement
+                        text={e.name}
+                        price={e.price}
+                        thumbnail={e.image}
+                      />
+                    </article>
+                  );
+                }
+              )}
             </div>
           </div>
 
@@ -61,9 +63,9 @@ export default function BurgerConstructorDesktop(props: {
             <ConstructorElement
               type="bottom"
               isLocked={true}
-              text={findElement(props.curIngIds.bun).name + " (низ)"}
-              price={findElement(props.curIngIds.bun).price}
-              thumbnail={findElement(props.curIngIds.bun).image}
+              text={props.curIngredients.bun.name + " (низ)"}
+              price={props.curIngredients.bun.price}
+              thumbnail={props.curIngredients.bun.image}
             />
           </article>
         </div>
@@ -93,9 +95,11 @@ export default function BurgerConstructorDesktop(props: {
           closeModal={() => setIsModalOpen(false)}
           title="Заказ оформлен"
         >
-          <ModalOrderDetails closeModal={() => setIsModalOpen(false)} />
+          <OrderDetails closeModal={() => setIsModalOpen(false)} />
         </Modal>
       )}
     </>
   );
 }
+BurgerConstructorDesktop.propTypes = {};
+export default BurgerConstructorDesktop;
