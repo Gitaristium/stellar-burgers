@@ -15,7 +15,6 @@ export default function IngredientDetails(props: {
     image_large: string;
     __v: number;
   };
-  isMobile: boolean;
 }) {
   return (
     <div className={styles.modal}>

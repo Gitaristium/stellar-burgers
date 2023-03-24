@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   Logo,
   BurgerIcon,
@@ -9,8 +9,11 @@ import logoMobile from "../../images/logo__mobile.svg";
 import AppHeaderMenu from "../app-header-menu/app-header-menu";
 import BurgerBtn from "../app-header-menu/burger-btn";
 import styles from "./app-header.module.css";
+import { IsMobileContext } from "../../services/ismobile-context";
 
-export default function AppHeader({ isMobile }: { isMobile: boolean }) {
+export default function AppHeader() {
+  const isMobile: boolean = useContext(IsMobileContext);
+
   // стэйт для активного меню
   const [curLink, setCurLink] = useState("constructor");
 

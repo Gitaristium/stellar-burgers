@@ -1,45 +1,33 @@
+import { useState, useContext } from "react";
 import {
   Button,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./burger-constructor-mobile.module.css";
-import { useState } from "react";
 import BurgerConstructorDesktop from "./burger-constructor-desktop";
 import BurgerConstructorMobile from "./burger-constructor-mobile";
 import Modal from "../modals/modal/modal";
-import { curIngr, curBun } from "../../utils/cur-ingredients";
+import { IsMobileContext } from "../../services/ismobile-context";
+import TotalPrice from "../total-price/total-price";
 
-export default function BurgerConstructor(props: { isMobile: boolean }) {
-  // временный массив выбраных ингридиентов для конструктора
-  // setcurIngredients добавиться позже
-  const [curIngredients] = useState({
-    bun: curBun,
-    ingr: curIngr,
-  });
+export default function BurgerConstructor() {
+  const isMobile: boolean = useContext(IsMobileContext);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <>
-      {!props.isMobile ? (
+      {!isMobile ? (
         // для десктопа
-        <BurgerConstructorDesktop
-          curIngredients={curIngredients}
-          isMobile={props.isMobile}
-        />
+        <BurgerConstructorDesktop />
       ) : (
         // для мобилки
         <section className={styles.constructor__container}>
           <div className={`${styles.sum} mt-10`}>
-            <span
-              className="text text_type_digits-default"
-              style={{ display: "flex", alignItems: "center" }}
-            >
-              {/* позже надо прикрутить рабочий калькулятор */}
-              610
-              <CurrencyIcon type="primary" />
-            </span>
+            {/* позже надо прикрутить рабочий калькулятор */}
+            <TotalPrice className="text text_type_digits-default" />
+            <CurrencyIcon type="primary" />
             <Button
               htmlType="button"
               type="primary"
@@ -53,16 +41,9 @@ export default function BurgerConstructor(props: { isMobile: boolean }) {
         </section>
       )}
 
-      {isModalOpen && (
-        <Modal
-          isMobile={props.isMobile}
-          closeModal={() => setIsModalOpen(false)}
-          title="Заказ"
-        >
-          <BurgerConstructorMobile
-            isMobile={props.isMobile}
-            curIngredients={curIngredients}
-          />
+      {isModalOpen && isMobile && (
+        <Modal closeModal={() => setIsModalOpen(false)} title="Заказ">
+          <BurgerConstructorMobile />
         </Modal>
       )}
     </>

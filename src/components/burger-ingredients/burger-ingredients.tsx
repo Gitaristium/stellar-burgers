@@ -1,29 +1,30 @@
-import { useMemo, useState } from "react";
+import { useMemo, useState, useContext } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredientsCategory from "../burger-ingredients-category/burger-ingredients-category";
 import { ingredientModel } from "../../utils/ingredients-model";
+import { IngredientsListContext } from "../../services/ingredients-context";
 
 import styles from "./burger-ingredients.module.css";
 
-export default function BurgerIngredients(props: {
-  isMobile: boolean;
-  ingredientsList: ingredientModel[];
-}) {
+export default function BurgerIngredients() {
+  // список всех ингредиентов, полученных по API
+  const ingredientsList: ingredientModel[] = useContext(IngredientsListContext);
+
   // активные табы
   const [current, setCurrent] = useState("bun");
 
   // разбиваем полученный из пропсов массив игредиентов на категории
   const ingredientsBun = useMemo(
-    () => props.ingredientsList.filter((item) => item.type === "bun"),
-    [props.ingredientsList]
+    () => ingredientsList.filter((item) => item.type === "bun"),
+    [ingredientsList]
   );
   const ingredientsSauce = useMemo(
-    () => props.ingredientsList.filter((item) => item.type === "sauce"),
-    [props.ingredientsList]
+    () => ingredientsList.filter((item) => item.type === "sauce"),
+    [ingredientsList]
   );
   const ingredientsMain = useMemo(
-    () => props.ingredientsList.filter((item) => item.type === "main"),
-    [props.ingredientsList]
+    () => ingredientsList.filter((item) => item.type === "main"),
+    [ingredientsList]
   );
 
   return (
@@ -47,20 +48,11 @@ export default function BurgerIngredients(props: {
 
         <div className={`${styles.container} custom-scroll`}>
           <div className={`${styles.inner} pt-10 pb-10`}>
-            <BurgerIngredientsCategory
-              title="Булки"
-              items={ingredientsBun}
-              isMobile={props.isMobile}
-            />
-            <BurgerIngredientsCategory
-              title="Соусы"
-              items={ingredientsSauce}
-              isMobile={props.isMobile}
-            />
+            <BurgerIngredientsCategory title="Булки" items={ingredientsBun} />
+            <BurgerIngredientsCategory title="Соусы" items={ingredientsSauce} />
             <BurgerIngredientsCategory
               title="Начинки"
               items={ingredientsMain}
-              isMobile={props.isMobile}
             />
           </div>
         </div>

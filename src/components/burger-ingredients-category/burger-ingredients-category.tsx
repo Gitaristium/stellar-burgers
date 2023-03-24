@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import {
   Counter,
   CurrencyIcon,
@@ -7,19 +7,27 @@ import IngredientDetails from "../modals/ingredient-details/ingredient-details";
 import styles from "./burger-ingredients-category.module.css";
 import Modal from "../modals/modal/modal";
 import { ingredientModel } from "../../utils/ingredients-model";
+import { IsMobileContext } from "../../services/ismobile-context";
+import { BurgerConstructorContext } from "../../services/ingredients-context";
+import uuid from "react-uuid";
 
 export default function BurgerIngredientsCategory(props: {
   title: string;
   items: ingredientModel[];
-  isMobile: boolean;
 }) {
+  const isMobile: boolean = useContext(IsMobileContext);
+
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [itemForModal, setItemForModal] = useState(Object);
+
+  const [, updateConstructorState] = useContext(BurgerConstructorContext);
 
   const openModal = (item: Object) => {
     setIsModalOpen(true);
     setItemForModal(item);
+    updateConstructorState({ type: "add", payload: { ...item, uuid: uuid() } });
   };
+
   return (
     <>
       <h2 className="text text_type_main-medium mb-6">{props.title}</h2>
@@ -35,8 +43,8 @@ export default function BurgerIngredientsCategory(props: {
               {/* единственное, позже надо прикрутить РАБОЧИЙ счетчик кол-ва выбранных ингредиентов*/}
               <Counter
                 count={2}
-                size={props.isMobile ? "small" : "default"}
-                extraClass={props.isMobile ? "" : "m-1"}
+                size={isMobile ? "small" : "default"}
+                extraClass={isMobile ? "" : "m-1"}
               />
               <img
                 src={item.image}
@@ -62,11 +70,10 @@ export default function BurgerIngredientsCategory(props: {
 
       {isModalOpen && (
         <Modal
-          isMobile={props.isMobile}
           closeModal={() => setIsModalOpen(false)}
           title="Детали ингредиента"
         >
-          <IngredientDetails item={itemForModal} isMobile={props.isMobile} />
+          <IngredientDetails item={itemForModal} />
         </Modal>
       )}
     </>

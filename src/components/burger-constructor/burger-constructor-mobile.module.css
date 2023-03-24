@@ -15,21 +15,36 @@
 
 .item {
   position: relative;
+  overflow-x: auto;
 }
+
+/* Скрываем scrollbar для Chrome, Safari и Opera */
+.item::-webkit-scrollbar {
+  display: none;
+}
+
+/* Скрываем scrollbar для IE, Edge и Firefox */
+.item {
+  -ms-overflow-style: none; /* IE и Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
 .item::before,
 .item::after {
   position: absolute;
   content: "";
   top: -0.5px;
-  right: 0;
+  left: 8px;
+  right: 8px;
   background: #2f2f37;
-  width: 100%;
+  width: calc(100% - 16px);
   height: 1px;
 }
-.item.top::after {
+.item::after {
   top: unset;
   bottom: -0.5px;
 }
+
 /* article.top::before, */
 .item.bottom::after {
   content: none;
@@ -39,7 +54,12 @@
   position: relative;
   overflow-y: overlay;
   flex: 1;
+  margin: 0 -8px;
 }
+.stuff .item {
+  padding: 0 8px;
+}
+
 .stuff__inner {
   position: absolute;
   top: 0;

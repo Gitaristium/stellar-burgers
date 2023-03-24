@@ -1,10 +1,15 @@
 .constructor_element {
+  position: relative;
   font-family: "Jet Brains Mono";
   width: 100%;
   font-size: 16px;
   line-height: 24px;
   color: #f2f2f3;
   box-sizing: border-box;
+  margin-right: 30%;
+}
+.constructor_element.locked {
+  margin-right: 0;
 }
 
 .constructor_element_pos_top {
@@ -55,4 +60,27 @@
   align-items: center;
   cursor: pointer;
   align-self: center;
+}
+
+.constructor_element__delete_btn {
+  position: absolute;
+  top: 0;
+  right: -30%;
+  background: red;
+  height: 100%;
+  width: 30%;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.constructor_element__delete_btn img,
+.constructor_element__delete_btn svg {
+  transform: scale(1.5);
+  transition: transform 0.1s;
+}
+
+.constructor_element__delete_btn:active img,
+.constructor_element__delete_btn:active svg {
+  transform: scale(1.3);
 }

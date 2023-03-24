@@ -1,9 +1,3 @@
-import {
-  ReactElement,
-  JSXElementConstructor,
-  ReactFragment,
-  ReactPortal,
-} from "react";
 import styles from "./loading.module.css";
 
 export default function Loading(props: { children: string }) {
