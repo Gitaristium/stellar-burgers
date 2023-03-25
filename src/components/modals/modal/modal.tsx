@@ -1,14 +1,17 @@
+import { useContext } from "react";
 import ReactDOM from "react-dom";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import CloseModal from "../close-modal/close-modal";
 import styles from "./modal.module.css";
+import { IsMobileContext } from "../../../services/ismobile-context";
 
 export default function Modal(props: {
-  isMobile?: boolean;
   closeModal: () => void;
   title?: string;
   children: React.ReactNode;
 }) {
+  const isMobile: boolean = useContext(IsMobileContext);
+
   return ReactDOM.createPortal(
     <>
       <div className={`${styles.modal} p-10 pb-15`}>
@@ -20,8 +23,8 @@ export default function Modal(props: {
         </div>
         <div className={styles.content}>{props.children}</div>
       </div>
-      {!props.isMobile && <ModalOverlay closeModal={props.closeModal} />}
+      {!isMobile && <ModalOverlay closeModal={props.closeModal} />}
     </>,
-    document.body
+    document.getElementById("modals") as HTMLElement
   );
 }
