@@ -11,6 +11,9 @@
   display: block;
   width: 100%;
 }
+.text {
+  text-align: center;
+}
 .price {
   display: flex;
   align-items: center;

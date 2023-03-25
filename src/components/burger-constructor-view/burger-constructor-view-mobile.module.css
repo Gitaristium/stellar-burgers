@@ -1,21 +1,12 @@
-.constructor__container {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  height: 100%;
-}
-.constructor__list {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  flex: 1;
+.constructor__container_mb {
+  margin: 0 -16px -32px;
+  width: calc(100% + 32px);
 }
 
 .item {
   position: relative;
   overflow-x: auto;
+  padding: 0 16px;
 }
 
 /* Скрываем scrollbar для Chrome, Safari и Opera */
@@ -33,19 +24,25 @@
 .item::after {
   position: absolute;
   content: "";
-  top: -0.5px;
-  left: 8px;
-  right: 8px;
+  top: 0;
+  left: 0;
+  right: 0;
   background: #2f2f37;
-  width: calc(100% - 16px);
-  height: 1px;
+  width: 100%;
+  height: 0.5px;
 }
 .item::after {
   top: unset;
-  bottom: -0.5px;
+  bottom: 0;
 }
 
-/* article.top::before, */
+.item.top::before,
+.item.top::after {
+  height: 1px;
+}
+.item.bottom::before {
+  height: 1px;
+}
 .item.bottom::after {
   content: none;
 }
@@ -54,29 +51,16 @@
   position: relative;
   overflow-y: overlay;
   flex: 1;
-  margin: 0 -8px;
+  margin: 0 -16px;
 }
 .stuff .item {
-  padding: 0 8px;
+  padding: 0 32px;
 }
 
-.stuff__inner {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  /* row-gap: 16px; */
+.stuff__inner_gap {
+  row-gap: 0;
 }
 
-.draggable {
-  position: absolute;
-  top: 50%;
-  left: -13px;
-  transform: translate(-100%, -50%);
-  /* max-height: 50vh; */
-}
 .sum {
   display: flex;
   align-items: center;
@@ -85,6 +69,9 @@
   background: #1c1c21;
   border-radius: 15px 15px 0px 0px;
   padding: 16px 8px;
+}
+.sum__wide {
+  margin: 0;
 }
 .sum img,
 .sum svg {

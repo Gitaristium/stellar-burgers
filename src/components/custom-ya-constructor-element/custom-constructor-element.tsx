@@ -12,7 +12,6 @@ export default function CustomConstructorElement({
   price,
   type,
   isLocked,
-  extraClass,
   handleClose,
 }: {
   text: string;
@@ -20,7 +19,6 @@ export default function CustomConstructorElement({
   price: number;
   type?: "top" | "bottom";
   isLocked?: boolean;
-  extraClass?: string;
   handleClose?: () => void;
 }) {
   return (

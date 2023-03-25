@@ -5,8 +5,7 @@ import vector1 from "../../../images/order-accpeted/vector1.svg";
 import vector2 from "../../../images/order-accpeted/vector2.svg";
 import vector3 from "../../../images/order-accpeted/vector3.svg";
 import Loading from "../../loading/loading";
-import { NORMA_API } from "../../../utils/burger-api";
-import { checkReponse } from "../../../utils/check-reponse";
+import { requestApi } from "../../../utils/request-api";
 import { OrderDetailsContext } from "../../../services/order-details-context";
 import { BurgerConstructorContext } from "../../../services/ingredients-context";
 
@@ -23,7 +22,7 @@ export default function OrderDetails() {
   useEffect(() => {
     setState({ hasError: false, isLoading: true });
 
-    const getOrderDetails = async () => {
+    const getOrderDetails = () => {
       let ids = constructorState.ingr.map((x: any) => x._id);
 
       ids.push(constructorState.bun._id, constructorState.bun._id);
@@ -32,14 +31,13 @@ export default function OrderDetails() {
         ingredients: ids,
       };
 
-      fetch(`${NORMA_API}/orders`, {
+      requestApi("orders", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(sendIngrArr),
       })
-        .then(checkReponse)
         .then((res) => {
           setOrderDetails(res);
           setState({ ...state, isLoading: false });

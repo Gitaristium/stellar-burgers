@@ -25,6 +25,6 @@ export default function Modal(props: {
       </div>
       {!isMobile && <ModalOverlay closeModal={props.closeModal} />}
     </>,
-    document.body
+    document.getElementById("modals") as HTMLElement
   );
 }

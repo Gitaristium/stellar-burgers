@@ -1,14 +1,14 @@
 import { useMemo, useState, useContext } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredientsCategory from "../burger-ingredients-category/burger-ingredients-category";
-import { ingredientModel } from "../../utils/ingredients-model";
+import { IngredientModel } from "../../utils/types";
 import { IngredientsListContext } from "../../services/ingredients-context";
 
 import styles from "./burger-ingredients.module.css";
 
 export default function BurgerIngredients() {
   // список всех ингредиентов, полученных по API
-  const ingredientsList: ingredientModel[] = useContext(IngredientsListContext);
+  const ingredientsList: IngredientModel[] = useContext(IngredientsListContext);
 
   // активные табы
   const [current, setCurrent] = useState("bun");

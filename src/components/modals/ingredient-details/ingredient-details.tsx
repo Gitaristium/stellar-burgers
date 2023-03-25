@@ -1,37 +1,22 @@
 import styles from "./ingredient-details.module.css";
+import { IngredientModel } from "../../../utils/types";
 
-export default function IngredientDetails(props: {
-  item: {
-    _id: string;
-    name: string;
-    type: string;
-    proteins: number;
-    fat: number;
-    carbohydrates: number;
-    calories: number;
-    price: number;
-    image: string;
-    image_mobile: string;
-    image_large: string;
-    __v: number;
-  };
-}) {
+export default function IngredientDetails({ item }: { item: IngredientModel }) {
   return (
     <div className={styles.modal}>
       <img
-        src={props.item.image_large}
-        alt={props.item.name}
-        style={{ height: "240px", width: "100%", objectFit: "contain" }}
-        className="mb-4"
+        src={item.image_large}
+        alt={item.name}
+        className={`mb-4 ${styles.img}`}
       />
-      <p className="text text_type_main-medium mb-8">{props.item.name}</p>
+      <p className="text text_type_main-medium mb-8">{item.name}</p>
       <ul className={styles.desc}>
         <li className={`${styles.desc__column} mr-10`}>
           <p className="text text_type_main-default text_color_inactive mb-3">
             Калории,ккал
           </p>
           <p className="text text_type_digits-default text_color_inactive">
-            {props.item.calories}
+            {item.calories}
           </p>
         </li>
         <li className={`${styles.desc__column} mr-10`}>
@@ -39,7 +24,7 @@ export default function IngredientDetails(props: {
             Белки, г
           </p>
           <p className="text text_type_digits-default text_color_inactive">
-            {props.item.proteins}
+            {item.proteins}
           </p>
         </li>
         <li className={`${styles.desc__column} mr-10`}>
@@ -47,7 +32,7 @@ export default function IngredientDetails(props: {
             Жиры, г
           </p>
           <p className="text text_type_digits-default text_color_inactive">
-            {props.item.fat}
+            {item.fat}
           </p>
         </li>
         <li className={styles.desc__column}>
@@ -55,7 +40,7 @@ export default function IngredientDetails(props: {
             Углеводы, г
           </p>
           <p className="text text_type_digits-default text_color_inactive">
-            {props.item.carbohydrates}
+            {item.carbohydrates}
           </p>
         </li>
       </ul>

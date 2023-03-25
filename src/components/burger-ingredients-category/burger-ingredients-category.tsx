@@ -6,14 +6,14 @@ import {
 import IngredientDetails from "../modals/ingredient-details/ingredient-details";
 import styles from "./burger-ingredients-category.module.css";
 import Modal from "../modals/modal/modal";
-import { ingredientModel } from "../../utils/ingredients-model";
+import { IngredientModel } from "../../utils/types";
 import { IsMobileContext } from "../../services/ismobile-context";
 import { BurgerConstructorContext } from "../../services/ingredients-context";
 import uuid from "react-uuid";
 
 export default function BurgerIngredientsCategory(props: {
   title: string;
-  items: ingredientModel[];
+  items: IngredientModel[];
 }) {
   const isMobile: boolean = useContext(IsMobileContext);
 
@@ -33,7 +33,7 @@ export default function BurgerIngredientsCategory(props: {
       <h2 className="text text_type_main-medium mb-6">{props.title}</h2>
       <div className={`${styles.category__list} ml-4 mr-4 mb-2`}>
         {/* пробегаемся по полученному из пропсов массиву, рендерим список ингредиентов */}
-        {props.items.map((item: ingredientModel) => {
+        {props.items.map((item: IngredientModel) => {
           return (
             <article
               className={`${styles.item} mb-8 remove-select`}
@@ -57,10 +57,7 @@ export default function BurgerIngredientsCategory(props: {
                 {item.price}
                 <CurrencyIcon type="primary" />
               </p>
-              <p
-                className="text text_type_main-default"
-                style={{ textAlign: "center" }}
-              >
+              <p className={`text text_type_main-default ${styles.text}`}>
                 {item.name}
               </p>
             </article>

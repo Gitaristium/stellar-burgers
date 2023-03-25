@@ -1,17 +1,16 @@
 import { useEffect, useLayoutEffect, useState, useReducer } from "react";
-import Loading from "./components/loading/loading";
-import AppHeader from "./components/app-header/app-header";
-import BurgerConstructor from "./components/burger-constructor/burger-constructor";
-import BurgerIngredients from "./components/burger-ingredients/burger-ingredients";
-import { NORMA_API } from "./utils/burger-api";
-import { checkReponse } from "./utils/check-reponse";
-import { ingredientModel } from "./utils/ingredients-model";
-import { IsMobileContext } from "./services/ismobile-context";
+import Loading from "../loading/loading";
+import AppHeader from "../app-header/app-header";
+import BurgerConstructor from "../burger-constructor/burger-constructor";
+import BurgerIngredients from "../burger-ingredients/burger-ingredients";
+import { requestApi } from "../../utils/request-api";
+import { IngredientModel } from "../../utils/types";
+import { IsMobileContext } from "../../services/ismobile-context";
 import {
   IngredientsListContext,
   BurgerConstructorContext,
-} from "./services/ingredients-context";
-import { OrderDetailsContext } from "./services/order-details-context";
+} from "../../services/ingredients-context";
+import { OrderDetailsContext } from "../../services/order-details-context";
 // import { curIngr, curBun } from "./utils/cur-ingredients";
 
 export default function App() {
@@ -36,7 +35,7 @@ export default function App() {
   // функция-редьюсер
   // изменяет состояния в зависимости от типа переданного action
   const reducer = (
-    state: { bun: ingredientModel; ingr: ingredientModel[] },
+    state: { bun: IngredientModel; ingr: IngredientModel[] },
     action: any
   ) => {
     switch (action.type) {
@@ -75,31 +74,30 @@ export default function App() {
     initialState
   );
 
+  const resizeFunc = () => {
+    window.innerWidth <= 1150 ? setIsMobile(true) : setIsMobile(false);
+  };
+
   // перед рендером надо узнать разрешение экрана
   useLayoutEffect(() => {
-    window.innerWidth <= 1150 ? setIsMobile(true) : setIsMobile(false);
+    resizeFunc();
   }, []);
 
   // вешаем лисенер на ресайз
   useEffect(() => {
-    window.addEventListener("resize", () => {
-      window.innerWidth <= 1150 ? setIsMobile(true) : setIsMobile(false);
-    });
+    window.addEventListener("resize", resizeFunc, { passive: true });
 
     // снимаем лисенер на ресайз
     return () => {
-      window.removeEventListener("resize", () => {
-        window.innerWidth <= 1150 ? setIsMobile(true) : setIsMobile(false);
-      });
+      window.removeEventListener("resize", resizeFunc);
     };
   });
 
   // получаем данные по API
   useEffect(() => {
-    const getIngredients = async () => {
+    const getIngredients = () => {
       setState({ hasError: false, isLoading: true });
-      fetch(`${NORMA_API}/ingredients`)
-        .then(checkReponse)
+      requestApi("ingredients", null)
         .then((res) => {
           setIngredientsList(res.data);
           setState({ ...state, isLoading: false });

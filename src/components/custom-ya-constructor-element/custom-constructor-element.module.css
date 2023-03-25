@@ -6,12 +6,15 @@
   line-height: 24px;
   color: #f2f2f3;
   box-sizing: border-box;
-  margin-right: 30%;
+  /* margin-right: 30%; */
 }
 .constructor_element.locked {
   margin-right: 0;
 }
-
+.empty {
+  height: 48px;
+  justify-content: center;
+}
 .constructor_element_pos_top {
   border-radius: var(--top-constructor-item-border-radius);
 }
@@ -30,13 +33,18 @@
   height: 40px;
 }
 
-.constructor_element__text {
+.constructor_element__text,
+.constructor_element__text__empty {
   margin-right: 20px;
   display: inline-flex;
   align-items: center;
   line-height: 24px;
   text-align: left;
   flex-grow: 1;
+}
+.constructor_element__text__empty {
+  display: flex;
+  justify-content: center;
 }
 
 .constructor_element__price {
@@ -65,10 +73,11 @@
 .constructor_element__delete_btn {
   position: absolute;
   top: 0;
-  right: -30%;
+  right: -120px;
+  width: 120px;
+  padding-right: 16px;
   background: red;
   height: 100%;
-  width: 30%;
   z-index: 0;
   display: flex;
   align-items: center;

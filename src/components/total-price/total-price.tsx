@@ -1,6 +1,6 @@
 import { useContext, useMemo, useState } from "react";
 import { BurgerConstructorContext } from "../../services/ingredients-context";
-import { ingredientModel } from "../../utils/ingredients-model";
+import { IngredientModel } from "../../utils/types";
 
 export default function TotalPrice({ className }: { className: string }) {
   const [constructorState] = useContext(BurgerConstructorContext);
@@ -13,7 +13,7 @@ export default function TotalPrice({ className }: { className: string }) {
       count += constructorState.bun.price * 2;
     }
     if (constructorState.ingr) {
-      constructorState.ingr.map((elem: ingredientModel) => {
+      constructorState.ingr.map((elem: IngredientModel) => {
         return (count += elem.price);
       });
     }

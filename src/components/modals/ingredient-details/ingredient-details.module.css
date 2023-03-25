@@ -13,7 +13,11 @@
   margin: 0;
   padding: 0;
 }
-
+.img {
+  height: 240px;
+  width: 100%;
+  object-fit: contain;
+}
 @media (orientation: portrait) or (max-width: 1150px) {
   .modal {
     width: 100%;
