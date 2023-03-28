@@ -14,6 +14,7 @@
   height: 100%;
   overflow-y: overlay;
   flex: 1;
+  /* scroll-behavior: smooth; */
 }
 .container::-webkit-scrollbar-track {
   margin: 40px;
@@ -35,14 +36,12 @@
   .container::-webkit-scrollbar {
     display: none !important;
   }
-  .inner {
-    padding: 20px 0;
-  }
+
   .title {
     text-align: center;
     margin-bottom: 8px;
   }
   .nav {
-    margin: 0 -8px;
+    margin: 0 -16px;
   }
 }

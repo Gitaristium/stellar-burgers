@@ -1,7 +1,12 @@
 import styles from "./ingredient-details.module.css";
 import { IngredientModel } from "../../../utils/types";
+import { useSelector } from "react-redux";
 
-export default function IngredientDetails({ item }: { item: IngredientModel }) {
+export default function IngredientDetails() {
+  const item: IngredientModel = useSelector(
+    (store: any) => store.ingredientDetails
+  );
+
   return (
     <div className={styles.modal}>
       <img

@@ -1,28 +1,35 @@
-import { useState, useContext } from "react";
+import { useCallback, useState } from "react";
 import {
   Button,
-  ConstructorElement,
   CurrencyIcon,
-  DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-import styles from "./burger-constructor-view-desktop.module.css";
-import stylesMobile from "./burger-constructor-view-mobile.module.css";
+import styles from "./burger-constructor-view.module.css";
 import Modal from "../modals/modal/modal";
 import OrderDetails from "../modals/order-details/order-details";
 import TotalPrice from "../total-price/total-price";
 import Loading from "../loading/loading";
-import CustomConstructorElement from "../custom-ya-constructor-element/custom-constructor-element";
-import CustomConstructorElementEmpty from "../custom-ya-constructor-element/custom-constructor-element-empty";
 import { IngredientModel } from "../../utils/types";
-import { BurgerConstructorContext } from "../../services/ingredients-context";
-import { IsMobileContext } from "../../services/ismobile-context";
+import { useDispatch, useSelector } from "react-redux";
+import { ORDER_DETAILS_RESET } from "../../services/actions/order-details";
+import BurgerConstructorElement from "../burger-constructor-element/burger-constructor-element";
+import { DndProvider, useDrop } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
+import { INGREDIENTS_MOVE } from "../../services/actions/constructor-ingredients";
+import BurgerConstructorElementEmpty from "../burger-constructor-element/burger-constructor-element-empty";
 
 export default function BurgerConstructorView() {
-  const isMobile: boolean = useContext(IsMobileContext);
+  const isMobile: boolean = useSelector((state: any) => state.mobile);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isOrderDetailsOpen, setIsOrderDetailsOpen] = useState(false);
   const [isNoticeOpen, setIsNoticeOpen] = useState(false);
+  const dispatch = useDispatch();
+
+  // получаем список конструктора из стора
+  const constructorList: {
+    bun: IngredientModel;
+    ingr: IngredientModel[];
+  } = useSelector((store: any) => store.constructorList);
 
   const openOrderDeatils = () => {
     setIsModalOpen(true);
@@ -36,153 +43,119 @@ export default function BurgerConstructorView() {
     setIsModalOpen(false);
     setIsOrderDetailsOpen(false);
     setIsNoticeOpen(false);
+    dispatch(ORDER_DETAILS_RESET());
   };
 
-  const [constructorState, updateConstructorState] = useContext(
-    BurgerConstructorContext
+  //сортировка списка в конструкторе
+  const findItem = useCallback(
+    (id: string) => {
+      const item = constructorList.ingr.filter(
+        (c) => `${c.uuid}` === id
+      )[0] as IngredientModel;
+      return {
+        item,
+        index: constructorList.ingr.indexOf(item),
+      };
+    },
+    [constructorList.ingr]
   );
 
-  const removeIngredient = (item: Object) => {
-    updateConstructorState({ type: "remove", payload: item });
-  };
+  const moveItem = useCallback(
+    (id: string, atIndex: number) => {
+      const { index } = findItem(id);
+      dispatch(INGREDIENTS_MOVE(index, atIndex));
+    },
+    [findItem, dispatch]
+  );
+
+  const [, drop] = useDrop(() => ({ accept: "ingr" }));
 
   return (
     <>
       <section
         className={`${styles.constructor__container} ${
-          !isMobile ? "pt-15 pb-10" : stylesMobile.constructor__container_mb
+          !isMobile ? `${styles.desktop} pt-15 pb-10` : styles.mobile
         }`}
       >
         <div className={styles.constructor__list}>
           {/* фиксированная верхняя булка */}
-
-          {constructorState.bun ? (
-            <article
-              className={
-                !isMobile
-                  ? "mr-4 ml-10"
-                  : `${stylesMobile.item} ${stylesMobile.top}`
-              }
-            >
-              {!isMobile ? (
-                <ConstructorElement
-                  type="top"
-                  isLocked={true}
-                  text={constructorState.bun.name + " (верх)"}
-                  price={constructorState.bun.price}
-                  thumbnail={constructorState.bun.image}
-                />
-              ) : (
-                <CustomConstructorElement
-                  type="top"
-                  isLocked={true}
-                  text={constructorState.bun.name + " (верх)"}
-                  price={constructorState.bun.price}
-                  thumbnail={constructorState.bun.image}
-                />
-              )}
-            </article>
-          ) : (
-            <CustomConstructorElementEmpty
-              text="Выбери булку"
-              position="top"
+          {constructorList.bun ? (
+            <BurgerConstructorElement
+              ingredient={constructorList.bun}
               isLocked={true}
+              position="top"
+              type="bun"
+              moveItem={moveItem}
+              findItem={findItem}
+            />
+          ) : (
+            <BurgerConstructorElementEmpty
+              isLocked={true}
+              position="top"
+              type="bun"
             />
           )}
-
           <div
-            className={
-              !isMobile
-                ? `custom-scroll mt-4 mb-4 pr-4 pl-10 ${styles.stuff}`
-                : stylesMobile.stuff
-            }
+            className={`${styles.stuff} ${
+              !isMobile ? "custom-scroll mt-4 mb-4 pr-4 pl-10" : ""
+            }`}
           >
-            {Object.keys(constructorState.ingr).length !== 0 ? (
-              <div
-                className={`${styles.stuff__inner} ${
-                  isMobile && stylesMobile.stuff__inner_gap
-                }`}
-              >
-                {/* пробегаемся по массиву ингредиентов и рендерим список */}
-                {constructorState.ingr.map(
-                  (e: IngredientModel, uuid: string) => {
-                    return (
-                      <article
-                        className={!isMobile ? "mr-4 ml-10" : stylesMobile.item}
-                        key={uuid}
-                      >
-                        <span className={styles.draggable}>
-                          <DragIcon type="primary" />
-                        </span>
-                        {!isMobile ? (
-                          <ConstructorElement
-                            text={e.name}
-                            price={e.price}
-                            thumbnail={e.image}
-                            handleClose={() => removeIngredient(e)}
-                          />
-                        ) : (
-                          <CustomConstructorElement
-                            isLocked={false}
-                            text={e.name}
-                            price={e.price}
-                            thumbnail={e.image}
-                            handleClose={() => removeIngredient(e)}
-                          />
-                        )}
-                      </article>
-                    );
-                  }
-                )}
-              </div>
-            ) : (
-              <CustomConstructorElementEmpty text="Выбери начинку" />
-            )}
+            {/* список конструктора */}
+            <div className={styles.stuff__inner}>
+              {constructorList.ingr.length > 0 ? (
+                <>
+                  <DndProvider backend={HTML5Backend}>
+                    <span className={styles.stuff__inner_span} ref={drop}>
+                      {/* пробегаемся по массиву ингредиентов и рендерим список */}
+                      {constructorList.ingr.map(
+                        (e: IngredientModel, uuid: number, index) => {
+                          return (
+                            <BurgerConstructorElement
+                              key={uuid}
+                              ingredient={e}
+                              isLocked={false}
+                              extraClass=""
+                              type="ingredients"
+                              moveItem={moveItem}
+                              findItem={findItem}
+                            />
+                          );
+                        }
+                      )}
+                    </span>
+                  </DndProvider>
+                </>
+              ) : (
+                <BurgerConstructorElementEmpty
+                  isLocked={false}
+                  extraClass=""
+                  type="ingredients"
+                />
+              )}
+            </div>
           </div>
 
           {/* фиксированная нижняя булка */}
-          {constructorState.bun ? (
-            <article
-              className={
-                !isMobile
-                  ? "mr-4 ml-10"
-                  : `${stylesMobile.item} ${stylesMobile.bottom}`
-              }
-            >
-              {!isMobile ? (
-                <ConstructorElement
-                  type="bottom"
-                  isLocked={true}
-                  text={constructorState.bun.name + " (низ)"}
-                  price={constructorState.bun.price}
-                  thumbnail={constructorState.bun.image}
-                />
-              ) : (
-                <CustomConstructorElement
-                  type="bottom"
-                  isLocked={true}
-                  text={constructorState.bun.name + " (низ)"}
-                  price={constructorState.bun.price}
-                  thumbnail={constructorState.bun.image}
-                />
-              )}
-            </article>
-          ) : (
-            <CustomConstructorElementEmpty
-              text="Выбери булку"
+          {constructorList.bun ? (
+            <BurgerConstructorElement
+              ingredient={constructorList.bun}
+              isLocked={true}
               position="bottom"
+              type="bun"
+              moveItem={moveItem}
+              findItem={findItem}
+            />
+          ) : (
+            <BurgerConstructorElementEmpty
+              isLocked={true}
+              position="bottom"
+              type="bun"
             />
           )}
         </div>
 
         {/* итог по сумме и "оформить" */}
-        <div
-          className={
-            !isMobile
-              ? `${styles.sum} mt-10 mr-4`
-              : `${stylesMobile.sum} ${stylesMobile.sum__wide} mt-10 mr-4`
-          }
-        >
+        <div className={`${styles.sum} mt-10 mr-4`}>
           <TotalPrice
             className={
               !isMobile
@@ -196,8 +169,8 @@ export default function BurgerConstructorView() {
             type="primary"
             size={!isMobile ? "large" : "small"}
             onClick={
-              constructorState.bun &&
-              Object.keys(constructorState.ingr).length !== 0
+              constructorList.bun &&
+              Object.keys(constructorList.ingr).length !== 0
                 ? openOrderDeatils
                 : openNotice
             }

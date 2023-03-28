@@ -1,16 +1,15 @@
-import { useContext } from "react";
 import ReactDOM from "react-dom";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import CloseModal from "../close-modal/close-modal";
 import styles from "./modal.module.css";
-import { IsMobileContext } from "../../../services/ismobile-context";
+import { useSelector } from "react-redux";
 
 export default function Modal(props: {
   closeModal: () => void;
   title?: string;
   children: React.ReactNode;
 }) {
-  const isMobile: boolean = useContext(IsMobileContext);
+  const isMobile: boolean = useSelector((state: any) => state.mobile);
 
   return ReactDOM.createPortal(
     <>

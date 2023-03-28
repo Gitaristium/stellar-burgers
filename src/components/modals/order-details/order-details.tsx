@@ -1,4 +1,4 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./order-details.module.css";
 import vector1 from "../../../images/order-accpeted/vector1.svg";
@@ -6,8 +6,11 @@ import vector2 from "../../../images/order-accpeted/vector2.svg";
 import vector3 from "../../../images/order-accpeted/vector3.svg";
 import Loading from "../../loading/loading";
 import { requestApi } from "../../../utils/request-api";
-import { OrderDetailsContext } from "../../../services/order-details-context";
-import { BurgerConstructorContext } from "../../../services/ingredients-context";
+import { useDispatch, useSelector } from "react-redux";
+import { IngredientModel, OrderDetailsModel } from "../../../utils/types";
+import { ORDER_LIST_ADD } from "../../../services/actions/orders-list";
+import { ORDER_DETAILS_ADD } from "../../../services/actions/order-details";
+import { INGREDIENTS_RESET } from "../../../services/actions/constructor-ingredients";
 
 export default function OrderDetails() {
   const [state, setState] = useState({
@@ -15,17 +18,32 @@ export default function OrderDetails() {
     hasError: false,
   });
 
-  const [constructorState] = useContext(BurgerConstructorContext);
-  const [orderDetails, setOrderDetails] = useContext(OrderDetailsContext);
+  // получаем список конструктора из стора
+  // и достаем полученную по API инфу о заказе
+  const {
+    constructorList,
+    orderDetails,
+  }: {
+    constructorList: {
+      bun: IngredientModel;
+      ingr: IngredientModel[];
+    };
+    orderDetails: OrderDetailsModel;
+  } = useSelector((store: any) => ({
+    constructorList: store.constructorList,
+    orderDetails: store.orderDetails.details,
+  }));
+
+  const dispatch = useDispatch();
 
   // получаем данные заказа по API
   useEffect(() => {
     setState({ hasError: false, isLoading: true });
 
     const getOrderDetails = () => {
-      let ids = constructorState.ingr.map((x: any) => x._id);
+      let ids = constructorList.ingr.map((x: any) => x._id);
 
-      ids.push(constructorState.bun._id, constructorState.bun._id);
+      ids.push(constructorList.bun._id, constructorList.bun._id);
 
       let sendIngrArr = {
         ingredients: ids,
@@ -39,7 +57,9 @@ export default function OrderDetails() {
         body: JSON.stringify(sendIngrArr),
       })
         .then((res) => {
-          setOrderDetails(res);
+          dispatch(ORDER_DETAILS_ADD(res, constructorList));
+          dispatch(ORDER_LIST_ADD(res, constructorList));
+          dispatch(INGREDIENTS_RESET());
           setState({ ...state, isLoading: false });
         })
         .catch((error) => {
@@ -47,11 +67,11 @@ export default function OrderDetails() {
           console.log("ERROR: " + error);
         });
     };
-    if (constructorState.bun) {
+    if (constructorList.bun) {
       getOrderDetails();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [constructorState]);
+  }, []);
 
   return (
     <div className={`${styles.modal} p-10`}>
