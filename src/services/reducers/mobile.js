@@ -3,7 +3,7 @@ import { MOBILE_TURN_ON, MOBILE_TURN_OFF } from "../actions/mobile";
 
 export const mobileReducer = createReducer(false, (builder) => {
   builder
-    .addCase(MOBILE_TURN_ON, (state, action) => true)
-    .addCase(MOBILE_TURN_OFF, (state, action) => false)
-    .addDefaultCase((state, action) => state);
+    .addCase(MOBILE_TURN_ON, () => true)
+    .addCase(MOBILE_TURN_OFF, () => false)
+    .addDefaultCase((state) => state);
 });

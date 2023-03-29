@@ -1,16 +1,16 @@
 import { useState } from "react";
-import BurgerConstructorView from "../burger-constructor-view/burger-constructor-view";
-import styles from "./burger-constructor.module.css";
 import {
   CurrencyIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import BurgerConstructorView from "../burger-constructor-view/burger-constructor-view";
 import Modal from "../modals/modal/modal";
 import TotalPrice from "../total-price/total-price";
-import { useSelector } from "react-redux";
+import styles from "./burger-constructor.module.css";
+import { useAppSelector } from "../../services/store/hooks";
 
 export default function BurgerConstructor() {
-  const isMobile: boolean = useSelector((state: any) => state.mobile);
+  const isMobile: boolean = useAppSelector((state: any) => state.mobile);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (

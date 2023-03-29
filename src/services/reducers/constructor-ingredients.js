@@ -14,7 +14,7 @@ const initialState = {
 
 export const constructorListReducer = createReducer(initialState, (builder) => {
   builder
-    .addCase(INGREDIENTS_RESET, (state, action) => initialState)
+    .addCase(INGREDIENTS_RESET, () => initialState)
     .addCase(INGREDIENTS_MOVE, (state, action) => {
       state.ingr.splice(
         action.payload.toIndex,
@@ -36,7 +36,7 @@ export const constructorListReducer = createReducer(initialState, (builder) => {
       (action) =>
         action.type === INGREDIENTS_REMOVE.type &&
         action.payload.type === "bun",
-      (state, action) => state
+      (state) => state
     )
     .addMatcher(
       (action) =>
@@ -47,5 +47,5 @@ export const constructorListReducer = createReducer(initialState, (builder) => {
         ingr: state.ingr.filter((el) => el.uuid !== action.payload.uuid),
       })
     )
-    .addDefaultCase((state, action) => state);
+    .addDefaultCase((state) => state);
 });

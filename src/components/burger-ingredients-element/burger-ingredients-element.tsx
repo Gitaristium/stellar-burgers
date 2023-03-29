@@ -1,19 +1,15 @@
+import { useMemo } from "react";
+import { DragPreviewImage, useDrag } from "react-dnd";
 import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useMemo, useState } from "react";
-import { DragPreviewImage, useDrag } from "react-dnd";
-import { useDispatch, useSelector } from "react-redux";
 import { INGREDIENTS_ADD } from "../../services/actions/constructor-ingredients";
-import {
-  DETAILS_ADD,
-  DETAILS_RESET,
-} from "../../services/actions/ingredient-details";
-import { IngredientModel } from "../../utils/types";
-import IngredientDetails from "../modals/ingredient-details/ingredient-details";
-import Modal from "../modals/modal/modal";
+import { DETAILS_ADD } from "../../services/actions/ingredient-details";
 import styles from "./burger-ingredients-element.module.css";
+import { IngredientModel } from "../../utils/types";
+import { getСonstructorList } from "../../utils/selectors";
+import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 
 export default function BurgerIngredientsElement({
   item,
@@ -22,27 +18,21 @@ export default function BurgerIngredientsElement({
   item: IngredientModel;
   type: string;
 }) {
-  const isMobile: boolean = useSelector((state: any) => state.mobile);
+  const isMobile: boolean = useAppSelector((state: any) => state.mobile);
+
   // получаем список конструктора из стора
   const constructorList: {
     bun: IngredientModel;
     ingr: IngredientModel[];
-  } = useSelector((store: any) => store.constructorList);
+  } = useAppSelector(getСonstructorList);
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const dispatch = useAppDispatch();
 
-  const dispatch = useDispatch();
-
-  // открываем модалку добавляем игридиент в стор превью и конструктора
+  // добавляем игридиент в стор превью и конструктора
+  // модалка откроется из компонента <BurgerIngredients/>
   const openModal = (item: Object) => {
-    setIsModalOpen(true);
     dispatch(DETAILS_ADD(item));
     dispatch(INGREDIENTS_ADD(item));
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
-    dispatch(DETAILS_RESET());
   };
 
   // Drag&Drop
@@ -58,19 +48,19 @@ export default function BurgerIngredientsElement({
   );
 
   // счетчик кол-ва игредиентов к конструкторе
-  const [count, setCount] = useState(0);
-  useMemo(() => {
-    let acc = 0;
+  const count = useMemo(() => {
+    let count = 0;
     if (item.type === "bun" && constructorList.bun) {
-      constructorList.bun._id === item._id ? setCount(2) : setCount(0);
+      constructorList.bun._id === item._id ? (count = 2) : (count = 0);
     } else if (item.type !== "bun" && constructorList.ingr.length > 0) {
       constructorList.ingr.map((elem: IngredientModel) => {
-        return elem._id === item._id ? (acc += 1) : acc;
+        return elem._id === item._id ? (count += 1) : count;
       });
-      setCount(acc);
     } else if (item.type !== "bun" && constructorList.ingr.length === 0) {
-      setCount(0);
+      count = 0;
     }
+    return count;
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [constructorList]);
 
@@ -103,12 +93,6 @@ export default function BurgerIngredientsElement({
           {item.name}
         </p>
       </article>
-
-      {isModalOpen && (
-        <Modal closeModal={() => closeModal()} title="Детали ингредиента">
-          <IngredientDetails />
-        </Modal>
-      )}
     </>
   );
 }

@@ -1,27 +1,29 @@
 import styles from "./ingredient-details.module.css";
 import { IngredientModel } from "../../../utils/types";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../../services/store/hooks";
+import { getIngredientDetails } from "../../../utils/selectors";
 
 export default function IngredientDetails() {
-  const item: IngredientModel = useSelector(
-    (store: any) => store.ingredientDetails
-  );
+  const ingredientDetails: IngredientModel =
+    useAppSelector(getIngredientDetails);
 
   return (
     <div className={styles.modal}>
       <img
-        src={item.image_large}
-        alt={item.name}
+        src={ingredientDetails.image_large}
+        alt={ingredientDetails.name}
         className={`mb-4 ${styles.img}`}
       />
-      <p className="text text_type_main-medium mb-8">{item.name}</p>
+      <p className="text text_type_main-medium mb-8">
+        {ingredientDetails.name}
+      </p>
       <ul className={styles.desc}>
         <li className={`${styles.desc__column} mr-10`}>
           <p className="text text_type_main-default text_color_inactive mb-3">
             Калории,ккал
           </p>
           <p className="text text_type_digits-default text_color_inactive">
-            {item.calories}
+            {ingredientDetails.calories}
           </p>
         </li>
         <li className={`${styles.desc__column} mr-10`}>
@@ -29,7 +31,7 @@ export default function IngredientDetails() {
             Белки, г
           </p>
           <p className="text text_type_digits-default text_color_inactive">
-            {item.proteins}
+            {ingredientDetails.proteins}
           </p>
         </li>
         <li className={`${styles.desc__column} mr-10`}>
@@ -37,7 +39,7 @@ export default function IngredientDetails() {
             Жиры, г
           </p>
           <p className="text text_type_digits-default text_color_inactive">
-            {item.fat}
+            {ingredientDetails.fat}
           </p>
         </li>
         <li className={styles.desc__column}>
@@ -45,7 +47,7 @@ export default function IngredientDetails() {
             Углеводы, г
           </p>
           <p className="text text_type_digits-default text_color_inactive">
-            {item.carbohydrates}
+            {ingredientDetails.carbohydrates}
           </p>
         </li>
       </ul>

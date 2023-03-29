@@ -1,6 +1,6 @@
 import { useDrop } from "react-dnd";
-import { useDispatch, useSelector } from "react-redux";
 import { INGREDIENTS_ADD } from "../../services/actions/constructor-ingredients";
+import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import styles from "./burger-constructor-element.module.css";
 
 export default function BurgerConstructorElementEmpty(props: {
@@ -9,10 +9,10 @@ export default function BurgerConstructorElementEmpty(props: {
   extraClass?: string;
   type: string;
 }) {
-  const isMobile: boolean = useSelector((state: any) => state.mobile);
+  const isMobile: boolean = useAppSelector((state: any) => state.mobile);
 
   // ловим drag&drop
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [{ isOver, canDrop }, dropTarget] = useDrop({
     accept: props.type,
     collect: (monitor) => ({

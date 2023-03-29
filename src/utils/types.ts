@@ -14,6 +14,11 @@ export interface IngredientModel {
   uuid: string;
 }
 
+export interface ConstructorModel {
+  bun: IngredientModel;
+  ingr: IngredientModel[];
+}
+
 export interface OrderDetailsModel {
   name: string;
   order: {

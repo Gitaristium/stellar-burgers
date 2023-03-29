@@ -1,28 +1,25 @@
-import { useMemo, useState } from "react";
-import { useSelector } from "react-redux";
+import { useMemo } from "react";
+import { getСonstructorList } from "../../utils/selectors";
 import { IngredientModel } from "../../utils/types";
+import { useAppSelector } from "../../services/store/hooks";
 
 export default function TotalPrice({ className }: { className: string }) {
   // получаем список конструктора из стора
   const constructorList: {
     bun: IngredientModel;
     ingr: IngredientModel[];
-  } = useSelector((store: any) => store.constructorList);
+  } = useAppSelector(getСonstructorList);
 
-  const [totalPrice, setTotalPrice] = useState(0);
-
-  useMemo(() => {
+  const count = useMemo(() => {
     let count = 0;
     if (constructorList.bun) {
       count += constructorList.bun.price * 2;
     }
     if (constructorList.ingr) {
-      constructorList.ingr.map((elem: IngredientModel) => {
-        return (count += elem.price);
-      });
+      count += constructorList.ingr.reduce((acc, elem) => acc + elem.price, 0);
     }
-    setTotalPrice(count);
+    return count;
   }, [constructorList]);
 
-  return <span className={className}>{totalPrice}</span>;
+  return <span className={className}>{count}</span>;
 }

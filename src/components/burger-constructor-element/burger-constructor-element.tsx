@@ -1,19 +1,17 @@
+import { useDrag, useDrop } from "react-dnd";
 import {
   CurrencyIcon,
   DeleteIcon,
   DragIcon,
   LockIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useCallback } from "react";
-import { useDrag, useDrop } from "react-dnd";
-import { useDispatch, useSelector } from "react-redux";
 import {
   INGREDIENTS_ADD,
   INGREDIENTS_REMOVE,
 } from "../../services/actions/constructor-ingredients";
-import { IngredientModel } from "../../utils/types";
-
 import styles from "./burger-constructor-element.module.css";
+import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
+import { IngredientModel } from "../../utils/types";
 
 export default function BurgerConstructorElement(props: {
   ingredient: IngredientModel;
@@ -24,10 +22,10 @@ export default function BurgerConstructorElement(props: {
   moveItem: (id: string, to: number) => void;
   findItem: (id: string) => { index: number };
 }) {
-  const isMobile: boolean = useSelector((state: any) => state.mobile);
+  const isMobile: boolean = useAppSelector((state: any) => state.mobile);
 
   // ловим drag&drop
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [{ isOver, canDrop }, dropTarget] = useDrop({
     accept: props.type,
     collect: (monitor) => ({
@@ -39,12 +37,11 @@ export default function BurgerConstructorElement(props: {
     },
   });
 
-  const removeIngredient = useCallback(() => {
+  const removeIngredient = () => {
     dispatch(INGREDIENTS_REMOVE(props.ingredient));
-  }, [dispatch, props.ingredient]);
+  };
 
-  //сортируем список игредиентов
-
+  //сортируем список ингредиентов
   const uuid = props.ingredient.uuid;
   const originalIndex = props.findItem(uuid).index;
   const [{ opacity }, drag] = useDrag(

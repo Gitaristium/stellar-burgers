@@ -1,74 +1,90 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
+import { useDrop } from "react-dnd";
 import {
   Button,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-
-import styles from "./burger-constructor-view.module.css";
 import Modal from "../modals/modal/modal";
 import OrderDetails from "../modals/order-details/order-details";
 import TotalPrice from "../total-price/total-price";
 import Loading from "../loading/loading";
-import { IngredientModel } from "../../utils/types";
-import { useDispatch, useSelector } from "react-redux";
-import { ORDER_DETAILS_RESET } from "../../services/actions/order-details";
 import BurgerConstructorElement from "../burger-constructor-element/burger-constructor-element";
-import { DndProvider, useDrop } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { INGREDIENTS_MOVE } from "../../services/actions/constructor-ingredients";
 import BurgerConstructorElementEmpty from "../burger-constructor-element/burger-constructor-element-empty";
+import {
+  ORDER_DETAILS_REQUEST,
+  ORDER_DETAILS_RESET,
+} from "../../services/actions/order-details";
+import { INGREDIENTS_MOVE } from "../../services/actions/constructor-ingredients";
+import styles from "./burger-constructor-view.module.css";
+import { ORDERS } from "../../utils/vars";
+import {
+  getOrderDetailsHasError,
+  getOrderDetailsIsLoading,
+  getOrderDetailsRequestSuccess,
+  getСonstructorList,
+} from "../../utils/selectors";
+import { ConstructorModel, IngredientModel } from "../../utils/types";
+import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 
 export default function BurgerConstructorView() {
-  const isMobile: boolean = useSelector((state: any) => state.mobile);
+  const isMobile: boolean = useAppSelector((state: any) => state.mobile);
+
+  // список всех ингредиентов, полученных по API
+  const isLoading: boolean[] = useAppSelector(getOrderDetailsIsLoading);
+  const hasError: boolean[] = useAppSelector(getOrderDetailsHasError);
+  const requestSuccess: boolean[] = useAppSelector(
+    getOrderDetailsRequestSuccess
+  );
+
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isOrderDetailsOpen, setIsOrderDetailsOpen] = useState(false);
-  const [isNoticeOpen, setIsNoticeOpen] = useState(false);
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   // получаем список конструктора из стора
-  const constructorList: {
-    bun: IngredientModel;
-    ingr: IngredientModel[];
-  } = useSelector((store: any) => store.constructorList);
+  const constructorList: ConstructorModel = useAppSelector(getСonstructorList);
+  const BUN = constructorList.bun;
+  const INGR = constructorList.ingr;
 
-  const openOrderDeatils = () => {
+  // управление модалкой
+  const openModal = () => {
+    BUN && INGR.length > 0 && getOrderDetails();
     setIsModalOpen(true);
-    setIsOrderDetailsOpen(true);
   };
-  const openNotice = () => {
-    setIsModalOpen(true);
-    setIsNoticeOpen(true);
-  };
+
   const closeModal = () => {
     setIsModalOpen(false);
-    setIsOrderDetailsOpen(false);
-    setIsNoticeOpen(false);
     dispatch(ORDER_DETAILS_RESET());
   };
 
   //сортировка списка в конструкторе
-  const findItem = useCallback(
-    (id: string) => {
-      const item = constructorList.ingr.filter(
-        (c) => `${c.uuid}` === id
-      )[0] as IngredientModel;
-      return {
-        item,
-        index: constructorList.ingr.indexOf(item),
-      };
-    },
-    [constructorList.ingr]
-  );
+  const findItem = (id: string) => {
+    const item = INGR.filter((c) => `${c.uuid}` === id)[0] as IngredientModel;
+    return {
+      item,
+      index: INGR.indexOf(item),
+    };
+  };
 
-  const moveItem = useCallback(
-    (id: string, atIndex: number) => {
-      const { index } = findItem(id);
-      dispatch(INGREDIENTS_MOVE(index, atIndex));
-    },
-    [findItem, dispatch]
-  );
+  const moveItem = (id: string, atIndex: number) => {
+    const { index } = findItem(id);
+    dispatch(INGREDIENTS_MOVE(index, atIndex));
+  };
 
   const [, drop] = useDrop(() => ({ accept: "ingr" }));
+
+  // получаем данные заказа по API
+  const getOrderDetails = () => {
+    let ids: string[] = INGR.map((x: any) => x._id);
+
+    ids.push(BUN._id, BUN._id);
+
+    let sendData = {
+      URL: ORDERS,
+      bodySend: {
+        ingredients: ids,
+      },
+    };
+    dispatch(ORDER_DETAILS_REQUEST(sendData));
+  };
 
   return (
     <>
@@ -79,9 +95,9 @@ export default function BurgerConstructorView() {
       >
         <div className={styles.constructor__list}>
           {/* фиксированная верхняя булка */}
-          {constructorList.bun ? (
+          {BUN ? (
             <BurgerConstructorElement
-              ingredient={constructorList.bun}
+              ingredient={BUN}
               isLocked={true}
               position="top"
               type="bun"
@@ -102,28 +118,24 @@ export default function BurgerConstructorView() {
           >
             {/* список конструктора */}
             <div className={styles.stuff__inner}>
-              {constructorList.ingr.length > 0 ? (
+              {INGR.length > 0 ? (
                 <>
-                  <DndProvider backend={HTML5Backend}>
-                    <span className={styles.stuff__inner_span} ref={drop}>
-                      {/* пробегаемся по массиву ингредиентов и рендерим список */}
-                      {constructorList.ingr.map(
-                        (e: IngredientModel, uuid: number, index) => {
-                          return (
-                            <BurgerConstructorElement
-                              key={uuid}
-                              ingredient={e}
-                              isLocked={false}
-                              extraClass=""
-                              type="ingredients"
-                              moveItem={moveItem}
-                              findItem={findItem}
-                            />
-                          );
-                        }
-                      )}
-                    </span>
-                  </DndProvider>
+                  <span className={styles.stuff__inner_span} ref={drop}>
+                    {/* пробегаемся по массиву ингредиентов и рендерим список */}
+                    {INGR.map((e: IngredientModel, uuid: number, index) => {
+                      return (
+                        <BurgerConstructorElement
+                          key={uuid}
+                          ingredient={e}
+                          isLocked={false}
+                          extraClass=""
+                          type="ingredients"
+                          moveItem={moveItem}
+                          findItem={findItem}
+                        />
+                      );
+                    })}
+                  </span>
                 </>
               ) : (
                 <BurgerConstructorElementEmpty
@@ -136,9 +148,9 @@ export default function BurgerConstructorView() {
           </div>
 
           {/* фиксированная нижняя булка */}
-          {constructorList.bun ? (
+          {BUN ? (
             <BurgerConstructorElement
-              ingredient={constructorList.bun}
+              ingredient={BUN}
               isLocked={true}
               position="bottom"
               type="bun"
@@ -168,12 +180,7 @@ export default function BurgerConstructorView() {
             htmlType="button"
             type="primary"
             size={!isMobile ? "large" : "small"}
-            onClick={
-              constructorList.bun &&
-              Object.keys(constructorList.ingr).length !== 0
-                ? openOrderDeatils
-                : openNotice
-            }
+            onClick={openModal}
             extraClass={
               !isMobile ? "remove-select ml-10" : "remove-select ml-4"
             }
@@ -184,8 +191,13 @@ export default function BurgerConstructorView() {
       </section>
       {isModalOpen && (
         <Modal closeModal={closeModal}>
-          {isOrderDetailsOpen && <OrderDetails />}
-          {isNoticeOpen && <Loading>Добавь ингредиентов</Loading>}
+          {/* стандартная вилка рендера */}
+          {!isLoading && !hasError && !requestSuccess && (
+            <Loading>Добавь ингредиентов</Loading>
+          )}
+          {isLoading && <Loading>Загрузка данных</Loading>}
+          {hasError && <Loading>Ошибка загрузки Х_Х</Loading>}
+          {!isLoading && !hasError && requestSuccess && <OrderDetails />}
         </Modal>
       )}
     </>
