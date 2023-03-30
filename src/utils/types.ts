@@ -11,5 +11,18 @@ export interface IngredientModel {
   image_mobile: string;
   image_large: string;
   __v: number;
-  uuid?: string;
+  uuid: string;
+}
+
+export interface ConstructorModel {
+  bun: IngredientModel;
+  ingr: IngredientModel[];
+}
+
+export interface OrderDetailsModel {
+  name: string;
+  order: {
+    number: number;
+  };
+  success: string;
 }

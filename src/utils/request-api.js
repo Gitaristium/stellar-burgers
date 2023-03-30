@@ -1,4 +1,4 @@
-const NORMA_API = "https://norma.nomoreparties.space/api/";
+import { NORMA_API } from "./vars";
 
 const checkResponse = (res) => {
   return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));

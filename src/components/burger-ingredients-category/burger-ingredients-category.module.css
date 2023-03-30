@@ -3,26 +3,3 @@
   grid-template-columns: 1fr 1fr;
   grid-gap: 24px;
 }
-.item {
-  position: relative;
-  cursor: pointer;
-}
-.img {
-  display: block;
-  width: 100%;
-}
-.text {
-  text-align: center;
-}
-.price {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 9px;
-}
-@media (orientation: portrait) or (max-width: 1150px) {
-  .category__list {
-    padding: 0;
-    margin: 0;
-  }
-}
