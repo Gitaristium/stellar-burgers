@@ -63,23 +63,22 @@ export default function BurgerIngredients() {
   }, [dispatch]);
 
   const scrollBoxRef = useRef<HTMLDivElement | null>(null);
-  const navTabsRef = useRef<HTMLHeadingElement | null>(null);
   const bunsRef = useRef<HTMLHeadingElement | null>(null);
   const saucesRef = useRef<HTMLHeadingElement | null>(null);
   const mainsRef = useRef<HTMLHeadingElement | null>(null);
 
   useEffect(() => {
-    const navTabsTop = navTabsRef.current?.getBoundingClientRect().bottom;
-
+    const scrollBoxTop = scrollBoxRef.current?.getBoundingClientRect().top;
+    console.log(bunsRef);
     const scrollIngredients = () => {
       const bunsTop = bunsRef.current?.getBoundingClientRect().top;
       const saucesTop = saucesRef.current?.getBoundingClientRect().top;
       const mainsTop = mainsRef.current?.getBoundingClientRect().top;
 
-      if (navTabsTop && bunsTop && saucesTop && mainsTop) {
-        const bunsActive = bunsTop - navTabsTop;
-        const saucesActive = saucesTop - navTabsTop;
-        const mainsActive = mainsTop - navTabsTop;
+      if (scrollBoxTop && bunsTop && saucesTop && mainsTop) {
+        const bunsActive = bunsTop - scrollBoxTop;
+        const saucesActive = saucesTop - scrollBoxTop;
+        const mainsActive = mainsTop - scrollBoxTop;
 
         if (bunsActive <= 0 && saucesActive > 0 && mainsActive > 0) {
           setCurrent(BUN);
@@ -104,6 +103,16 @@ export default function BurgerIngredients() {
     };
   }, [isLoading, isMobile]);
 
+  const onTabClick = (tab: string) => {
+    setCurrent(tab);
+    let refActive = null;
+    if (tab === BUN) refActive = bunsRef.current;
+    if (tab === SAUCE) refActive = saucesRef.current;
+    if (tab === MAIN) refActive = mainsRef.current;
+
+    refActive?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <>
       <section className={`${styles.ingredients} ingredients`}>
@@ -116,18 +125,18 @@ export default function BurgerIngredients() {
         {hasError && <Loading>Ошибка загрузки Х_Х</Loading>}
         {requestSuccess && ingredientsList?.length > 0 && (
           <>
-            <nav className={styles.nav} ref={navTabsRef}>
-              <Tab value={BUN} active={current === BUN} onClick={setCurrent}>
+            <nav className={styles.nav}>
+              <Tab value={BUN} active={current === BUN} onClick={onTabClick}>
                 Булки
               </Tab>
               <Tab
-                value="sauce"
-                active={current === "sauce"}
-                onClick={setCurrent}
+                value={SAUCE}
+                active={current === SAUCE}
+                onClick={onTabClick}
               >
                 Соусы
               </Tab>
-              <Tab value={MAIN} active={current === MAIN} onClick={setCurrent}>
+              <Tab value={MAIN} active={current === MAIN} onClick={onTabClick}>
                 Начинки
               </Tab>
             </nav>

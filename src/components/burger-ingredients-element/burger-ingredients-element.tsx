@@ -69,12 +69,13 @@ export default function BurgerIngredientsElement({
         style={{ opacity }}
         ref={dragRef}
       >
-        {/* единственное, позже надо прикрутить РАБОЧИЙ счетчик кол-ва выбранных ингредиентов*/}
-        <Counter
-          count={count}
-          size={isMobile ? "small" : "default"}
-          extraClass={isMobile ? "" : "m-1"}
-        />
+        {count > 0 && (
+          <Counter
+            count={count}
+            size={isMobile ? "small" : "default"}
+            extraClass={isMobile ? "" : "m-1"}
+          />
+        )}
         <DragPreviewImage connect={dragPreview} src={item.image} />
         <img
           src={item.image}

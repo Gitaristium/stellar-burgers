@@ -31,10 +31,13 @@
 
 @keyframes roundRotate {
   0% {
-    transform: translate(-50%, -50%) rotate(0deg);
+    transform: translate(-50%, -50%) rotate(0deg) scale(0.8);
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate(180deg) scale(1.2);
   }
   100% {
-    transform: translate(-50%, -50%) rotate(360deg);
+    transform: translate(-50%, -50%) rotate(360deg) scale(0.8);
   }
 }
 
