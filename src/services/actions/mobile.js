@@ -1,5 +1,7 @@
 import { createAction } from "@reduxjs/toolkit";
 
+const reducerName = "mobile";
+
 // глобальненько на всё приложение
-export const MOBILE_TURN_ON = createAction("MOBILE_TURN_ON");
-export const MOBILE_TURN_OFF = createAction("MOBILE_TURN_OFF");
+export const MOBILE_TURN_ON = createAction(`${reducerName}/turn_on`);
+export const MOBILE_TURN_OFF = createAction(`${reducerName}/turn_off`);

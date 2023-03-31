@@ -1,8 +1,10 @@
 import { createAction } from "@reduxjs/toolkit";
 import uuid from "react-uuid";
 
-export const INGREDIENTS_ADD = createAction(
-  "INGREDIENTS_ADD",
+const reducerName = "burgerConstructor";
+
+export const INGREDIENT_ADD = createAction(
+  `${reducerName}/ingredient_add`,
   function prepare(item) {
     return {
       payload: {
@@ -13,8 +15,8 @@ export const INGREDIENTS_ADD = createAction(
   }
 );
 
-export const INGREDIENTS_REMOVE = createAction(
-  "INGREDIENTS_REMOVE",
+export const INGREDIENT_REMOVE = createAction(
+  `${reducerName}/ingredient_remove`,
   function prepare(item) {
     return {
       payload: {
@@ -24,10 +26,12 @@ export const INGREDIENTS_REMOVE = createAction(
   }
 );
 
-export const INGREDIENTS_RESET = createAction("INGREDIENTS_RESET");
+export const INGREDIENTS_RESET = createAction(
+  `${reducerName}/ingredients_reset`
+);
 
-export const INGREDIENTS_MOVE = createAction(
-  "INGREDIENTS_MOVE",
+export const INGREDIENT_MOVE = createAction(
+  `${reducerName}/ingredient_move`,
   function prepare(fromIndex, toIndex) {
     return {
       payload: {

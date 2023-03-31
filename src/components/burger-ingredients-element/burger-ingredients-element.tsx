@@ -4,7 +4,7 @@ import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { INGREDIENTS_ADD } from "../../services/actions/constructor-ingredients";
+import { INGREDIENT_ADD } from "../../services/actions/burger-constructor";
 import { DETAILS_ADD } from "../../services/actions/ingredient-details";
 import styles from "./burger-ingredients-element.module.css";
 import { IngredientModel } from "../../utils/types";
@@ -32,7 +32,7 @@ export default function BurgerIngredientsElement({
   // модалка откроется из компонента <BurgerIngredients/>
   const openModal = (item: Object) => {
     dispatch(DETAILS_ADD(item));
-    dispatch(INGREDIENTS_ADD(item));
+    dispatch(INGREDIENT_ADD(item));
   };
 
   // Drag&Drop

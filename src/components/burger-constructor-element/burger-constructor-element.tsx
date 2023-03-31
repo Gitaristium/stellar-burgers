@@ -6,9 +6,9 @@ import {
   LockIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import {
-  INGREDIENTS_ADD,
-  INGREDIENTS_REMOVE,
-} from "../../services/actions/constructor-ingredients";
+  INGREDIENT_ADD,
+  INGREDIENT_REMOVE,
+} from "../../services/actions/burger-constructor";
 import styles from "./burger-constructor-element.module.css";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import { IngredientModel } from "../../utils/types";
@@ -33,12 +33,12 @@ export default function BurgerConstructorElement(props: {
       canDrop: monitor.canDrop(),
     }),
     drop(item) {
-      dispatch(INGREDIENTS_ADD(item));
+      dispatch(INGREDIENT_ADD(item));
     },
   });
 
   const removeIngredient = () => {
-    dispatch(INGREDIENTS_REMOVE(props.ingredient));
+    dispatch(INGREDIENT_REMOVE(props.ingredient));
   };
 
   //сортируем список ингредиентов

@@ -1,5 +1,5 @@
 import { useDrop } from "react-dnd";
-import { INGREDIENTS_ADD } from "../../services/actions/constructor-ingredients";
+import { INGREDIENT_ADD } from "../../services/actions/burger-constructor";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import styles from "./burger-constructor-element.module.css";
 
@@ -20,7 +20,7 @@ export default function BurgerConstructorElementEmpty(props: {
       canDrop: monitor.canDrop(),
     }),
     drop(item) {
-      dispatch(INGREDIENTS_ADD(item));
+      dispatch(INGREDIENT_ADD(item));
     },
   });
 

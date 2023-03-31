@@ -4,7 +4,7 @@ import BurgerIngredientsCategory from "../burger-ingredients-category/burger-ing
 import Loading from "../loading/loading";
 import Modal from "../modals/modal/modal";
 import IngredientDetails from "../modals/ingredient-details/ingredient-details";
-import { INGREDIENTS_REQEST } from "../../services/actions/burger-ingredients";
+import { INGREDIENTS_REQEST } from "../../services/actions/ingredients-list";
 import { BUN, SAUCE, MAIN, INGREDIENTS } from "../../utils/vars";
 import styles from "./burger-ingredients.module.css";
 import { DETAILS_RESET } from "../../services/actions/ingredient-details";

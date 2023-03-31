@@ -1,10 +1,15 @@
 import { createAction } from "@reduxjs/toolkit";
 
-export const DETAILS_ADD = createAction("DETAILS_ADD", function prepare(item) {
-  return {
-    payload: {
-      ...item,
-    },
-  };
-});
-export const DETAILS_RESET = createAction("DETAILS_RESET");
+const reducerName = "ingredientDetails";
+
+export const DETAILS_ADD = createAction(
+  `${reducerName}/ingredient_add`,
+  function prepare(item) {
+    return {
+      payload: {
+        ...item,
+      },
+    };
+  }
+);
+export const DETAILS_RESET = createAction(`${reducerName}/ingredient_reset`);

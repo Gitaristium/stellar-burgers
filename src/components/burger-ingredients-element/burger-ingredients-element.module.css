@@ -16,7 +16,7 @@
   justify-content: center;
   gap: 9px;
 }
-@media (orientation: portrait) or (max-width: 1150px) {
+@media (orientation: portrait), (max-width: 1150px) {
   .category__list {
     padding: 0;
     margin: 0;

@@ -3,8 +3,8 @@ import type {} from "redux-thunk/extend-redux";
 import thunk from "redux-thunk";
 import logger from "redux-logger";
 import { mobileReducer } from "../reducers/mobile";
-import { ingredientsListReducer } from "../reducers/burger-ingredients";
-import { constructorListReducer } from "../reducers/constructor-ingredients";
+import { ingredientsListReducer } from "../reducers/ingredients-list";
+import { burgerConstructorReducer } from "../reducers/burger-constructor";
 import { ingredientDetailsReducer } from "../reducers/ingredient-details";
 import { orderDetailsReducer } from "../reducers/order-details";
 
@@ -12,7 +12,7 @@ export const store = configureStore({
   reducer: {
     mobile: mobileReducer,
     ingredientsList: ingredientsListReducer,
-    constructorList: constructorListReducer,
+    constructorList: burgerConstructorReducer,
     ingredientDetails: ingredientDetailsReducer,
     orderDetails: orderDetailsReducer,
   },

@@ -56,7 +56,7 @@ main {
   grid-column-gap: 40px;
   height: 100%;
 }
-@media (orientation: portrait) or (max-width: 1150px) {
+@media (orientation: portrait), (max-width: 1150px) {
   .content.two-columns {
     grid-template-columns: 1fr;
     grid-template-rows: repeat(auto-fit, minmax(100px, 100%));

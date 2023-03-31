@@ -14,7 +14,7 @@ import {
   ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_RESET,
 } from "../../services/actions/order-details";
-import { INGREDIENTS_MOVE } from "../../services/actions/constructor-ingredients";
+import { INGREDIENT_MOVE } from "../../services/actions/burger-constructor";
 import styles from "./burger-constructor-view.module.css";
 import { ORDERS } from "../../utils/vars";
 import {
@@ -66,7 +66,7 @@ export default function BurgerConstructorView() {
 
   const moveItem = (id: string, atIndex: number) => {
     const { index } = findItem(id);
-    dispatch(INGREDIENTS_MOVE(index, atIndex));
+    dispatch(INGREDIENT_MOVE(index, atIndex));
   };
 
   const [, drop] = useDrop(() => ({ accept: "ingr" }));

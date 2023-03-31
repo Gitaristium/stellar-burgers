@@ -1,8 +1,10 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { requestApi } from "../../utils/request-api";
 
+const reducerName = "orederDetails";
+
 export const ORDER_DETAILS_REQUEST = createAsyncThunk(
-  "ORDER_DETAILS_REQUEST",
+  `${reducerName}/details_request`,
   // отображается в dev tools и должно быть уникально у каждого Thunk
   async (
     data: { URL: string; bodySend: { ingredients: string[] } },
@@ -22,4 +24,4 @@ export const ORDER_DETAILS_REQUEST = createAsyncThunk(
   }
 );
 
-export const ORDER_DETAILS_RESET = createAction("DETAILS_RESET");
+export const ORDER_DETAILS_RESET = createAction(`${reducerName}/details_reset`);

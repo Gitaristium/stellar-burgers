@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { INGREDIENTS_REQEST } from "../actions/burger-ingredients";
+import { INGREDIENTS_REQEST } from "../actions/ingredients-list";
 
 const initialState = {
   items: [],
