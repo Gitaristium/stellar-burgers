@@ -4,10 +4,10 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import AppHeader from "../app-header/app-header";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import { MOBILE_TURN_ON, MOBILE_TURN_OFF } from "../../services/actions/mobile";
+import { MOBILE_TURN_ON, MOBILE_TURN_OFF } from "../../services/mobile/actions";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import { MOBILE_BREAKPOINT } from "../../utils/vars";
-import { getIsMobile } from "../../utils/selectors";
+import { getIsMobile } from "../../services/mobile/selectors";
 
 export default function App() {
   const isMobile: boolean = useAppSelector(getIsMobile);

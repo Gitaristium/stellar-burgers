@@ -3,7 +3,7 @@ import styles from "./order-details.module.css";
 import vector1 from "../../../images/order-accpeted/vector1.svg";
 import vector2 from "../../../images/order-accpeted/vector2.svg";
 import vector3 from "../../../images/order-accpeted/vector3.svg";
-import { getOrderNumber } from "../../../utils/selectors";
+import { getOrderNumber } from "../../../services/order-details/selectors";
 import { useAppSelector } from "../../../services/store/hooks";
 
 export default function OrderDetails() {

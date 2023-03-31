@@ -1,5 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import { DETAILS_ADD, DETAILS_RESET } from "../actions/ingredient-details";
+import { DETAILS_ADD, DETAILS_RESET } from "./actions";
 
 export const ingredientDetailsReducer = createReducer(null, (builder) => {
   builder

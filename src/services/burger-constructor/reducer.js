@@ -4,7 +4,7 @@ import {
   INGREDIENT_REMOVE,
   INGREDIENTS_RESET,
   INGREDIENT_MOVE,
-} from "../actions/burger-constructor";
+} from "./actions";
 // import { IngredientModel } from "../../utils/types";
 
 const initialState = {

@@ -4,11 +4,11 @@ import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { INGREDIENT_ADD } from "../../services/actions/burger-constructor";
-import { DETAILS_ADD } from "../../services/actions/ingredient-details";
+import { INGREDIENT_ADD } from "../../services/burger-constructor/actions";
+import { DETAILS_ADD } from "../../services/ingredient-details/actions";
 import styles from "./burger-ingredients-element.module.css";
-import { IngredientModel } from "../../utils/types";
-import { getСonstructorList } from "../../utils/selectors";
+import { ConstructorModel, IngredientModel } from "../../utils/types";
+import { getСonstructorList } from "../../services/burger-constructor/selectors";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 
 export default function BurgerIngredientsElement({
@@ -21,10 +21,7 @@ export default function BurgerIngredientsElement({
   const isMobile: boolean = useAppSelector((state: any) => state.mobile);
 
   // получаем список конструктора из стора
-  const constructorList: {
-    bun: IngredientModel;
-    ingr: IngredientModel[];
-  } = useAppSelector(getСonstructorList);
+  const constructorList: ConstructorModel = useAppSelector(getСonstructorList);
 
   const dispatch = useAppDispatch();
 
@@ -60,7 +57,6 @@ export default function BurgerIngredientsElement({
       count = 0;
     }
     return count;
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [constructorList]);
 

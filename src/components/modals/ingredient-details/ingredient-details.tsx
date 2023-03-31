@@ -1,7 +1,7 @@
 import styles from "./ingredient-details.module.css";
 import { IngredientModel } from "../../../utils/types";
 import { useAppSelector } from "../../../services/store/hooks";
-import { getIngredientDetails } from "../../../utils/selectors";
+import { getIngredientDetails } from "../../../services/ingredient-details/selectors";
 
 export default function IngredientDetails() {
   const ingredientDetails: IngredientModel =

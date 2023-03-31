@@ -8,7 +8,7 @@ import {
 import {
   INGREDIENT_ADD,
   INGREDIENT_REMOVE,
-} from "../../services/actions/burger-constructor";
+} from "../../services/burger-constructor/actions";
 import styles from "./burger-constructor-element.module.css";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import { IngredientModel } from "../../utils/types";

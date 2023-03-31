@@ -4,18 +4,19 @@ import BurgerIngredientsCategory from "../burger-ingredients-category/burger-ing
 import Loading from "../loading/loading";
 import Modal from "../modals/modal/modal";
 import IngredientDetails from "../modals/ingredient-details/ingredient-details";
-import { INGREDIENTS_REQEST } from "../../services/actions/ingredients-list";
+import { INGREDIENTS_REQEST } from "../../services/ingredients-list/actions";
 import { BUN, SAUCE, MAIN, INGREDIENTS } from "../../utils/vars";
 import styles from "./burger-ingredients.module.css";
-import { DETAILS_RESET } from "../../services/actions/ingredient-details";
+import { DETAILS_RESET } from "../../services/ingredient-details/actions";
+import { getIsMobile } from "../../services/mobile/selectors";
 import {
-  getIsMobile,
   getIngredientsList,
   getIngredientsIsLoading,
   getIngredientsHasError,
   getIngredientsRequestSuccess,
-  getIngredientDetails,
-} from "../../utils/selectors";
+} from "../../services/ingredients-list/selectors";
+import { getIngredientDetails } from "../../services/ingredient-details/selectors";
+
 import { IngredientModel } from "../../utils/types";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 

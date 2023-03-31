@@ -2,11 +2,11 @@ import { configureStore } from "@reduxjs/toolkit";
 import type {} from "redux-thunk/extend-redux";
 import thunk from "redux-thunk";
 import logger from "redux-logger";
-import { mobileReducer } from "../reducers/mobile";
-import { ingredientsListReducer } from "../reducers/ingredients-list";
-import { burgerConstructorReducer } from "../reducers/burger-constructor";
-import { ingredientDetailsReducer } from "../reducers/ingredient-details";
-import { orderDetailsReducer } from "../reducers/order-details";
+import { mobileReducer } from "../mobile/reducer";
+import { ingredientsListReducer } from "../ingredients-list/reducer";
+import { burgerConstructorReducer } from "../burger-constructor/reducer";
+import { ingredientDetailsReducer } from "../ingredient-details/reducer";
+import { orderDetailsReducer } from "../order-details/reducer";
 
 export const store = configureStore({
   reducer: {

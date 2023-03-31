@@ -1,8 +1,5 @@
 import { createReducer } from "@reduxjs/toolkit";
-import {
-  ORDER_DETAILS_REQUEST,
-  ORDER_DETAILS_RESET,
-} from "../actions/order-details";
+import { ORDER_DETAILS_REQUEST, ORDER_DETAILS_RESET } from "./actions";
 
 const initialState = {
   item: {

@@ -13,16 +13,16 @@ import BurgerConstructorElementEmpty from "../burger-constructor-element/burger-
 import {
   ORDER_DETAILS_REQUEST,
   ORDER_DETAILS_RESET,
-} from "../../services/actions/order-details";
-import { INGREDIENT_MOVE } from "../../services/actions/burger-constructor";
+} from "../../services/order-details/actions";
+import { INGREDIENT_MOVE } from "../../services/burger-constructor/actions";
 import styles from "./burger-constructor-view.module.css";
 import { ORDERS } from "../../utils/vars";
 import {
   getOrderDetailsHasError,
   getOrderDetailsIsLoading,
   getOrderDetailsRequestSuccess,
-  getСonstructorList,
-} from "../../utils/selectors";
+} from "../../services/order-details/selectors";
+import { getСonstructorList } from "../../services/burger-constructor/selectors";
 import { ConstructorModel, IngredientModel } from "../../utils/types";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 
