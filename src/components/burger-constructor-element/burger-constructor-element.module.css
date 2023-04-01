@@ -45,9 +45,8 @@
 .item__element {
   position: relative;
   background: none;
-  /* width: calc(100% + 130px); */
   padding: 16px;
-  /* padding-right: 130px; */
+  max-width: 100%;
 }
 
 .delete__icon {

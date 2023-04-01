@@ -1,12 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { NavLink, useMatch } from "react-router-dom";
 import {
   Logo,
   BurgerIcon,
   ListIcon,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import AppHeaderMenu from "../app-header-menu/app-header-menu";
-import BurgerBtn from "../app-header-menu/burger-btn";
+import BurgerBtn from "./burger-btn";
 import logoMobile from "../../images/logo__mobile.svg";
 import styles from "./app-header.module.css";
 import { useAppSelector } from "../../services/store/hooks";
@@ -14,22 +14,21 @@ import { useAppSelector } from "../../services/store/hooks";
 export default function AppHeader() {
   const isMobile: boolean = useAppSelector((state: any) => state.mobile);
 
-  // стэйт для активного меню
-  const [curLink, setCurLink] = useState("constructor");
+  // дла определения цвета иконов в меню
+  const matchContructor = useMatch("/");
+  const matchFeed = useMatch("/feed");
+  const matchProfile = useMatch("/profile");
 
   // для меню для мобилок
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // кликаем по меню
-  // устанавливаем новый стэйс активного меню
-  // закрвыаем меню для мобилок
-  const clickLink = (elem: string) => {
-    setCurLink(elem);
-    setIsMenuOpen(false);
-  };
-
   // тоглим меню для мобилок при клике по кнопке бургера
   const clickBurger = () => setIsMenuOpen(!isMenuOpen);
+
+  // закрвыаем меню для мобилок изменении роута
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [matchContructor, matchFeed, matchProfile]);
 
   return (
     <header className={styles.header}>
@@ -38,9 +37,8 @@ export default function AppHeader() {
           // лого для мобилок
           <>
             <span
-              className={`${styles.logo__mobile} ml-3 mr-3"} ${
-                isMenuOpen ? styles.hide : ""
-              }`}
+              className={`${styles.logo__mobile} ml-3 mr-3
+              ${isMenuOpen ? styles.hide : ""}`}
             >
               <img src={logoMobile} alt="logo" />
             </span>
@@ -66,39 +64,39 @@ export default function AppHeader() {
             </p>
           )}
           <ul className={styles.list}>
-            <AppHeaderMenu
-              curLink={curLink}
-              link="constructor"
-              text="Конструктор"
-              onClick={() => clickLink("constructor")}
-              className="mr-2"
+            <NavLink
+              className={({ isActive }) =>
+                `${isActive ? styles.active : "text_color_inactive"} 
+              ${styles.link} text text_type_main-default  mt-4 mb-4 ml-5 mr-5`
+              }
+              to="/"
             >
-              <BurgerIcon
-                type={curLink === "constructor" ? "primary" : "secondary"}
-              />
-            </AppHeaderMenu>
+              <BurgerIcon type={matchContructor ? "primary" : "secondary"} />
+              <span className="ml-2">Конструктор</span>
+            </NavLink>
 
-            <AppHeaderMenu
-              curLink={curLink}
-              link="feed"
-              text="Лента заказов"
-              onClick={() => clickLink("feed")}
-              className=""
+            <NavLink
+              className={({ isActive }) =>
+                `${isActive ? styles.active : "text_color_inactive"} 
+              ${styles.link} text text_type_main-default  mt-4 mb-4 ml-5 mr-5`
+              }
+              to="/feed"
             >
-              <ListIcon type={curLink === "feed" ? "primary" : "secondary"} />
-            </AppHeaderMenu>
+              <ListIcon type={matchFeed ? "primary" : "secondary"} />
+              <span className="ml-2">Лента заказов</span>
+            </NavLink>
 
-            <AppHeaderMenu
-              curLink={curLink}
-              link="profile"
-              text="Личный кабинет"
-              onClick={() => clickLink("profile")}
-              className={styles.profile}
+            <NavLink
+              className={({ isActive }) =>
+                `${isActive ? styles.active : "text_color_inactive"}
+              ${styles.link} ${!isMobile && styles.profile} 
+              text text_type_main-default  mt-4 mb-4 ml-5 mr-5`
+              }
+              to="/profile"
             >
-              <ProfileIcon
-                type={curLink === "profile" ? "primary" : "secondary"}
-              />
-            </AppHeaderMenu>
+              <ProfileIcon type={matchProfile ? "primary" : "secondary"} />
+              <span className="ml-2">Личный кабинет</span>
+            </NavLink>
           </ul>
         </nav>
       </div>

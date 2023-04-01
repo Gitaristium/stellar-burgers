@@ -20,6 +20,14 @@
 .nav {
   position: relative;
   width: 100%;
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  /* justify-content: space-between; */
+  align-items: center;
+  margin: 0 auto;
+  list-style: none;
+  padding: 0;
 }
 
 .nav__title {
@@ -61,18 +69,27 @@
   display: flex;
   width: 100%;
   flex-wrap: wrap;
-  /* justify-content: space-between; */
   align-items: center;
   margin: 0 auto;
   list-style: none;
   padding: 0;
 }
 
-.link {
+.link,
+.link span {
   display: flex;
   justify-items: center;
+  align-items: center;
   cursor: pointer;
+  text-decoration: none;
+  transition: color 0.1s;
 }
+
+.link.active,
+.link.active span {
+  color: inherit;
+}
+
 .profile {
   margin-left: auto;
 }
@@ -99,6 +116,5 @@
   align-items: flex-start;
 }
 .menu__mobile .profile {
-  margin: unset;
   order: -1;
 }

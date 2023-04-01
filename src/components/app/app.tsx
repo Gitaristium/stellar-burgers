@@ -1,13 +1,13 @@
 import { useEffect, useLayoutEffect, useCallback } from "react";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
 import AppHeader from "../app-header/app-header";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
+import ConstructorPage from "../../pages/constructor-page";
 import { MOBILE_TURN_ON, MOBILE_TURN_OFF } from "../../services/mobile/actions";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import { MOBILE_BREAKPOINT } from "../../utils/vars";
 import { getIsMobile } from "../../services/mobile/selectors";
+import { Route, Routes } from "react-router-dom";
+import FeedPage from "../../pages/feed-page";
+import ProfilePage from "../../pages/profile-page";
 
 export default function App() {
   const isMobile: boolean = useAppSelector(getIsMobile);
@@ -42,13 +42,11 @@ export default function App() {
     <>
       <AppHeader />
       <main className={isMobile ? "pt-4 pl-4 pr-4" : "pt-10 pl-5 pr-5"}>
-        {/* тут в последствии будет роут */}
-        <div className="content two-columns">
-          <DndProvider backend={HTML5Backend}>
-            <BurgerIngredients />
-            <BurgerConstructor />
-          </DndProvider>
-        </div>
+        <Routes>
+          <Route path="/" element={<ConstructorPage />} />
+          <Route path="/feed" element={<FeedPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+        </Routes>
       </main>
     </>
   );
