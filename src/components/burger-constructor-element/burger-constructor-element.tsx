@@ -24,7 +24,7 @@ export default function BurgerConstructorElement(props: {
 }) {
   const isMobile: boolean = useAppSelector((state: any) => state.mobile);
 
-  // ловим drag&drop
+  // ловим drag&drop из списка ингредиентов в конструктор
   const dispatch = useAppDispatch();
   const [{ isOver, canDrop }, dropTarget] = useDrop({
     accept: props.type,
@@ -41,7 +41,7 @@ export default function BurgerConstructorElement(props: {
     dispatch(INGREDIENT_REMOVE(props.ingredient));
   };
 
-  //сортируем список ингредиентов
+  //сортируем список ингредиентов в конструкторе
   const uuid = props.ingredient.uuid;
   const originalIndex = props.findItem(uuid).index;
   const [{ opacity }, drag] = useDrag(
@@ -77,13 +77,16 @@ export default function BurgerConstructorElement(props: {
 
   return (
     <>
+      {/* обёртка, к которой цепляем цель дропа DnD из списка ингредиентов */}
       <span ref={(node) => drag(drop(node))} style={{ opacity }}>
         <article
           className={`
-          ${!isMobile ? "mr-4 ml-10" : styles.item} 
+          ${isMobile ? styles.item : ""} 
+          ${props.isLocked ? "mr-4 ml-10" : ""} 
         `}
           ref={dropTarget}
         >
+          {/* если это не булка - рендерим иконку перетаскивания слева от элемента */}
           {!props.isLocked && props.ingredient && (
             <span
               className={`${styles.drag__icon} ${
@@ -93,6 +96,15 @@ export default function BurgerConstructorElement(props: {
               <DragIcon type="secondary" />
             </span>
           )}
+          {/* в мобильной версии рендерим эконку замка у булки */}
+          {props.isLocked && isMobile && props.ingredient && (
+            <span
+              className={`${styles.drag__icon} ${styles.drag__icon_mobile}`}
+            >
+              <LockIcon type="secondary" />
+            </span>
+          )}
+          {/* в мобильной версии рендерим скрытую иконку-кнопку удаления элемента из конструктора (открывается свайпом влево) */}
           {!props.isLocked && isMobile && props.ingredient && (
             <span className={styles.delete__icon_mobile}>
               <DeleteIcon type="primary" onClick={removeIngredient} />
@@ -122,6 +134,7 @@ export default function BurgerConstructorElement(props: {
                   <span className="constructor-element__price">
                     {props.ingredient.price}
                     <CurrencyIcon type="primary" />
+                    {/* в десктопной версии рендерим иконку замка/перетаскивания у ингредиента */}
                     {!isMobile && (
                       <>
                         {props.isLocked ? (
@@ -139,6 +152,7 @@ export default function BurgerConstructorElement(props: {
                   </span>
                 </>
               ) : (
+                // загрулушка для пустых элементов
                 <span className={styles.empty__text}>
                   {props.type === "bun" ? "Выбери булку" : "Выбери начинку"}
                 </span>

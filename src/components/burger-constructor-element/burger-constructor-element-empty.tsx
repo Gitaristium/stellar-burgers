@@ -29,7 +29,8 @@ export default function BurgerConstructorElementEmpty(props: {
       <span ref={dropTarget}>
         <article
           className={`
-          ${!isMobile ? "mr-4 ml-10" : styles.item} 
+          ${isMobile ? styles.item : ""} 
+          ${props.isLocked ? "mr-4 ml-10" : ""} 
         `}
         >
           <div

@@ -28,6 +28,27 @@ export default function BurgerIngredients() {
   const isLoading: boolean = useAppSelector(getIngredientsIsLoading);
   const hasError: boolean = useAppSelector(getIngredientsHasError);
   const requestSuccess: boolean = useAppSelector(getIngredientsRequestSuccess);
+  const dispatch = useAppDispatch();
+
+  // получаем данные по API, если еще не получены
+  useEffect(() => {
+    if (!requestSuccess) dispatch(INGREDIENTS_REQEST(INGREDIENTS));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
+
+  // разбиваем массив игредиентов на категории
+  const ingredientsBun = useMemo(
+    () => ingredientsList?.filter((item) => item.type === BUN),
+    [ingredientsList]
+  );
+  const ingredientsSauce = useMemo(
+    () => ingredientsList?.filter((item) => item.type === SAUCE),
+    [ingredientsList]
+  );
+  const ingredientsMain = useMemo(
+    () => ingredientsList?.filter((item) => item.type === MAIN),
+    [ingredientsList]
+  );
 
   // получаем информацию об ингредиенте для детального просмотра
   const ingredientDetails: IngredientModel =
@@ -42,26 +63,6 @@ export default function BurgerIngredients() {
   // активные табы
   const [current, setCurrent] = useState("bun");
 
-  // разбиваем полученный из пропсов массив игредиентов на категории
-  const ingredientsBun = useMemo(
-    () => ingredientsList?.filter((item) => item.type === BUN),
-    [ingredientsList]
-  );
-  const ingredientsSauce = useMemo(
-    () => ingredientsList?.filter((item) => item.type === SAUCE),
-    [ingredientsList]
-  );
-  const ingredientsMain = useMemo(
-    () => ingredientsList?.filter((item) => item.type === MAIN),
-    [ingredientsList]
-  );
-
-  // получаем данные по API
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(INGREDIENTS_REQEST(INGREDIENTS));
-  }, [dispatch]);
-
   const scrollBoxRef = useRef<HTMLDivElement | null>(null);
   const bunsRef = useRef<HTMLHeadingElement | null>(null);
   const saucesRef = useRef<HTMLHeadingElement | null>(null);
@@ -69,7 +70,6 @@ export default function BurgerIngredients() {
 
   useEffect(() => {
     const scrollBoxTop = scrollBoxRef.current?.getBoundingClientRect().top;
-    console.log(bunsRef);
     const scrollIngredients = () => {
       const bunsTop = bunsRef.current?.getBoundingClientRect().top;
       const saucesTop = saucesRef.current?.getBoundingClientRect().top;

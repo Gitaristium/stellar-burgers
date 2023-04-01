@@ -2,6 +2,7 @@
   position: relative;
   overflow-x: auto;
   padding: 0 16px;
+  margin: 0;
 }
 
 /* Скрываем scrollbar для Chrome, Safari и Opera */
