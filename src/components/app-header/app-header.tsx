@@ -89,7 +89,9 @@ export default function AppHeader() {
             <NavLink
               className={({ isActive }) =>
                 `${isActive ? styles.active : "text_color_inactive"}
-              ${styles.link} ${!isMobile && styles.profile} 
+              ${styles.link} ${
+                  !isMobile ? styles.profile : styles.mobile__profile
+                } 
               text text_type_main-default  mt-4 mb-4 ml-5 mr-5`
               }
               to="/profile"

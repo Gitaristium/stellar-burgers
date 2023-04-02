@@ -6,6 +6,10 @@ import {
   FeedPage,
   ProfilePage,
   IngredientDetailsPages,
+  LoginPage,
+  RegisterPage,
+  ForgotPasswordPage,
+  ResetPasswordPage,
 } from "../../pages";
 import { MOBILE_TURN_ON, MOBILE_TURN_OFF } from "../../services/mobile/actions";
 import { INGREDIENTS_REQEST } from "../../services/ingredients-list/actions";
@@ -67,9 +71,10 @@ export default function App() {
       <main className={isMobile ? "pt-4 pl-4 pr-4" : "pt-10 pl-5 pr-5"}>
         <Routes location={state?.backgroundLocation || location}>
           <Route path="/" element={<HomePage />} />
-          <Route path="/login" element={<NotFoundPage />} />
-          <Route path="/reset-password" element={<NotFoundPage />} />
-          <Route path="/register" element={<NotFoundPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+          <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route path="/ingredients/:id" element={<IngredientDetailsPages />} />
           <Route path="/feed" element={<FeedPage />} />
           <Route path="/feed/:id" element={<NotFoundPage />} />

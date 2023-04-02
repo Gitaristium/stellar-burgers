@@ -81,7 +81,6 @@
   justify-items: center;
   align-items: center;
   cursor: pointer;
-  text-decoration: none;
   transition: color 0.1s;
 }
 
@@ -92,6 +91,9 @@
 
 .profile {
   margin-left: auto;
+}
+.mobile__profile {
+  order: -1;
 }
 
 .menu__mobile {
@@ -114,7 +116,4 @@
 .menu__mobile .list {
   flex-direction: column;
   align-items: flex-start;
-}
-.menu__mobile .profile {
-  order: -1;
 }
