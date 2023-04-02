@@ -4,10 +4,8 @@ import BurgerIngredientsCategory from "../burger-ingredients-category/burger-ing
 import Loading from "../loading/loading";
 import Modal from "../modals/modal/modal";
 import IngredientDetails from "../modals/ingredient-details/ingredient-details";
-import { INGREDIENTS_REQEST } from "../../services/ingredients-list/actions";
 import { BUN, SAUCE, MAIN, INGREDIENTS } from "../../utils/vars";
 import styles from "./burger-ingredients.module.css";
-import { DETAILS_RESET } from "../../services/ingredient-details/actions";
 import { getIsMobile } from "../../services/mobile/selectors";
 import {
   getIngredientsList,
@@ -15,10 +13,9 @@ import {
   getIngredientsHasError,
   getIngredientsRequestSuccess,
 } from "../../services/ingredients-list/selectors";
-import { getIngredientDetails } from "../../services/ingredient-details/selectors";
 
 import { IngredientModel } from "../../utils/types";
-import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
+import { useAppSelector } from "../../services/store/hooks";
 
 export default function BurgerIngredients() {
   // булин для мобилок
@@ -28,13 +25,6 @@ export default function BurgerIngredients() {
   const isLoading: boolean = useAppSelector(getIngredientsIsLoading);
   const hasError: boolean = useAppSelector(getIngredientsHasError);
   const requestSuccess: boolean = useAppSelector(getIngredientsRequestSuccess);
-  const dispatch = useAppDispatch();
-
-  // получаем данные по API, если еще не получены
-  useEffect(() => {
-    if (!requestSuccess) dispatch(INGREDIENTS_REQEST(INGREDIENTS));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dispatch]);
 
   // разбиваем массив игредиентов на категории
   const ingredientsBun = useMemo(
@@ -50,14 +40,10 @@ export default function BurgerIngredients() {
     [ingredientsList]
   );
 
-  // получаем информацию об ингредиенте для детального просмотра
-  const ingredientDetails: IngredientModel =
-    useAppSelector(getIngredientDetails);
-
   // чистим стор детального просмотра
   // модалка сама закроется
   const closeModal = () => {
-    dispatch(DETAILS_RESET());
+    // dispatch(DETAILS_RESET());
   };
 
   // активные табы
@@ -172,7 +158,7 @@ export default function BurgerIngredients() {
         )}
       </section>
 
-      {ingredientDetails && (
+      {false && (
         <Modal closeModal={() => closeModal()} title="Детали ингредиента">
           <IngredientDetails />
         </Modal>

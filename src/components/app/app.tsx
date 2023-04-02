@@ -1,17 +1,24 @@
 import { useEffect, useLayoutEffect, useCallback } from "react";
 import AppHeader from "../app-header/app-header";
-import ConstructorPage from "../../pages/constructor-page";
+import {
+  HomePage,
+  NotFoundPage,
+  FeedPage,
+  ProfilePage,
+  IngredientDetailsPages,
+} from "../../pages";
 import { MOBILE_TURN_ON, MOBILE_TURN_OFF } from "../../services/mobile/actions";
+import { INGREDIENTS_REQEST } from "../../services/ingredients-list/actions";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
-import { MOBILE_BREAKPOINT } from "../../utils/vars";
+import { INGREDIENTS, MOBILE_BREAKPOINT } from "../../utils/vars";
 import { getIsMobile } from "../../services/mobile/selectors";
-import { Route, Routes } from "react-router-dom";
-import FeedPage from "../../pages/feed-page";
-import ProfilePage from "../../pages/profile-page";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { getIngredientsRequestSuccess } from "../../services/ingredients-list/selectors";
+import Modal from "../modals/modal/modal";
+import IngredientDetails from "../modals/ingredient-details/ingredient-details";
 
 export default function App() {
   const isMobile: boolean = useAppSelector(getIsMobile);
-
   const dispatch = useAppDispatch();
 
   // меняем стор при проходждении брейкпойнта
@@ -38,15 +45,57 @@ export default function App() {
     };
   });
 
+  // получаем данные по API, если еще не получены
+  const requestSuccess: boolean = useAppSelector(getIngredientsRequestSuccess);
+  useEffect(() => {
+    if (!requestSuccess) dispatch(INGREDIENTS_REQEST(INGREDIENTS));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dispatch]);
+
+  // лайфак из документации для модалок
+  let location = useLocation();
+  let state = location.state as { backgroundLocation?: Location };
+
+  // закрытие модалки
+  let navigate = useNavigate();
+  const closeModal = () => {
+    navigate(-1);
+  };
   return (
     <>
       <AppHeader />
       <main className={isMobile ? "pt-4 pl-4 pr-4" : "pt-10 pl-5 pr-5"}>
-        <Routes>
-          <Route path="/" element={<ConstructorPage />} />
+        <Routes location={state?.backgroundLocation || location}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/login" element={<NotFoundPage />} />
+          <Route path="/reset-password" element={<NotFoundPage />} />
+          <Route path="/register" element={<NotFoundPage />} />
+          <Route path="/ingredients/:id" element={<IngredientDetailsPages />} />
           <Route path="/feed" element={<FeedPage />} />
-          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/feed/:id" element={<NotFoundPage />} />
+          <Route path="/profile" element={<ProfilePage />}>
+            <Route path="orders" element={<NotFoundPage />} />
+            <Route path="orders/:id" element={<NotFoundPage />} />
+          </Route>
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
+
+        {/* Show the modal when a `backgroundLocation` is set */}
+        {state?.backgroundLocation && (
+          <Routes>
+            <Route
+              path="/ingredients/:id"
+              element={
+                <Modal
+                  closeModal={() => closeModal()}
+                  title="Детали ингредиента"
+                >
+                  <IngredientDetails />
+                </Modal>
+              }
+            />
+          </Routes>
+        )}
       </main>
     </>
   );

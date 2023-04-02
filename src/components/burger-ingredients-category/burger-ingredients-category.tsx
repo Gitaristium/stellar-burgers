@@ -19,16 +19,13 @@ const BurgerIngredientsCategory = forwardRef(
         </h2>
         <div className={`${styles.category__list} ml-4 mr-4 mb-2`}>
           {/* пробегаемся по полученному из пропсов массиву, рендерим список ингредиентов */}
-          {props.items.map((item: IngredientModel) => {
-            // const count = counters[item._id];
-            return (
-              <BurgerIngredientsItem
-                item={item}
-                type={props.type}
-                key={item._id}
-              />
-            );
-          })}
+          {props.items.map((item: IngredientModel) => (
+            <BurgerIngredientsItem
+              item={item}
+              type={props.type}
+              key={item._id}
+            />
+          ))}
         </div>
       </>
     );

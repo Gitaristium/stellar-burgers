@@ -1,6 +1,8 @@
 .item {
   position: relative;
   cursor: pointer;
+  text-decoration: none;
+  color: inherit;
   transition: opacity 0.1s;
 }
 .img {

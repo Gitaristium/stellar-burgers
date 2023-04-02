@@ -44,7 +44,12 @@ code {
 .mb-auto {
   margin-bottom: auto !important;
 }
-
+.align-center {
+  text-align: center;
+}
+img {
+  pointer-events: none;
+}
 main {
   position: relative;
   width: 100%;
@@ -53,12 +58,22 @@ main {
   flex: 1;
 }
 
+.container {
+  display: flex;
+  justify-content: center;
+}
+
 .content.two-columns {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 40px;
   height: 100%;
 }
+
+.content .img404 {
+  max-width: 100%;
+}
+
 @media (orientation: portrait), (max-width: 1150px) {
   .content.two-columns {
     grid-template-columns: 1fr;

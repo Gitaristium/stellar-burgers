@@ -5,7 +5,6 @@ import logger from "redux-logger";
 import { mobileReducer } from "../mobile/reducer";
 import { ingredientsListReducer } from "../ingredients-list/reducer";
 import { burgerConstructorReducer } from "../burger-constructor/reducer";
-import { ingredientDetailsReducer } from "../ingredient-details/reducer";
 import { orderDetailsReducer } from "../order-details/reducer";
 
 export const store = configureStore({
@@ -13,7 +12,6 @@ export const store = configureStore({
     mobile: mobileReducer,
     ingredientsList: ingredientsListReducer,
     constructorList: burgerConstructorReducer,
-    ingredientDetails: ingredientDetailsReducer,
     orderDetails: orderDetailsReducer,
   },
   middleware: [thunk, logger],

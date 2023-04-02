@@ -7,6 +7,12 @@ export const getIngredientsList = createSelector(
   (data) => data
 );
 
+// получаем игредиент из общего списка по id
+export const getIngredientById = (id) =>
+  createSelector(storeIngredientsList, (data) =>
+    data.find((el) => el._id === id)
+  );
+
 const storeIngredientsIsLoading = (store) =>
   store.ingredientsList.status.loading;
 export const getIngredientsIsLoading = createSelector(

@@ -122,19 +122,17 @@ export default function BurgerConstructorView() {
                 <>
                   <span className={styles.stuff__inner_span} ref={drop}>
                     {/* пробегаемся по массиву ингредиентов и рендерим список */}
-                    {INGR.map((e: IngredientModel, uuid: number, index) => {
-                      return (
-                        <BurgerConstructorElement
-                          key={uuid}
-                          ingredient={e}
-                          isLocked={false}
-                          extraClass=""
-                          type="ingredients"
-                          moveItem={moveItem}
-                          findItem={findItem}
-                        />
-                      );
-                    })}
+                    {INGR.map((e: IngredientModel) => (
+                      <BurgerConstructorElement
+                        key={e.uuid}
+                        ingredient={e}
+                        isLocked={false}
+                        extraClass=""
+                        type="ingredients"
+                        moveItem={moveItem}
+                        findItem={findItem}
+                      />
+                    ))}
                   </span>
                 </>
               ) : (
