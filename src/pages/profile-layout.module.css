@@ -1,0 +1,7 @@
+.section {
+  display: flex;
+}
+
+.section__mobile {
+  flex-direction: column;
+}

@@ -62,6 +62,7 @@ export default function BurgerIngredientsElement({
 
   return (
     <>
+      <DragPreviewImage connect={dragPreview} src={item.image} />
       <Link
         to={`/ingredients/${item._id}`}
         state={{ backgroundLocation: location }}
@@ -78,7 +79,6 @@ export default function BurgerIngredientsElement({
             extraClass={isMobile ? "" : "m-1"}
           />
         )}
-        <DragPreviewImage connect={dragPreview} src={item.image} />
         <img
           src={item.image}
           alt={item.name}

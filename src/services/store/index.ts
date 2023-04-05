@@ -6,6 +6,7 @@ import { mobileReducer } from "../mobile/reducer";
 import { ingredientsListReducer } from "../ingredients-list/reducer";
 import { burgerConstructorReducer } from "../burger-constructor/reducer";
 import { orderDetailsReducer } from "../order-details/reducer";
+import { userReducer } from "../auth/reducer";
 
 export const store = configureStore({
   reducer: {
@@ -13,8 +14,10 @@ export const store = configureStore({
     ingredientsList: ingredientsListReducer,
     constructorList: burgerConstructorReducer,
     orderDetails: orderDetailsReducer,
+    user: userReducer,
   },
-  middleware: [thunk, logger],
+  // middleware: [thunk, logger],
+  middleware: [thunk],
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

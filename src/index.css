@@ -79,6 +79,12 @@ main {
   max-width: 100%;
 }
 
+.button-locked {
+  pointer-events: none !important;
+  /* background: var(--background-element) !important; */
+  opacity: 0.5 !important;
+}
+
 @media (orientation: portrait), (max-width: 1150px) {
   .content.two-columns {
     grid-template-columns: 1fr;
@@ -109,6 +115,8 @@ main {
   display: block;
 }
 
+a,
+button,
 .remove-select {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
@@ -136,5 +144,6 @@ main {
   line-height: 0.8 !important;
 }
 button {
-  transition: box-shadow 0.3s, filter 0.3s, opacity 0.3s, background 0.3s !important;
+  transition: background-color 0.3s, box-shadow 0.3s, filter 0.3s, opacity 0.3s,
+    background 0.3s !important;
 }

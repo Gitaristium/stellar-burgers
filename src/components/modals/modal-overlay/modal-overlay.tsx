@@ -8,7 +8,7 @@ export default function ModalOverlay({
 }) {
   useEffect(() => {
     const onKeypress = (e: any) => {
-      if (e.key === "Escape") {
+      if (e.key === "Escape" && closeModal) {
         closeModal();
       }
     };

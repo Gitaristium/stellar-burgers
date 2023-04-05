@@ -1,6 +1,6 @@
 import IngredientDetails from "../components/modals/ingredient-details/ingredient-details";
 import Loading from "../components/loading/loading";
-import NotFoundPage from "./404";
+import { ErrorNotFoundPage } from ".";
 import { getIsMobile } from "../services/mobile/selectors";
 import { useAppSelector } from "../services/store/hooks";
 import { IngredientModel } from "../utils/types";
@@ -38,7 +38,7 @@ export default function IngredientDetailsPages() {
         </>
       )}
       {/* если нужный ингредиент не нашелся - рендерим 404 */}
-      {requestSuccess && !ingredientDetails && <NotFoundPage />}
+      {requestSuccess && !ingredientDetails && <ErrorNotFoundPage />}
     </>
   );
 }

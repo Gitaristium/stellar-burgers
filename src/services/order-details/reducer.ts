@@ -28,15 +28,17 @@ export const orderDetailsReducer = createReducer(initialState, (builder) => {
       },
     }))
     // Вызывается в том случае если запрос успешно выполнился
-    .addCase(ORDER_DETAILS_REQUEST.fulfilled, (state, action) => ({
-      // Добавляем пользователя
-      item: action.payload,
-      status: {
-        loading: false,
-        error: false,
-        success: true,
-      },
-    }))
+    .addCase(ORDER_DETAILS_REQUEST.fulfilled, (state, action) => {
+      return {
+        // Добавляем пользователя
+        item: action.payload,
+        status: {
+          loading: false,
+          error: false,
+          success: true,
+        },
+      };
+    })
     // Вызывается в случае ошибки
     .addCase(ORDER_DETAILS_REQUEST.rejected, (state) => ({
       // https://redux-toolkit.js.org/api/createAsyncThunk#handling-thunk-errors

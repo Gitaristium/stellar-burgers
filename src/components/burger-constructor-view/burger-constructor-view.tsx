@@ -16,7 +16,6 @@ import {
 } from "../../services/order-details/actions";
 import { INGREDIENT_MOVE } from "../../services/burger-constructor/actions";
 import styles from "./burger-constructor-view.module.css";
-import { ORDERS } from "../../utils/vars";
 import {
   getOrderDetailsHasError,
   getOrderDetailsIsLoading,
@@ -78,10 +77,7 @@ export default function BurgerConstructorView() {
     ids.push(BUN._id, BUN._id);
 
     let sendData = {
-      URL: ORDERS,
-      bodySend: {
-        ingredients: ids,
-      },
+      ingredients: ids,
     };
     dispatch(ORDER_DETAILS_REQUEST(sendData));
   };

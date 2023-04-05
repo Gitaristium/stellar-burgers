@@ -1,0 +1,13 @@
+.form__mobile {
+  width: 100%;
+}
+.buttons__box {
+  display: flex;
+  justify-content: flex-end;
+}
+.buttons__box__mobile {
+  display: flex;
+  flex-direction: column-reverse;
+  width: fit-content;
+  margin: auto;
+}

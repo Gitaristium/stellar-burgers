@@ -2,14 +2,17 @@ import { useEffect, useLayoutEffect, useCallback } from "react";
 import AppHeader from "../app-header/app-header";
 import {
   HomePage,
-  NotFoundPage,
+  ErrorNotFoundPage,
   FeedPage,
-  ProfilePage,
+  ProfileLayoutPage,
   IngredientDetailsPages,
   LoginPage,
   RegisterPage,
   ForgotPasswordPage,
   ResetPasswordPage,
+  ProfilePage,
+  OrdersPage,
+  OrderDetailsPage,
 } from "../../pages";
 import { MOBILE_TURN_ON, MOBILE_TURN_OFF } from "../../services/mobile/actions";
 import { INGREDIENTS_REQEST } from "../../services/ingredients-list/actions";
@@ -77,12 +80,14 @@ export default function App() {
           <Route path="/reset-password" element={<ResetPasswordPage />} />
           <Route path="/ingredients/:id" element={<IngredientDetailsPages />} />
           <Route path="/feed" element={<FeedPage />} />
-          <Route path="/feed/:id" element={<NotFoundPage />} />
-          <Route path="/profile" element={<ProfilePage />}>
-            <Route path="orders" element={<NotFoundPage />} />
-            <Route path="orders/:id" element={<NotFoundPage />} />
+          <Route path="/feed/:id" element={<ErrorNotFoundPage />} />
+          <Route path="/profile/*" element={<ProfileLayoutPage />}>
+            <Route index element={<ProfilePage />} />
+            <Route path="orders" element={<OrdersPage />} />
+            <Route path="orders/:id" element={<OrderDetailsPage />} />
+            <Route path="*" element={<ErrorNotFoundPage />} />
           </Route>
-          <Route path="*" element={<NotFoundPage />} />
+          <Route path="*" element={<ErrorNotFoundPage />} />
         </Routes>
 
         {/* Show the modal when a `backgroundLocation` is set */}

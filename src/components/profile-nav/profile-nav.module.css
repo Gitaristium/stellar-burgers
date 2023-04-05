@@ -1,0 +1,17 @@
+.nav {
+  max-width: 320px;
+}
+.nav__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.nav__list_item {
+  display: flex;
+  align-items: center;
+  height: 64px;
+}
+
+.active {
+  color: inherit;
+}
