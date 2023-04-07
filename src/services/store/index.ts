@@ -16,8 +16,7 @@ export const store = configureStore({
         orderDetails: orderDetailsReducer,
         user: userReducer,
     },
-    // middleware: [thunk, logger],
-    middleware: [thunk],
+    middleware: [thunk, logger],
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

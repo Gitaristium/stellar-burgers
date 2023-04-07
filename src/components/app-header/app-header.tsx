@@ -57,9 +57,9 @@ export default function AppHeader() {
                     </>
                 ) : (
                     // лого для десктопа
-                    <span className={styles.logo}>
+                    <Link className={styles.logo} to={HOME_PATH}>
                         <Logo />
-                    </span>
+                    </Link>
                 )}
 
                 <nav

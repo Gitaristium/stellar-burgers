@@ -35,7 +35,8 @@ import {
     ID_PATH,
     FEED_PATH,
     PROFILE_PATH,
-    ORDERS_PATH,
+    _ORDERS_PATH,
+    _ALL_PATH,
 } from "../../utils/vars";
 import { getIsMobile } from "../../services/mobile/selectors";
 import { getIngredientsRequestSuccess } from "../../services/ingredients-list/selectors";
@@ -132,13 +133,13 @@ export default function App() {
                         element={<OnlyAuth component={<ProfileLayoutPage />} />}
                     >
                         <Route index element={<ProfilePage />} />
-                        <Route path={ORDERS_PATH} element={<OrdersPage />} />
+                        <Route path={_ORDERS_PATH} element={<OrdersPage />} />
                         <Route
-                            path={ORDERS_PATH + ID_PATH}
+                            path={_ORDERS_PATH + ID_PATH}
                             element={<OrderDetailsPage />}
                         />
                         <Route
-                            path={ALL_PATH}
+                            path={_ALL_PATH}
                             element={<ErrorNotFoundPage />}
                         />
                     </Route>
