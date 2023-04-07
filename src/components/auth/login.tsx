@@ -22,11 +22,12 @@ export default function Login() {
     const isLoading = useAppSelector(getUserLoginIsLoading);
     const hasError = useAppSelector(getUserLoginHasError);
 
+    // работаем с формой
     const { formRef, formState, handleChange } = useForm();
-
+    const isFormFilled = formState.email && formState.password;
     const handleSubmit = (e: { preventDefault: () => void }) => {
         e.preventDefault();
-        if (formState.email && formState.password) {
+        if (isFormFilled) {
             const sendData = {
                 email: formState.email,
                 password: formState.password,
@@ -34,6 +35,7 @@ export default function Login() {
             dispatch(USER_LOGIN(sendData));
         }
     };
+
     return (
         <>
             <form className={styles.form} ref={formRef} onSubmit={handleSubmit}>
@@ -61,11 +63,7 @@ export default function Login() {
                     size={`${!isMobile ? "medium" : "small"}`}
                     extraClass={`${!isMobile ? "mb-20" : "mb-10"} ${
                         isLoading ? "button-locked" : ""
-                    } ${
-                        formState.email && formState.password
-                            ? ""
-                            : "button-locked"
-                    }`}
+                    } ${isFormFilled ? "" : "button-locked"}`}
                 >
                     {isLoading ? "Загрузка" : "Войти"}
                 </Button>

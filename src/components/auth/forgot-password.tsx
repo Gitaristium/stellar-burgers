@@ -23,8 +23,8 @@ export default function ResetPass() {
     const hasError = useAppSelector(getUserResetHasError);
     const requestSuccess = useAppSelector(getUserResetRequestSuccess);
 
+    // работаем с формой
     const { formRef, formState, handleChange } = useForm();
-
     const handleSubmit = (e: { preventDefault: () => void }) => {
         e.preventDefault();
         if (formState.email) {

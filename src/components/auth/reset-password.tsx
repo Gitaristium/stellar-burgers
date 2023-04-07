@@ -28,11 +28,12 @@ export default function ResetPassword() {
     );
     const resetRequestSuccess = useAppSelector(getUserResetRequestSuccess);
 
+    // работаем с формой
     const { formRef, formState, handleChange } = useForm();
-
+    const isFormFilled = formState.password && formState.code;
     const handleSubmit = (e: { preventDefault: () => void }) => {
         e.preventDefault();
-        if (formState.password && formState.code) {
+        if (isFormFilled) {
             const sendData = {
                 password: formState.password,
                 token: formState.code,
@@ -78,11 +79,7 @@ export default function ResetPassword() {
                         size={`${!isMobile ? "medium" : "small"}`}
                         extraClass={`${!isMobile ? "mb-20" : "mb-10"} ${
                             isLoading ? "button-locked" : ""
-                        } ${
-                            formState.password && formState.code
-                                ? ""
-                                : "button-locked"
-                        }`}
+                        } ${isFormFilled ? "" : "button-locked"}`}
                     >
                         {isLoading ? "Загрузка" : "Сохранить"}
                     </Button>

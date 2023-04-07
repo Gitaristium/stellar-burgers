@@ -29,6 +29,7 @@ export default function ProfileEdit() {
         getUserUpdateRequestSuccess
     );
 
+    // работаем с формой
     const {
         formRef,
         formState,
@@ -40,15 +41,21 @@ export default function ProfileEdit() {
         lockNameInput,
     } = useForm();
 
+    const isFormChange =
+        userName !== formState.name ||
+        userEmail !== formState.email ||
+        formState.password;
+
     const handleSubmit = (e: { preventDefault: () => void }) => {
         e.preventDefault();
-        if (formState.name && formState.email && formState.password) {
+        if (isFormChange) {
             const sendData = {
                 name: formState.name,
                 email: formState.email,
                 password: formState.password,
             };
             dispatch(USER_UPDATE(sendData));
+            // а это число для очистики инпута пароля - для красоты
             handleReset(e);
         }
     };
@@ -111,11 +118,7 @@ export default function ProfileEdit() {
                         type="secondary"
                         size={`${!isMobile ? "medium" : "small"}`}
                         extraClass={`mb-2 ${
-                            userName !== formState.name ||
-                            userEmail !== formState.email ||
-                            formState.password
-                                ? ""
-                                : "button-locked"
+                            isFormChange ? "" : "button-locked"
                         } ${userUpdateIsLoading ? "button-locked" : ""}`}
                         onClick={handleReset}
                     >
@@ -126,11 +129,7 @@ export default function ProfileEdit() {
                         type="primary"
                         size={`${!isMobile ? "medium" : "small"}`}
                         extraClass={`mb-2 ${
-                            userName !== formState.name ||
-                            userEmail !== formState.email ||
-                            formState.password
-                                ? ""
-                                : "button-locked"
+                            isFormChange ? "" : "button-locked"
                         } ${userUpdateIsLoading ? "button-locked" : ""}`}
                     >
                         {userUpdateIsLoading ? "Загрузка" : "Сохранить"}

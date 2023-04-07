@@ -1,20 +1,30 @@
-import { ChangeEvent, useRef, useState } from "react";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useAppSelector } from "../services/store/hooks";
 import { getUserEmail, getUserName } from "../services/auth/selectors";
 
 export const useForm = () => {
     const formRef = useRef<HTMLFormElement>(null);
 
-    // заполняем ланные в профиле, если пользователь авторизован
+    // заполняем данные в профиле, если пользователь авторизован
     const userName = useAppSelector(getUserName);
     const userEmail = useAppSelector(getUserEmail);
 
-    const initialSate = {
+    let initialSate = {
         name: userName || "",
         email: userEmail || "",
         password: "",
         code: "",
     };
+
+    useEffect(() => {
+        setFormState({
+            ...formState,
+            name: userName,
+            email: userEmail,
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [userEmail, userName]);
+
     const [formState, setFormState] = useState(initialSate);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement>) => {

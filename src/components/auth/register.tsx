@@ -23,11 +23,13 @@ export default function Register() {
     const isLoading = useAppSelector(getUserRegisterIsLoading);
     const hasError = useAppSelector(getUserRegisterHasError);
 
+    // работаем с формой
     const { formRef, formState, handleChange } = useForm();
-
+    const isFormFilled =
+        formState.name && formState.email && formState.password;
     const handleSubmit = (e: { preventDefault: () => void }) => {
         e.preventDefault();
-        if (formState.name && formState.email && formState.password) {
+        if (isFormFilled) {
             const sendData = {
                 email: formState.email,
                 password: formState.password,
@@ -76,11 +78,7 @@ export default function Register() {
                     size={`${!isMobile ? "medium" : "small"}`}
                     extraClass={`${!isMobile ? "mb-20" : "mb-10"} ${
                         isLoading ? "button-locked" : ""
-                    } ${
-                        formState.name && formState.email && formState.password
-                            ? ""
-                            : "button-locked"
-                    }`}
+                    } ${isFormFilled ? "" : "button-locked"}`}
                 >
                     {isLoading ? "Загрузка" : "Зарегистрироваться"}
                 </Button>
