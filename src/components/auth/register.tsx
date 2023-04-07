@@ -50,6 +50,7 @@ export default function Register() {
                     errorText={"Ошибка"}
                     size={`${isMobile ? "small" : "default"}`}
                     extraClass={`mb-6 ${isMobile ? "input__mobile" : ""}`}
+                    autoComplete="on"
                 />
                 <EmailInput
                     onChange={handleChange}
@@ -59,6 +60,7 @@ export default function Register() {
                     size={`${isMobile ? "small" : "default"}`}
                     extraClass={`mb-6 ${isMobile ? "input__mobile" : ""}`}
                     width="100%"
+                    autoComplete="on"
                 />
                 <PasswordInput
                     onChange={handleChange}
@@ -66,6 +68,7 @@ export default function Register() {
                     name={"password"}
                     size={`${isMobile ? "small" : "default"}`}
                     extraClass={`mb-6 ${isMobile ? "input__mobile" : ""}`}
+                    autoComplete="on"
                 />
                 <Button
                     htmlType="submit"

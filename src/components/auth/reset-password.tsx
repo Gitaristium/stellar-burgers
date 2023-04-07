@@ -58,6 +58,7 @@ export default function ResetPassword() {
                         placeholder={"Введите новый пароль"}
                         size={`${isMobile ? "small" : "default"}`}
                         extraClass={`mb-6 ${isMobile ? "input__mobile" : ""}`}
+                        autoComplete="on"
                     />
                     <Input
                         type={"text"}
@@ -69,6 +70,7 @@ export default function ResetPassword() {
                         errorText={"Ошибка"}
                         size={`${isMobile ? "small" : "default"}`}
                         extraClass={`mb-6 ${isMobile ? "input__mobile" : ""}`}
+                        autoComplete="on"
                     />
                     <Button
                         htmlType="submit"

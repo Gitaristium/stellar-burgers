@@ -46,6 +46,7 @@ export default function ResetPass() {
                     isIcon={false}
                     size={`${isMobile ? "small" : "default"}`}
                     extraClass={`mb-6 ${isMobile ? "input__mobile" : ""}`}
+                    autoComplete="on"
                 />
                 <Button
                     htmlType="submit"

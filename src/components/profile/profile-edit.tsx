@@ -75,6 +75,7 @@ export default function ProfileEdit() {
                     onIconClick={unlockNameInput}
                     onBlur={lockNameInput}
                     extraClass={`mb-6 ${isMobile ? "input__mobile" : ""}`}
+                    autoComplete="on"
                 />
                 <EmailInput
                     onChange={handleChange}
@@ -84,6 +85,7 @@ export default function ProfileEdit() {
                     size={`${isMobile ? "small" : "default"}`}
                     extraClass={`mb-6 ${isMobile ? "input__mobile" : ""}`}
                     width="100%"
+                    autoComplete="on"
                 />
                 <PasswordInput
                     onChange={handleChange}
@@ -92,6 +94,7 @@ export default function ProfileEdit() {
                     size={`${isMobile ? "small" : "default"}`}
                     icon={"EditIcon"}
                     extraClass={`mb-6 ${isMobile ? "input__mobile" : ""}`}
+                    autoComplete="on"
                 />
                 <span
                     className={
