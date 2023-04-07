@@ -14,6 +14,7 @@ import {
 } from "../../services/auth/selectors";
 import { USER_RESET } from "../../services/auth/actions";
 import Notice from "../modals/notice/notice";
+import { LOGIN_PATH, RESET_PASS_PATH } from "../../utils/vars";
 
 export default function ResetPass() {
     const isMobile: boolean = useAppSelector(getIsMobile);
@@ -64,7 +65,7 @@ export default function ResetPass() {
                     >
                         Вспомнили пароль?
                     </span>
-                    <Link to={"/login"} className="text_type_main-default ">
+                    <Link to={LOGIN_PATH} className="text_type_main-default ">
                         Войти
                     </Link>
                 </span>
@@ -77,7 +78,7 @@ export default function ResetPass() {
                 />
             )}
 
-            {requestSuccess && <Navigate to={"/reset-password"} />}
+            {requestSuccess && <Navigate to={RESET_PASS_PATH} />}
         </>
     );
 }

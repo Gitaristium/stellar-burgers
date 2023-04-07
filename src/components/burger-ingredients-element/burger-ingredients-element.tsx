@@ -11,6 +11,7 @@ import { ConstructorModel, IngredientModel } from "../../utils/types";
 import { getСonstructorList } from "../../services/burger-constructor/selectors";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import { getIsMobile } from "../../services/mobile/selectors";
+import { INGREDIENTS_PATH } from "../../utils/vars";
 
 export default function BurgerIngredientsElement({
     item,
@@ -65,7 +66,7 @@ export default function BurgerIngredientsElement({
         <>
             <DragPreviewImage connect={dragPreview} src={item.image} />
             <Link
-                to={`/ingredients/${item._id}`}
+                to={INGREDIENTS_PATH + "/" + item._id}
                 state={{ backgroundLocation: location }}
                 className={`${styles.item} mb-8 remove-select`}
                 key={item._id}

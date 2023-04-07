@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import styles from "./profile-nav.module.css";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import { USER_LOGOUT } from "../../services/auth/actions";
+import { ORDERS_PATH, PROFILE_PATH } from "../../utils/vars";
 
 export default function ProfileNav({
     isSubMenuOpen,
@@ -36,7 +37,7 @@ export default function ProfileNav({
                                     : "text_type_main-default   mt-4 mb-4 ml-5 mr-5"
                             }`
                         }
-                        to="/profile"
+                        to={PROFILE_PATH}
                         end={true}
                     >
                         Профиль
@@ -54,7 +55,7 @@ export default function ProfileNav({
                                     : "text_type_main-default   mt-4 mb-4 ml-5 mr-5"
                             }`
                         }
-                        to="/profile/orders"
+                        to={PROFILE_PATH + ORDERS_PATH}
                     >
                         История заказов
                     </NavLink>

@@ -14,6 +14,7 @@ import {
     getUserLoginIsLoading,
 } from "../../services/auth/selectors";
 import Notice from "../modals/notice/notice";
+import { FORGOT_PASS_PATH, REGISTER_PATH } from "../../utils/vars";
 
 export default function Login() {
     const isMobile: boolean = useAppSelector(getIsMobile);
@@ -74,7 +75,10 @@ export default function Login() {
                     >
                         Вы — новый пользователь?
                     </span>
-                    <Link to={"/register"} className="text_type_main-default ">
+                    <Link
+                        to={REGISTER_PATH}
+                        className="text_type_main-default "
+                    >
                         Зарегистрироваться
                     </Link>
                 </span>
@@ -87,7 +91,7 @@ export default function Login() {
                         Забыли пароль?
                     </span>
                     <Link
-                        to={"/forgot-password"}
+                        to={FORGOT_PASS_PATH}
                         className="text_type_main-default"
                     >
                         Восстановить пароль

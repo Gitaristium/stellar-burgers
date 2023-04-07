@@ -2,6 +2,7 @@ import { getIsAuthChecked, getUser } from "../../services/auth/selectors";
 import { useAppSelector } from "../../services/store/hooks";
 import { Navigate, useLocation } from "react-router-dom";
 import Loading from "../loading/loading";
+import { LOGIN_PATH } from "../../utils/vars";
 
 const ProtectedRoute = ({
     onlyAuth = true,
@@ -28,7 +29,7 @@ const ProtectedRoute = ({
 
     if (!user && onlyAuth) {
         // пользователь неавторизован, но роут для авторизованных пользователей
-        return <Navigate to="/login" state={{ from: location }} />;
+        return <Navigate to={LOGIN_PATH} state={{ from: location }} />;
     }
 
     // авторизация пользователя и доступ к роуту совпадают`

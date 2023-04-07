@@ -22,7 +22,21 @@ import { USER_CHECK_AUTH } from "../../services/auth/actions";
 import { MOBILE_TURN_ON, MOBILE_TURN_OFF } from "../../services/mobile/actions";
 import { INGREDIENTS_REQEST } from "../../services/ingredients-list/actions";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
-import { INGREDIENTS, MOBILE_BREAKPOINT } from "../../utils/vars";
+import {
+    INGREDIENTS,
+    MOBILE_BREAKPOINT,
+    ALL_PATH,
+    HOME_PATH,
+    LOGIN_PATH,
+    REGISTER_PATH,
+    FORGOT_PASS_PATH,
+    RESET_PASS_PATH,
+    INGREDIENTS_PATH,
+    ID_PATH,
+    FEED_PATH,
+    PROFILE_PATH,
+    ORDERS_PATH,
+} from "../../utils/vars";
 import { getIsMobile } from "../../services/mobile/selectors";
 import { getIngredientsRequestSuccess } from "../../services/ingredients-list/selectors";
 
@@ -83,53 +97,59 @@ export default function App() {
             <AppHeader />
             <main className={isMobile ? "pt-4 pl-4 pr-4" : "pt-10 pl-5 pr-5"}>
                 <Routes location={state?.backgroundLocation || location}>
-                    <Route path="/" element={<HomePage />} />
+                    <Route path={HOME_PATH} element={<HomePage />} />
                     <Route
-                        path="/login"
+                        path={LOGIN_PATH}
                         element={<OnlyUnAuth component={<LoginPage />} />}
                     />
                     <Route
-                        path="/register"
+                        path={REGISTER_PATH}
                         element={<OnlyUnAuth component={<RegisterPage />} />}
                     />
                     <Route
-                        path="/forgot-password"
+                        path={FORGOT_PASS_PATH}
                         element={
                             <OnlyUnAuth component={<ForgotPasswordPage />} />
                         }
                     />
                     <Route
-                        path="/reset-password"
+                        path={RESET_PASS_PATH}
                         element={
                             <OnlyUnAuth component={<ResetPasswordPage />} />
                         }
                     />
                     <Route
-                        path="/ingredients/:id"
+                        path={INGREDIENTS_PATH + ID_PATH}
                         element={<IngredientDetailsPages />}
                     />
-                    <Route path="/feed" element={<FeedPage />} />
-                    <Route path="/feed/:id" element={<ErrorNotFoundPage />} />
+                    <Route path={FEED_PATH} element={<FeedPage />} />
                     <Route
-                        path="/profile/*"
+                        path={FEED_PATH + ID_PATH}
+                        element={<ErrorNotFoundPage />}
+                    />
+                    <Route
+                        path={PROFILE_PATH + ALL_PATH}
                         element={<OnlyAuth component={<ProfileLayoutPage />} />}
                     >
                         <Route index element={<ProfilePage />} />
-                        <Route path="orders" element={<OrdersPage />} />
+                        <Route path={ORDERS_PATH} element={<OrdersPage />} />
                         <Route
-                            path="orders/:id"
+                            path={ORDERS_PATH + ID_PATH}
                             element={<OrderDetailsPage />}
                         />
-                        <Route path="*" element={<ErrorNotFoundPage />} />
+                        <Route
+                            path={ALL_PATH}
+                            element={<ErrorNotFoundPage />}
+                        />
                     </Route>
-                    <Route path="*" element={<ErrorNotFoundPage />} />
+                    <Route path={ALL_PATH} element={<ErrorNotFoundPage />} />
                 </Routes>
 
                 {/* показываем модалку, если есть `backgroundLocation` */}
                 {state?.backgroundLocation && (
                     <Routes>
                         <Route
-                            path="/ingredients/:id"
+                            path={INGREDIENTS_PATH + ID_PATH}
                             element={
                                 <Modal
                                     closeModal={() => closeModal()}

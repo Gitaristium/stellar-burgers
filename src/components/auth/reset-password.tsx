@@ -16,6 +16,7 @@ import {
 } from "../../services/auth/selectors";
 import { USER_RESET_CONFIRM } from "../../services/auth/actions";
 import Notice from "../modals/notice/notice";
+import { FORGOT_PASS_PATH, LOGIN_PATH } from "../../utils/vars";
 
 export default function ResetPassword() {
     const isMobile: boolean = useAppSelector(getIsMobile);
@@ -42,7 +43,7 @@ export default function ResetPassword() {
 
     return (
         <>
-            {!resetRequestSuccess && <Navigate to={"/forgot-password"} />}
+            {!resetRequestSuccess && <Navigate to={FORGOT_PASS_PATH} />}
 
             {resetRequestSuccess && (
                 <form
@@ -91,7 +92,10 @@ export default function ResetPassword() {
                         >
                             Вспомнили пароль?
                         </span>
-                        <Link to={"/login"} className="text_type_main-default ">
+                        <Link
+                            to={LOGIN_PATH}
+                            className="text_type_main-default "
+                        >
                             Войти
                         </Link>
                     </span>
@@ -103,7 +107,7 @@ export default function ResetPassword() {
             )}
             {hasError && <Notice text="Указан неверный код" type="error" />}
 
-            {resetConfirmRequestSuccess && <Navigate to={"/login"} />}
+            {resetConfirmRequestSuccess && <Navigate to={LOGIN_PATH} />}
         </>
     );
 }

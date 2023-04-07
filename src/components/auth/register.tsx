@@ -15,6 +15,7 @@ import {
     getUserRegisterHasError,
 } from "../../services/auth/selectors";
 import Notice from "../modals/notice/notice";
+import { LOGIN_PATH } from "../../utils/vars";
 
 export default function Register() {
     const isMobile: boolean = useAppSelector(getIsMobile);
@@ -89,7 +90,7 @@ export default function Register() {
                     >
                         Уже зарегистрированы?
                     </span>
-                    <Link to={"/login"} className="text_type_main-default ">
+                    <Link to={LOGIN_PATH} className="text_type_main-default ">
                         Войти
                     </Link>
                 </span>

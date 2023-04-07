@@ -13,6 +13,7 @@ import logoMobile from "../../images/logo__mobile.svg";
 import styles from "./app-header.module.css";
 import { useAppSelector } from "../../services/store/hooks";
 import ProfileNav from "../profile-nav/profile-nav";
+import { FEED_PATH, HOME_PATH, PROFILE_PATH } from "../../utils/vars";
 
 export default function AppHeader() {
     const isMobile: boolean = useAppSelector((state: any) => state.mobile);
@@ -45,7 +46,7 @@ export default function AppHeader() {
                             className={`${styles.logo__mobile} ml-3 mr-3 ${
                                 isMenuOpen ? styles.hide : ""
                             }`}
-                            to={"/"}
+                            to={HOME_PATH}
                         >
                             <img src={logoMobile} alt="logo" />
                         </Link>
@@ -134,7 +135,7 @@ export default function AppHeader() {
                                         styles.link
                                     } text text_type_main-default  mt-4 mb-4 ml-5 mr-5`
                                 }
-                                to="/"
+                                to={HOME_PATH}
                             >
                                 <BurgerIcon
                                     type={
@@ -157,7 +158,7 @@ export default function AppHeader() {
                                         styles.link
                                     } text text_type_main-default  mt-4 mb-4 ml-5 mr-5`
                                 }
-                                to="/feed"
+                                to={FEED_PATH}
                             >
                                 <ListIcon
                                     type={matchFeed ? "primary" : "secondary"}
@@ -177,7 +178,7 @@ export default function AppHeader() {
                                             styles.link
                                         } text text_type_main-default  mt-4 mb-4 ml-5 mr-5`
                                     }
-                                    to="/profile"
+                                    to={PROFILE_PATH}
                                 >
                                     <ProfileIcon
                                         type={
