@@ -3,6 +3,7 @@ import { useAppSelector } from "../../services/store/hooks";
 import { Navigate, useLocation } from "react-router-dom";
 import Loading from "../loading/loading";
 import { LOGIN_PATH } from "../../utils/vars";
+import { ReactNode } from "react";
 
 const ProtectedRoute = ({
     onlyAuth = true,
@@ -37,6 +38,6 @@ const ProtectedRoute = ({
 };
 
 export const OnlyAuth = ProtectedRoute;
-export const OnlyUnAuth = ({ component }: { component: any }) => (
+export const OnlyUnAuth = ({ component }: { component: ReactNode }) => (
     <ProtectedRoute onlyAuth={false} component={component} />
 );

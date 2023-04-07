@@ -1,5 +1,4 @@
 export interface IngredientModel {
-    find(arg0: (el: any) => boolean): unknown;
     _id: string;
     name: string;
     type: string;

@@ -26,9 +26,10 @@ import { ConstructorModel, IngredientModel } from "../../utils/types";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import { getUser } from "../../services/auth/selectors";
 import { useLocation, useNavigate } from "react-router-dom";
+import { getIsMobile } from "../../services/mobile/selectors";
 
 export default function BurgerConstructorView() {
-    const isMobile: boolean = useAppSelector((state: any) => state.mobile);
+    const isMobile: boolean = useAppSelector(getIsMobile);
 
     // список всех ингредиентов, полученных по API
     const isLoading: boolean[] = useAppSelector(getOrderDetailsIsLoading);
@@ -86,7 +87,7 @@ export default function BurgerConstructorView() {
 
     // получаем данные заказа по API
     const getOrderDetails = () => {
-        let ids: string[] = INGR.map((x: any) => x._id);
+        let ids: string[] = INGR.map((x: IngredientModel) => x._id);
 
         ids.push(BUN._id, BUN._id);
 
