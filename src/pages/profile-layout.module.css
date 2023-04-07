@@ -1,7 +1,7 @@
 .section {
-  display: flex;
+    display: flex;
 }
 
 .section__mobile {
-  flex-direction: column;
+    flex-direction: column;
 }

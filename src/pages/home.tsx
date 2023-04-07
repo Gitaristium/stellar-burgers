@@ -4,12 +4,12 @@ import BurgerIngredients from "../components/burger-ingredients/burger-ingredien
 import BurgerConstructor from "../components/burger-constructor/burger-constructor";
 
 export default function HomePage() {
-  return (
-    <div className="content two-columns">
-      <DndProvider backend={HTML5Backend}>
-        <BurgerIngredients />
-        <BurgerConstructor />
-      </DndProvider>
-    </div>
-  );
+    return (
+        <div className="content two-columns">
+            <DndProvider backend={HTML5Backend}>
+                <BurgerIngredients />
+                <BurgerConstructor />
+            </DndProvider>
+        </div>
+    );
 }

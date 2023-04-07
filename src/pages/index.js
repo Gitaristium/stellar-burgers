@@ -12,16 +12,16 @@ import ResetPasswordPage from "./reset-password";
 import ErrorNotFoundPage from "./404";
 
 export {
-  HomePage,
-  ErrorNotFoundPage,
-  FeedPage,
-  ProfileLayoutPage,
-  ProfilePage,
-  OrdersPage,
-  OrderDetailsPage,
-  IngredientDetailsPages,
-  LoginPage,
-  RegisterPage,
-  ForgotPasswordPage,
-  ResetPasswordPage,
+    HomePage,
+    ErrorNotFoundPage,
+    FeedPage,
+    ProfileLayoutPage,
+    ProfilePage,
+    OrdersPage,
+    OrderDetailsPage,
+    IngredientDetailsPages,
+    LoginPage,
+    RegisterPage,
+    ForgotPasswordPage,
+    ResetPasswordPage,
 };

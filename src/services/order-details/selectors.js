@@ -4,29 +4,25 @@ import { createSelector } from "reselect";
 const storeOrderDetails = (store) => store.orderDetails.item;
 
 export const getOrderDetails = createSelector(
-  storeOrderDetails,
-  (data) => data
+    storeOrderDetails,
+    (data) => data
 );
 export const getOrderNumber = createSelector(
-  storeOrderDetails,
-  (data) => data.order.number
+    storeOrderDetails,
+    (data) => data.order.number
 );
 
-const storeOrderDetailsIsLoading = (store) => store.orderDetails.status.loading;
 export const getOrderDetailsIsLoading = createSelector(
-  storeOrderDetailsIsLoading,
-  (data) => data
+    (store) => store.orderDetails.status.loading,
+    (data) => data
 );
 
-const storeOrderDetailsHasError = (store) => store.orderDetails.status.error;
 export const getOrderDetailsHasError = createSelector(
-  storeOrderDetailsHasError,
-  (data) => data
+    (store) => store.orderDetails.status.error,
+    (data) => data
 );
 
-const storeOrderDetailsRequestSuccess = (store) =>
-  store.orderDetails.status.success;
 export const getOrderDetailsRequestSuccess = createSelector(
-  storeOrderDetailsRequestSuccess,
-  (data) => data
+    (store) => store.orderDetails.status.success,
+    (data) => data
 );
