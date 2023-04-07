@@ -2,6 +2,7 @@ import { useDrop } from "react-dnd";
 import { INGREDIENT_ADD } from "../../services/burger-constructor/actions";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import styles from "./burger-constructor-element.module.css";
+import { getIsMobile } from "../../services/mobile/selectors";
 
 export default function BurgerConstructorElementEmpty(props: {
     isLocked?: boolean;
@@ -9,7 +10,7 @@ export default function BurgerConstructorElementEmpty(props: {
     extraClass?: string;
     type: string;
 }) {
-    const isMobile: boolean = useAppSelector((state: any) => state.mobile);
+    const isMobile: boolean = useAppSelector(getIsMobile);
 
     // ловим drag&drop
     const dispatch = useAppDispatch();

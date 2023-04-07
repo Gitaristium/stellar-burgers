@@ -4,13 +4,14 @@ import ModalOverlay from "../modal-overlay/modal-overlay";
 import CloseModal from "../close-modal/close-modal";
 import styles from "./modal.module.css";
 import { useAppSelector } from "../../../services/store/hooks";
+import { getIsMobile } from "../../../services/mobile/selectors";
 
 export default function Modal(props: {
     closeModal: () => void;
     title?: string;
     children: ReactNode;
 }) {
-    const isMobile: boolean = useAppSelector((state: any) => state.mobile);
+    const isMobile: boolean = useAppSelector(getIsMobile);
 
     return ReactDOM.createPortal(
         <>

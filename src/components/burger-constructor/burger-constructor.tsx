@@ -8,9 +8,10 @@ import Modal from "../modals/modal/modal";
 import TotalPrice from "../total-price/total-price";
 import styles from "./burger-constructor.module.css";
 import { useAppSelector } from "../../services/store/hooks";
+import { getIsMobile } from "../../services/mobile/selectors";
 
 export default function BurgerConstructor() {
-    const isMobile: boolean = useAppSelector((state: any) => state.mobile);
+    const isMobile: boolean = useAppSelector(getIsMobile);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     return (

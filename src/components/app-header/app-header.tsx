@@ -14,9 +14,10 @@ import styles from "./app-header.module.css";
 import { useAppSelector } from "../../services/store/hooks";
 import ProfileNav from "../profile-nav/profile-nav";
 import { FEED_PATH, HOME_PATH, PROFILE_PATH } from "../../utils/vars";
+import { getIsMobile } from "../../services/mobile/selectors";
 
 export default function AppHeader() {
-    const isMobile: boolean = useAppSelector((state: any) => state.mobile);
+    const isMobile: boolean = useAppSelector(getIsMobile);
 
     // дла определения цвета иконов в меню
     const matchContructor = useMatch("/");

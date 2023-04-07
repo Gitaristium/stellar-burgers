@@ -12,6 +12,7 @@ import {
 import styles from "./burger-constructor-element.module.css";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import { IngredientModel } from "../../utils/types";
+import { getIsMobile } from "../../services/mobile/selectors";
 
 export default function BurgerConstructorElement(props: {
     ingredient: IngredientModel;
@@ -22,7 +23,7 @@ export default function BurgerConstructorElement(props: {
     moveItem: (id: string, to: number) => void;
     findItem: (id: string) => { index: number };
 }) {
-    const isMobile: boolean = useAppSelector((state: any) => state.mobile);
+    const isMobile: boolean = useAppSelector(getIsMobile);
 
     // ловим drag&drop из списка ингредиентов в конструктор
     const dispatch = useAppDispatch();

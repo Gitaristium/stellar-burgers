@@ -3,13 +3,14 @@ import styles from "./profile-nav.module.css";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import { USER_LOGOUT } from "../../services/auth/actions";
 import { ORDERS_PATH, PROFILE_PATH } from "../../utils/vars";
+import { getIsMobile } from "../../services/mobile/selectors";
 
 export default function ProfileNav({
     isSubMenuOpen,
 }: {
     isSubMenuOpen?: boolean;
 }) {
-    const isMobile: boolean = useAppSelector((state: any) => state.mobile);
+    const isMobile: boolean = useAppSelector(getIsMobile);
     const dispatch = useAppDispatch();
     const logout = () => {
         dispatch(USER_LOGOUT());
