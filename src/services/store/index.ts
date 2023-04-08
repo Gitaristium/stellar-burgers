@@ -2,21 +2,21 @@ import { configureStore } from "@reduxjs/toolkit";
 import type {} from "redux-thunk/extend-redux";
 import thunk from "redux-thunk";
 import logger from "redux-logger";
-import { mobileReducer } from "../reducers/mobile";
-import { ingredientsListReducer } from "../reducers/burger-ingredients";
-import { constructorListReducer } from "../reducers/constructor-ingredients";
-import { ingredientDetailsReducer } from "../reducers/ingredient-details";
-import { orderDetailsReducer } from "../reducers/order-details";
+import { mobileReducer } from "../mobile/reducer";
+import { ingredientsListReducer } from "../ingredients-list/reducer";
+import { burgerConstructorReducer } from "../burger-constructor/reducer";
+import { orderDetailsReducer } from "../order-details/reducer";
+import { userReducer } from "../auth/reducer";
 
 export const store = configureStore({
-  reducer: {
-    mobile: mobileReducer,
-    ingredientsList: ingredientsListReducer,
-    constructorList: constructorListReducer,
-    ingredientDetails: ingredientDetailsReducer,
-    orderDetails: orderDetailsReducer,
-  },
-  middleware: [thunk, logger],
+    reducer: {
+        mobile: mobileReducer,
+        ingredientsList: ingredientsListReducer,
+        constructorList: burgerConstructorReducer,
+        orderDetails: orderDetailsReducer,
+        user: userReducer,
+    },
+    middleware: [thunk, logger],
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

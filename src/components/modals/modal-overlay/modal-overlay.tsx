@@ -2,23 +2,23 @@ import { useEffect } from "react";
 import styles from "./modal-overlay.module.css";
 
 export default function ModalOverlay({
-  closeModal,
+    closeModal,
 }: {
-  closeModal: () => void;
+    closeModal: () => void;
 }) {
-  useEffect(() => {
-    const onKeypress = (e: any) => {
-      if (e.key === "Escape") {
-        closeModal();
-      }
-    };
+    useEffect(() => {
+        const onKeypress = (e: any) => {
+            if (e.key === "Escape" && closeModal) {
+                closeModal();
+            }
+        };
 
-    document.addEventListener("keydown", onKeypress);
+        document.addEventListener("keydown", onKeypress);
 
-    return () => {
-      document.removeEventListener("keydown", onKeypress);
-    };
-  });
+        return () => {
+            document.removeEventListener("keydown", onKeypress);
+        };
+    });
 
-  return <div className={styles.overlay} onClick={closeModal}></div>;
+    return <div className={styles.overlay} onClick={closeModal}></div>;
 }

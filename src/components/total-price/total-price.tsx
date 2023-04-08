@@ -1,25 +1,42 @@
-import { useMemo } from "react";
-import { getСonstructorList } from "../../utils/selectors";
-import { IngredientModel } from "../../utils/types";
+import { useEffect, useState } from "react";
+import { getTotalPrice } from "../../services/burger-constructor/selectors";
 import { useAppSelector } from "../../services/store/hooks";
 
+// ===чисто ради эксперимента===
+// может подскажете библиотечку для такой анимации? =)
+const useAnim = () => {
+    const price: number = useAppSelector(getTotalPrice);
+    const [animPrice, setAnimPrice] = useState(0);
+    useEffect(() => {
+        let interval = setInterval(() => {
+            const diff = Math.abs(price - animPrice);
+
+            let count = 0;
+            if (diff / 1000 > 1) {
+                count = 1000;
+            } else if (diff / 100 > 1) {
+                count = 100;
+            } else if (diff / 10 > 1) {
+                count = 10;
+            } else {
+                count = 1;
+            }
+            if (0 <= animPrice && animPrice < price) {
+                setAnimPrice((animPrice) => animPrice + count);
+            } else if (0 < animPrice && animPrice > price) {
+                setAnimPrice((animPrice) => animPrice - count);
+            } else {
+                clearInterval(interval);
+            }
+        }, 10);
+
+        return () => clearInterval(interval);
+    }, [animPrice, price]);
+    return animPrice;
+};
+// ===чисто ради эксперимента===
+
 export default function TotalPrice({ className }: { className: string }) {
-  // получаем список конструктора из стора
-  const constructorList: {
-    bun: IngredientModel;
-    ingr: IngredientModel[];
-  } = useAppSelector(getСonstructorList);
-
-  const count = useMemo(() => {
-    let count = 0;
-    if (constructorList.bun) {
-      count += constructorList.bun.price * 2;
-    }
-    if (constructorList.ingr) {
-      count += constructorList.ingr.reduce((acc, elem) => acc + elem.price, 0);
-    }
-    return count;
-  }, [constructorList]);
-
-  return <span className={className}>{count}</span>;
+    const animPrice = useAnim();
+    return <span className={className}>{animPrice}</span>;
 }
