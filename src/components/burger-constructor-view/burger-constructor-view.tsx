@@ -5,22 +5,22 @@ import {
     CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modals/modal/modal";
-import OrderDetails from "../modals/order-details/order-details";
+import ConstructorOrderDetails from "../constructor-order-details/constructor-order-details";
 import TotalPrice from "../total-price/total-price";
 import Loading from "../loading/loading";
 import BurgerConstructorElement from "../burger-constructor-element/burger-constructor-element";
 import BurgerConstructorElementEmpty from "../burger-constructor-element/burger-constructor-element-empty";
 import {
-    ORDER_DETAILS_REQUEST,
-    ORDER_DETAILS_RESET,
-} from "../../services/order-details/actions";
+    CONSTRUCTOR_ORDER_DETAILS_REQUEST,
+    CONSTRUCTOR_ORDER_DETAILS_RESET,
+} from "../../services/constructor-order-details/actions";
 import { INGREDIENT_MOVE } from "../../services/burger-constructor/actions";
 import styles from "./burger-constructor-view.module.css";
 import {
-    getOrderDetailsHasError,
-    getOrderDetailsIsLoading,
-    getOrderDetailsRequestSuccess,
-} from "../../services/order-details/selectors";
+    getConstructorOrderDetailsHasError,
+    getConstructorOrderDetailsIsLoading,
+    getConstructorOrderDetailsRequestSuccess,
+} from "../../services/constructor-order-details/selectors";
 import { getСonstructorList } from "../../services/burger-constructor/selectors";
 import { ConstructorModel, IngredientModel } from "../../utils/types";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
@@ -32,10 +32,14 @@ export default function BurgerConstructorView() {
     const isMobile: boolean = useAppSelector(getIsMobile);
 
     // список всех ингредиентов, полученных по API
-    const isLoading: boolean[] = useAppSelector(getOrderDetailsIsLoading);
-    const hasError: boolean[] = useAppSelector(getOrderDetailsHasError);
+    const isLoading: boolean[] = useAppSelector(
+        getConstructorOrderDetailsIsLoading
+    );
+    const hasError: boolean[] = useAppSelector(
+        getConstructorOrderDetailsHasError
+    );
     const requestSuccess: boolean[] = useAppSelector(
-        getOrderDetailsRequestSuccess
+        getConstructorOrderDetailsRequestSuccess
     );
 
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -58,13 +62,13 @@ export default function BurgerConstructorView() {
             BUN &&
             INGR.length > 0 &&
             navigate("/login", { state: { from: location } });
-        user && BUN && INGR.length > 0 && getOrderDetails();
+        user && BUN && INGR.length > 0 && getConstructorOrderDetails();
         setIsModalOpen(true);
     };
 
     const closeModal = () => {
         setIsModalOpen(false);
-        dispatch(ORDER_DETAILS_RESET());
+        dispatch(CONSTRUCTOR_ORDER_DETAILS_RESET());
     };
 
     //сортировка списка в конструкторе
@@ -86,7 +90,7 @@ export default function BurgerConstructorView() {
     const [, drop] = useDrop(() => ({ accept: "ingr" }));
 
     // получаем данные заказа по API
-    const getOrderDetails = () => {
+    const getConstructorOrderDetails = () => {
         let ids: string[] = INGR.map((x: IngredientModel) => x._id);
 
         ids.push(BUN._id, BUN._id);
@@ -94,7 +98,7 @@ export default function BurgerConstructorView() {
         let sendData = {
             ingredients: ids,
         };
-        dispatch(ORDER_DETAILS_REQUEST(sendData));
+        dispatch(CONSTRUCTOR_ORDER_DETAILS_REQUEST(sendData));
     };
 
     return (
@@ -214,7 +218,7 @@ export default function BurgerConstructorView() {
                     {isLoading && <Loading>Загрузка данных</Loading>}
                     {hasError && <Loading>Ошибка загрузки Х_Х</Loading>}
                     {!isLoading && !hasError && requestSuccess && (
-                        <OrderDetails />
+                        <ConstructorOrderDetails />
                     )}
                 </Modal>
             )}

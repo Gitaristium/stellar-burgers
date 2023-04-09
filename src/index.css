@@ -1,3 +1,7 @@
+:root {
+    --bg-color-head: #1c1c21;
+}
+
 * {
     box-sizing: border-box;
 }

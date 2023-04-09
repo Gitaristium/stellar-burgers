@@ -1,4 +1,4 @@
-import IngredientDetails from "../components/modals/ingredient-details/ingredient-details";
+import IngredientDetails from "../components/ingredient-details/ingredient-details";
 import Loading from "../components/loading/loading";
 import { ErrorNotFoundPage } from ".";
 import { getIsMobile } from "../services/mobile/selectors";

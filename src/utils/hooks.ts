@@ -17,11 +17,13 @@ export const useForm = () => {
     };
 
     useEffect(() => {
-        setFormState({
-            ...formState,
-            name: userName,
-            email: userEmail,
-        });
+        if (userName && userEmail) {
+            setFormState({
+                ...formState,
+                name: userName,
+                email: userEmail,
+            });
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userEmail, userName]);
 

@@ -15,7 +15,7 @@ import {
     OrdersPage,
     OrderDetailsPage,
 } from "../../pages";
-import IngredientDetails from "../modals/ingredient-details/ingredient-details";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modals/modal/modal";
 import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
 import { USER_CHECK_AUTH } from "../../services/auth/actions";
@@ -84,8 +84,8 @@ export default function App() {
     }, [dispatch]);
 
     // лайфак из документации для модалок
-    let location = useLocation();
-    let state = location.state as { backgroundLocation?: Location };
+    const location = useLocation();
+    const state = location.state as { backgroundLocation?: Location };
 
     // закрытие модалки
     let navigate = useNavigate();
@@ -96,6 +96,7 @@ export default function App() {
     return (
         <>
             <AppHeader />
+
             <main className={isMobile ? "pt-4 pl-4 pr-4" : "pt-10 pl-5 pr-5"}>
                 <Routes location={state?.backgroundLocation || location}>
                     <Route path={HOME_PATH} element={<HomePage />} />

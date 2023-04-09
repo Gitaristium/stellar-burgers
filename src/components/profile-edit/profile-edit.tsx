@@ -63,7 +63,7 @@ export default function ProfileEdit() {
     return (
         <>
             <form
-                className={isMobile ? styles.form__mobile : ""}
+                className={isMobile ? styles.form__mobile : "mt-20"}
                 ref={formRef}
                 onSubmit={handleSubmit}
             >

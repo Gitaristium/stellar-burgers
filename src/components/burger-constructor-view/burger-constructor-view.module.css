@@ -75,7 +75,7 @@ article {
     margin: 0;
     margin-bottom: -16px;
     margin-top: auto;
-    background: #1c1c21;
+    background: var(--bg-color-head);
     border-radius: 15px 15px 0px 0px;
     padding: 16px;
 }

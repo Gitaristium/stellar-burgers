@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useMatch } from "react-router-dom";
 import styles from "./profile-nav.module.css";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import { USER_LOGOUT } from "../../services/auth/actions";
@@ -15,10 +15,11 @@ export default function ProfileNav({
     const logout = () => {
         dispatch(USER_LOGOUT());
     };
+    const isProfile = useMatch("/profile");
     return (
         <nav
             className={`${styles.nav} mr-15 ${
-                isMobile ? styles.nav__submenu : ""
+                isMobile ? styles.nav__submenu : "mt-20"
             } ${isMobile ? "ml-8" : ""} ${isSubMenuOpen ? styles.active : ""}`}
         >
             <ul className={styles.nav__list}>
@@ -76,7 +77,9 @@ export default function ProfileNav({
             </ul>
             {!isMobile && (
                 <span className="text text_type_main-default text_color_inactive">
-                    В этом разделе вы можете изменить свои персональные данные
+                    {isProfile
+                        ? "В этом разделе вы можете изменить свои персональные данные"
+                        : "В этом разделе вы можете просмотреть свою историю заказов"}
                 </span>
             )}
         </nav>

@@ -1,16 +1,16 @@
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from "./order-details.module.css";
-import vector1 from "../../../images/order-accpeted/vector1.svg";
-import vector2 from "../../../images/order-accpeted/vector2.svg";
-import vector3 from "../../../images/order-accpeted/vector3.svg";
-import { getOrderNumber } from "../../../services/order-details/selectors";
-import { useAppSelector } from "../../../services/store/hooks";
+import styles from "./constructor-order-details.module.css";
+import vector1 from "../../images/order-accpeted/vector1.svg";
+import vector2 from "../../images/order-accpeted/vector2.svg";
+import vector3 from "../../images/order-accpeted/vector3.svg";
+import { getConstructorOrderNumber } from "../../services/constructor-order-details/selectors";
+import { useAppSelector } from "../../services/store/hooks";
 import { useEffect, useState } from "react";
 
 // ===чисто ради эксперимента===
 // может подскажете библиотечку для такой анимации? =)
 const useAnim = () => {
-    const orderNumber: number = useAppSelector(getOrderNumber);
+    const orderNumber: number = useAppSelector(getConstructorOrderNumber);
     const [animNumber, setAnimNumber] = useState(0);
     useEffect(() => {
         let interval = setInterval(() => {
@@ -38,7 +38,7 @@ const useAnim = () => {
 };
 // ===чисто ради эксперимента===
 
-export default function OrderDetails() {
+export default function ConstructorOrderDetails() {
     const animNumber = useAnim();
     return (
         <div className={`${styles.modal} p-10`}>

@@ -7,7 +7,7 @@
     align-items: center;
     justify-content: flex-end;
     margin: 0 -8px;
-    background: #1c1c21;
+    background: var(--bg-color-head);
     border-radius: 15px 15px 0px 0px;
     padding: 16px;
 }

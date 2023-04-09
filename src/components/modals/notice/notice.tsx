@@ -8,9 +8,7 @@ export default function Notice(props: { text: string; type?: "error" }) {
                 props.type === "error" ? styles.error : ""
             }`}
         >
-            <p className={`${styles.text} text text_type_main-default`}>
-                {props.text}
-            </p>
+            <p className="text text_type_main-default">{props.text}</p>
         </div>,
         document.getElementById("notices") as HTMLElement
     );

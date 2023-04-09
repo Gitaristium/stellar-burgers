@@ -3,7 +3,7 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredientsCategory from "../burger-ingredients-category/burger-ingredients-category";
 import Loading from "../loading/loading";
 import Modal from "../modals/modal/modal";
-import IngredientDetails from "../modals/ingredient-details/ingredient-details";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 import { BUN, SAUCE, MAIN, INGREDIENTS } from "../../utils/vars";
 import styles from "./burger-ingredients.module.css";
 import { getIsMobile } from "../../services/mobile/selectors";

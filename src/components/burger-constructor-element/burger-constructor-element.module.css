@@ -3,6 +3,7 @@
     overflow-x: auto;
     padding: 0 16px;
     margin: 0;
+    scroll-snap-type: x mandatory;
 }
 
 /* Скрываем scrollbar для Chrome, Safari и Opera */
@@ -48,6 +49,7 @@
     background: none;
     padding: 16px;
     max-width: 100%;
+    scroll-snap-align: end;
 }
 
 .delete__icon {
@@ -72,6 +74,7 @@
     justify-content: center;
     height: 100%;
     z-index: 1;
+    scroll-snap-align: end;
 }
 .delete__icon_mobile svg {
     transform: scale(1.3);

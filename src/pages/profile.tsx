@@ -1,4 +1,4 @@
-import ProfileEdit from "../components/profile/profile-edit";
+import ProfileEdit from "../components/profile-edit/profile-edit";
 import { getIsMobile } from "../services/mobile/selectors";
 import { useAppSelector } from "../services/store/hooks";
 

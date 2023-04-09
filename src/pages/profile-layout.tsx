@@ -6,10 +6,11 @@ import { useAppSelector } from "../services/store/hooks";
 
 export default function ProfileLayoutPage() {
     const isMobile: boolean = useAppSelector(getIsMobile);
+
     return (
         <section
             className={`${styles.section} ${
-                !isMobile ? "pt-20" : styles.section__mobile
+                isMobile ? styles.section__mobile : ""
             }`}
         >
             {!isMobile && <ProfileNav />}

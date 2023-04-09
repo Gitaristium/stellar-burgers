@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom";
 import styles from "./ingredient-details.module.css";
-import { IngredientModel } from "../../../utils/types";
-import { useAppSelector } from "../../../services/store/hooks";
-import { getIngredientById } from "../../../services/ingredients-list/selectors";
-import Loading from "../../loading/loading";
+import { IngredientModel } from "../../utils/types";
+import { useAppSelector } from "../../services/store/hooks";
+import { getIngredientById } from "../../services/ingredients-list/selectors";
+import Loading from "../loading/loading";
 
 export default function IngredientDetails() {
     const { id } = useParams();

@@ -13,6 +13,12 @@ export const getIngredientById = (id) =>
         data.find((el) => el._id === id)
     );
 
+// получаем массив картинок игредиент из общего списка по id
+export const getImagesByIngredientId = (ids) =>
+    createSelector(storeIngredientsList, (data) =>
+        ids.map((id) => data.find((el) => el._id === id).image_mobile)
+    );
+
 export const getIngredientsIsLoading = createSelector(
     (store) => store.ingredientsList.status.loading,
     (data) => data
