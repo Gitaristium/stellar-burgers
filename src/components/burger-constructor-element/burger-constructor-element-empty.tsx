@@ -1,7 +1,7 @@
 import { useDrop } from "react-dnd";
 import { INGREDIENT_ADD } from "../../services/burger-constructor/actions";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
-import styles from "./burger-constructor-element.module.css";
+import styles from "./burger-constructor-element.module.scss";
 import { getIsMobile } from "../../services/mobile/selectors";
 
 export default function BurgerConstructorElementEmpty(props: {

@@ -1,6 +1,5 @@
-.constructor__container {
+.section {
     margin: 0 -8px;
-    /* width: calc(100% + 32px); */
 }
 .sum {
     display: flex;
@@ -10,9 +9,11 @@
     background: var(--bg-color-head);
     border-radius: 15px 15px 0px 0px;
     padding: 16px;
-}
 
-.sum img,
-.sum svg {
-    margin-left: 9px;
+    // .sum img
+    // .sum svg
+    & img,
+    & svg {
+        margin-left: 9px;
+    }
 }

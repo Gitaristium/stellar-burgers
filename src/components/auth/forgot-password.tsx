@@ -6,7 +6,7 @@ import { getIsMobile } from "../../services/mobile/selectors";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import { useForm } from "../../utils/hooks";
 import { Link, Navigate } from "react-router-dom";
-import styles from "./auth.module.css";
+import styles from "./auth.module.scss";
 import {
     getUserResetIsLoading,
     getUserResetHasError,

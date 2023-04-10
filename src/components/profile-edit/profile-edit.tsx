@@ -7,7 +7,7 @@ import {
 import { getIsMobile } from "../../services/mobile/selectors";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import { useForm } from "../../utils/hooks";
-import styles from "./profile-edit.module.css";
+import styles from "./profile-edit.module.scss";
 import {
     getUserEmail,
     getUserName,
@@ -105,9 +105,7 @@ export default function ProfileEdit() {
                 />
                 <span
                     className={
-                        !isMobile
-                            ? styles.buttons__box
-                            : styles.buttons__box__mobile
+                        !isMobile ? styles.buttons : styles.buttons__mobile
                     }
                 >
                     {/* позволил себе отступить от требований ТЗ по скрытию кнопок,

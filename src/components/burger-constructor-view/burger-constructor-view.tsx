@@ -15,7 +15,7 @@ import {
     CONSTRUCTOR_ORDER_DETAILS_RESET,
 } from "../../services/constructor-order-details/actions";
 import { INGREDIENT_MOVE } from "../../services/burger-constructor/actions";
-import styles from "./burger-constructor-view.module.css";
+import styles from "./burger-constructor-view.module.scss";
 import {
     getConstructorOrderDetailsHasError,
     getConstructorOrderDetailsIsLoading,
@@ -104,11 +104,13 @@ export default function BurgerConstructorView() {
     return (
         <>
             <section
-                className={`${styles.constructor__container} ${
-                    !isMobile ? `${styles.desktop} pt-15 pb-10` : styles.mobile
+                className={`${styles.section} ${
+                    !isMobile
+                        ? `${styles.desktop} pt-15 pb-10`
+                        : styles.section__mobile
                 }`}
             >
-                <div className={styles.constructor__list}>
+                <div className={styles.list}>
                     {/* фиксированная верхняя булка */}
                     {BUN ? (
                         <BurgerConstructorElement
@@ -128,17 +130,15 @@ export default function BurgerConstructorView() {
                     )}
                     <div
                         className={`${styles.stuff} ${
-                            !isMobile
-                                ? "custom-scroll mt-4 mb-4 pr-4 pl-10"
-                                : ""
-                        }`}
+                            !isMobile ? "mt-4 mb-4 pr-4 pl-10" : ""
+                        } custom-scroll`}
                     >
                         {/* список конструктора */}
                         <div className={styles.stuff__inner}>
                             {INGR.length > 0 ? (
                                 <>
                                     <span
-                                        className={styles.stuff__inner_span}
+                                        className={styles.stuff__inner__span}
                                         ref={drop}
                                     >
                                         {/* пробегаемся по массиву ингредиентов и рендерим список */}

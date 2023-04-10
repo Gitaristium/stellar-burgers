@@ -1,12 +1,9 @@
-.ingredients {
+.section {
     position: relative;
     display: flex;
     flex-direction: column;
     height: 100%;
     width: 100%;
-}
-.nav {
-    display: flex;
 }
 
 .container {
@@ -14,10 +11,11 @@
     height: 100%;
     overflow-y: overlay;
     flex: 1;
-    /* scroll-behavior: smooth; */
-}
-.container::-webkit-scrollbar-track {
-    margin: 40px;
+
+    // .container::-webkit-scrollbar-track
+    &::-webkit-scrollbar-track {
+        margin: 40px;
+    }
 }
 
 .inner {
@@ -29,19 +27,8 @@
 }
 
 @media (orientation: portrait), (max-width: 1150px) {
-    .container {
-        -ms-overflow-style: none !important;
-        scrollbar-width: none !important;
-    }
-    .container::-webkit-scrollbar {
-        display: none !important;
-    }
-
     .title {
         text-align: center;
         margin-bottom: 8px;
-    }
-    .nav {
-        margin: 0 -16px;
     }
 }

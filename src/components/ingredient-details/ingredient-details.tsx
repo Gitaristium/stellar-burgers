@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import styles from "./ingredient-details.module.css";
+import styles from "./ingredient-details.module.scss";
 import { IngredientModel } from "../../utils/types";
 import { useAppSelector } from "../../services/store/hooks";
 import { getIngredientById } from "../../services/ingredients-list/selectors";

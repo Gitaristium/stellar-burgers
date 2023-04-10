@@ -7,7 +7,7 @@ import { getIsMobile } from "../../services/mobile/selectors";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import { useForm } from "../../utils/hooks";
 import { Link } from "react-router-dom";
-import styles from "./auth.module.css";
+import styles from "./auth.module.scss";
 import { USER_LOGIN } from "../../services/auth/actions";
 import {
     getUserLoginHasError,

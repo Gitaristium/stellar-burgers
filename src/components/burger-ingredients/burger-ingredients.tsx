@@ -5,7 +5,7 @@ import Loading from "../loading/loading";
 import Modal from "../modals/modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import { BUN, SAUCE, MAIN, INGREDIENTS } from "../../utils/vars";
-import styles from "./burger-ingredients.module.css";
+import styles from "./burger-ingredients.module.scss";
 import { getIsMobile } from "../../services/mobile/selectors";
 import {
     getIngredientsList,
@@ -50,7 +50,7 @@ export default function BurgerIngredients() {
     };
 
     // активные табы
-    const [current, setCurrent] = useState("bun");
+    const [current, setCurrent] = useState(BUN);
 
     const scrollBoxRef = useRef<HTMLDivElement | null>(null);
     const bunsRef = useRef<HTMLHeadingElement | null>(null);
@@ -107,7 +107,7 @@ export default function BurgerIngredients() {
 
     return (
         <>
-            <section className={`${styles.ingredients} ingredients`}>
+            <section className={styles.section}>
                 <h1
                     className={`${styles.title} text text_type_main-large mb-5`}
                 >
@@ -119,7 +119,7 @@ export default function BurgerIngredients() {
                 {hasError && <Loading>Ошибка загрузки Х_Х</Loading>}
                 {requestSuccess && ingredientsList?.length > 0 && (
                     <>
-                        <nav className={styles.nav}>
+                        <nav className="custom-tabs">
                             <Tab
                                 value={BUN}
                                 active={current === BUN}

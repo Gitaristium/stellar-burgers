@@ -1,5 +1,5 @@
 import ReactDOM from "react-dom";
-import styles from "./notice.module.css";
+import styles from "./notice.module.scss";
 
 export default function Notice(props: { text: string; type?: "error" }) {
     return ReactDOM.createPortal(

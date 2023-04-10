@@ -1,5 +1,5 @@
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from "./constructor-order-details.module.css";
+import styles from "./constructor-order-details.module.scss";
 import vector1 from "../../images/order-accpeted/vector1.svg";
 import vector2 from "../../images/order-accpeted/vector2.svg";
 import vector3 from "../../images/order-accpeted/vector3.svg";

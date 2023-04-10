@@ -1,3 +1,5 @@
+import OrderDetails from "../components/order-details/order-details";
+
 export default function OrderDetailsPage() {
-    return <h1>Order Details Page</h1>;
+    return <OrderDetails />;
 }

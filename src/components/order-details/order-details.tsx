@@ -1,66 +1,108 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useMatch, useParams } from "react-router-dom";
+import { feedData } from "../../utils/feed-data";
+import { ordersData } from "../../utils/orders-data";
+import { getIsMobile } from "../../services/mobile/selectors";
+import { useAppSelector } from "../../services/store/hooks";
+import styles from "./order-details.module.scss";
+import Loading from "../loading/loading";
 import {
     CurrencyIcon,
     FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from "./order-details.module.css";
-import { getImagesByIngredientId } from "../../services/ingredients-list/selectors";
-import { useAppSelector } from "../../services/store/hooks";
-import { getIsMobile } from "../../services/mobile/selectors";
-import { Key } from "react";
+import {
+    ALL_PATH,
+    FEED_PATH,
+    ORDERS_PATH,
+    PROFILE_PATH,
+} from "../../utils/vars";
+import OrderDetailsElement from "../order-details-element/order-details-element";
 
-export default function OrderDetails({ item }: { item: any }) {
+export default function OrderDetails() {
     const isMobile: boolean = useAppSelector(getIsMobile);
-    const images: any = useAppSelector(
-        getImagesByIngredientId(item.ingredients)
-    );
+
+    const feedMatch = useMatch(FEED_PATH + ALL_PATH);
+    const ordersMatch = useMatch(PROFILE_PATH + ORDERS_PATH + ALL_PATH);
+    const { id } = useParams();
+
+    // когда дойдем до загрузки данных заказов по API -
+    // надо будет перенести в селекторы
+    const [orderDetails, setOrderDetails] = useState(Object);
+    useEffect(() => {
+        let item = null;
+        if (feedMatch) item = feedData.find((el) => el.id === id);
+        if (ordersMatch) item = ordersData.find((el) => el.id === id);
+        return setOrderDetails(item);
+    }, [id, feedMatch, ordersMatch]);
 
     return (
-        <Link
-            className={`${styles.item} ${!isMobile ? "p-6 mb-6" : "p-4 mb-4"}`}
-            to={item.id}
-        >
-            <div className={`${styles.header} mb-6`}>
-                <p className="text text_type_digits-default">#{item.number}</p>
-                <p className="text text_type_main-default text_color_inactive">
-                    <FormattedDate date={new Date(item.date)} />
-                </p>
-            </div>
-            <h3 className="text text_type_main-medium">{item.name}</h3>
-            {item.status && (
-                <p className="text text_type_main-default mt-2">
-                    {item.status}
-                </p>
-            )}
-            <div className={`${styles.footer} mt-6`}>
-                <span className={styles.footer__images}>
-                    {images.slice(0, 6).map((el: string, index: Key) => (
-                        <img
-                            src={el}
-                            alt=""
-                            key={index}
-                            className={`${styles.img} ${
-                                isMobile ? styles.img__mobile : ""
-                            }`}
-                        />
-                    ))}
-                    {images.length > 6 && (
-                        <span
-                            className={`${styles.count} ${
-                                isMobile ? styles.count__mobile : ""
-                            } text text_type_main-default`}
-                        >
-                            +{images.length - 6}
-                        </span>
-                    )}
-                </span>
-                <p
-                    className={`${styles.price} text text_type_digits-default ml-6`}
+        <>
+            {orderDetails ? (
+                <section
+                    className={`${styles.section} ${
+                        !isMobile ? "mt-15" : "mt-4"
+                    } ${
+                        isMobile ? styles.section__mobile : ""
+                    } ml-auto mr-auto`}
                 >
-                    <span className="mr-2">{item.price}</span>
-                    <CurrencyIcon type="primary" />
-                </p>
-            </div>
-        </Link>
+                    <p
+                        className={`${!isMobile ? "mb-10" : "mb-6"} ${
+                            !isMobile ? "align-center" : ""
+                        } text text_type_digits-default`}
+                    >
+                        #{orderDetails.number}
+                    </p>
+                    <h3
+                        className={`${
+                            !isMobile ? "mb-3" : "mb-2"
+                        } text text_type_main-medium`}
+                    >
+                        {orderDetails.name}
+                    </h3>
+                    <p
+                        className={`${
+                            !isMobile ? "mb-15" : "mb-6"
+                        } text text_type_main-default`}
+                    >
+                        {orderDetails.status}
+                    </p>
+                    <h3
+                        className={`${
+                            !isMobile ? "mb-6" : "mb-4"
+                        } text text_type_main-medium`}
+                    >
+                        Состав:
+                    </h3>
+                    <div
+                        className={`${styles.ingredients} ${
+                            !isMobile
+                                ? "pr-6 mb-10"
+                                : styles.ingredients__mobile
+                        } custom-scroll`}
+                    >
+                        {orderDetails.ingredients?.map((id: string) => (
+                            <OrderDetailsElement itemId={id} />
+                        ))}
+                    </div>
+                    <span
+                        className={`${styles.footer} ${
+                            isMobile ? styles.footer__mobile : ""
+                        }`}
+                    >
+                        <p className="text text_type_main-default text_color_inactive">
+                            <FormattedDate date={new Date(orderDetails.date)} />
+                        </p>
+                        <p
+                            className={`${styles.price} text text_type_digits-default ml-6`}
+                        >
+                            <span className="mr-2">{orderDetails.price}</span>
+                            <CurrencyIcon type="primary" />
+                        </p>
+                    </span>
+                </section>
+            ) : (
+                <Loading>Загрузка</Loading>
+            )}
+        </>
     );
 }

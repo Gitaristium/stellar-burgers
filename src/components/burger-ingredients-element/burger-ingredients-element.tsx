@@ -6,7 +6,7 @@ import {
     CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { INGREDIENT_ADD } from "../../services/burger-constructor/actions";
-import styles from "./burger-ingredients-element.module.css";
+import styles from "./burger-ingredients-element.module.scss";
 import { ConstructorModel, IngredientModel } from "../../utils/types";
 import { getСonstructorList } from "../../services/burger-constructor/selectors";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";

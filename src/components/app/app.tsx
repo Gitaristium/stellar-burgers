@@ -37,9 +37,11 @@ import {
     PROFILE_PATH,
     _ORDERS_PATH,
     _ALL_PATH,
+    ORDERS_PATH,
 } from "../../utils/vars";
 import { getIsMobile } from "../../services/mobile/selectors";
 import { getIngredientsRequestSuccess } from "../../services/ingredients-list/selectors";
+import Loading from "../loading/loading";
 
 export default function App() {
     const isMobile: boolean = useAppSelector(getIsMobile);
@@ -97,73 +99,92 @@ export default function App() {
         <>
             <AppHeader />
 
-            <main className={isMobile ? "pt-4 pl-4 pr-4" : "pt-10 pl-5 pr-5"}>
-                <Routes location={state?.backgroundLocation || location}>
-                    <Route path={HOME_PATH} element={<HomePage />} />
-                    <Route
-                        path={LOGIN_PATH}
-                        element={<OnlyUnAuth component={<LoginPage />} />}
-                    />
-                    <Route
-                        path={REGISTER_PATH}
-                        element={<OnlyUnAuth component={<RegisterPage />} />}
-                    />
-                    <Route
-                        path={FORGOT_PASS_PATH}
-                        element={
-                            <OnlyUnAuth component={<ForgotPasswordPage />} />
-                        }
-                    />
-                    <Route
-                        path={RESET_PASS_PATH}
-                        element={
-                            <OnlyUnAuth component={<ResetPasswordPage />} />
-                        }
-                    />
-                    <Route
-                        path={INGREDIENTS_PATH + ID_PATH}
-                        element={<IngredientDetailsPages />}
-                    />
-                    <Route path={FEED_PATH} element={<FeedPage />} />
-                    <Route
-                        path={FEED_PATH + ID_PATH}
-                        element={<ErrorNotFoundPage />}
-                    />
-                    <Route
-                        path={PROFILE_PATH + ALL_PATH}
-                        element={<OnlyAuth component={<ProfileLayoutPage />} />}
-                    >
-                        <Route index element={<ProfilePage />} />
-                        <Route path={_ORDERS_PATH} element={<OrdersPage />} />
+            {requestSuccess ? (
+                <main
+                    className={isMobile ? "pt-4 pl-4 pr-4" : "pt-10 pl-5 pr-5"}
+                >
+                    <Routes location={state?.backgroundLocation || location}>
+                        <Route path={HOME_PATH} element={<HomePage />} />
                         <Route
-                            path={_ORDERS_PATH + ID_PATH}
+                            path={LOGIN_PATH}
+                            element={<OnlyUnAuth component={<LoginPage />} />}
+                        />
+                        <Route
+                            path={REGISTER_PATH}
+                            element={
+                                <OnlyUnAuth component={<RegisterPage />} />
+                            }
+                        />
+                        <Route
+                            path={FORGOT_PASS_PATH}
+                            element={
+                                <OnlyUnAuth
+                                    component={<ForgotPasswordPage />}
+                                />
+                            }
+                        />
+                        <Route
+                            path={RESET_PASS_PATH}
+                            element={
+                                <OnlyUnAuth component={<ResetPasswordPage />} />
+                            }
+                        />
+                        <Route
+                            path={INGREDIENTS_PATH + ID_PATH}
+                            element={<IngredientDetailsPages />}
+                        />
+                        <Route path={FEED_PATH} element={<FeedPage />} />
+                        <Route
+                            path={FEED_PATH + ID_PATH}
                             element={<OrderDetailsPage />}
                         />
                         <Route
-                            path={_ALL_PATH}
+                            path={PROFILE_PATH}
+                            element={
+                                <OnlyAuth component={<ProfileLayoutPage />} />
+                            }
+                        >
+                            <Route index element={<ProfilePage />} />
+                            <Route
+                                path={_ORDERS_PATH}
+                                element={<OrdersPage />}
+                            />
+
+                            <Route
+                                path={_ALL_PATH}
+                                element={<ErrorNotFoundPage />}
+                            />
+                        </Route>
+                        <Route
+                            path={PROFILE_PATH + ORDERS_PATH + ID_PATH}
+                            element={<OrderDetailsPage />}
+                        />
+                        <Route
+                            path={ALL_PATH}
                             element={<ErrorNotFoundPage />}
                         />
-                    </Route>
-                    <Route path={ALL_PATH} element={<ErrorNotFoundPage />} />
-                </Routes>
-
-                {/* показываем модалку, если есть `backgroundLocation` */}
-                {state?.backgroundLocation && (
-                    <Routes>
-                        <Route
-                            path={INGREDIENTS_PATH + ID_PATH}
-                            element={
-                                <Modal
-                                    closeModal={() => closeModal()}
-                                    title="Детали ингредиента"
-                                >
-                                    <IngredientDetails />
-                                </Modal>
-                            }
-                        />
                     </Routes>
-                )}
-            </main>
+
+                    {/* показываем модалку, если есть `backgroundLocation` */}
+                    {state?.backgroundLocation && (
+                        <Routes>
+                            <Route
+                                path={INGREDIENTS_PATH + ID_PATH}
+                                element={
+                                    <Modal
+                                        closeModal={() => closeModal()}
+                                        title="Детали ингредиента"
+                                    >
+                                        <IngredientDetails />
+                                    </Modal>
+                                }
+                            />
+                        </Routes>
+                    )}
+                </main>
+            ) : (
+                <Loading>Загрузка</Loading>
+            )}
         </>
     );
 }

@@ -5,11 +5,11 @@ import BurgerConstructor from "../components/burger-constructor/burger-construct
 
 export default function HomePage() {
     return (
-        <div className="content two-columns">
+        <section className="two-columns">
             <DndProvider backend={HTML5Backend}>
                 <BurgerIngredients />
                 <BurgerConstructor />
             </DndProvider>
-        </div>
+        </section>
     );
 }

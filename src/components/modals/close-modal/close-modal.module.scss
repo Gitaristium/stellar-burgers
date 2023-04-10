@@ -7,10 +7,12 @@
     height: 40px;
     cursor: pointer;
     right: -8px;
-}
-@media (hover: hover) {
-    .modal__close:hover {
-        animation: closeRotate 0.3s;
+
+    // .modal__close:hover
+    @media (hover: hover) {
+        &:hover {
+            animation: closeRotate 0.3s;
+        }
     }
 }
 

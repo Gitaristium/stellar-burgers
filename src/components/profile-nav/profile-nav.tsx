@@ -1,5 +1,5 @@
 import { NavLink, useMatch } from "react-router-dom";
-import styles from "./profile-nav.module.css";
+import styles from "./profile-nav.module.scss";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import { USER_LOGOUT } from "../../services/auth/actions";
 import { ORDERS_PATH, PROFILE_PATH } from "../../utils/vars";
@@ -24,7 +24,7 @@ export default function ProfileNav({
         >
             <ul className={styles.nav__list}>
                 <li
-                    className={`${styles.nav__list_item} ${
+                    className={`${styles.nav__list__item} ${
                         isMobile ? styles.mobile : ""
                     }`}
                 >
@@ -45,7 +45,7 @@ export default function ProfileNav({
                         Профиль
                     </NavLink>
                 </li>
-                <li className={`${styles.nav__list_item}`}>
+                <li className={`${styles.nav__list__item}`}>
                     <NavLink
                         className={({ isActive }) =>
                             `${
@@ -62,7 +62,7 @@ export default function ProfileNav({
                         История заказов
                     </NavLink>
                 </li>
-                <li className={`${styles.nav__list_item}  mb-20`}>
+                <li className={`${styles.nav__list__item}  mb-20`}>
                     <span
                         className={`${styles.link} text_color_inactive  text ${
                             !isMobile

@@ -13,7 +13,7 @@ export const AUTH_TOKEN = "auth/token";
 export const AUTH_RESET = "password-reset";
 export const AUTH_RESET_CONFIRM = "password-reset/reset";
 
-// ингрединеты и конструктор
+// табы - ингрединеты и конструктор
 export const BUN = "bun";
 export const SAUCE = "sauce";
 export const MAIN = "main";
@@ -32,3 +32,7 @@ export const FEED_PATH = "/feed";
 export const PROFILE_PATH = "/profile";
 export const ORDERS_PATH = "/orders";
 export const _ORDERS_PATH = "orders";
+
+// табы - лента заказов для мобилки
+export const LIST = "list";
+export const STATS = "stats";

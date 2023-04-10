@@ -10,7 +10,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerBtn from "./burger-btn";
 import logoMobile from "../../images/logo__mobile.svg";
-import styles from "./app-header.module.css";
+import styles from "./app-header.module.scss";
 import { useAppSelector } from "../../services/store/hooks";
 import ProfileNav from "../profile-nav/profile-nav";
 import { FEED_PATH, HOME_PATH, PROFILE_PATH } from "../../utils/vars";
@@ -65,7 +65,7 @@ export default function AppHeader() {
 
                 <nav
                     className={`${styles.nav} ${
-                        isMobile && styles.menu__mobile
+                        isMobile && styles.nav__mobile
                     } ${isMenuOpen && styles.active}`}
                 >
                     {isMobile && (

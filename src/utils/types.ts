@@ -19,10 +19,19 @@ export interface ConstructorModel {
     ingr: IngredientModel[];
 }
 
-export interface OrderDetailsModel {
+export interface ConstructorOrderDetailsModel {
     name: string;
     order: {
         number: number;
     };
     success: string;
+}
+
+export interface OrderDetailsModel {
+    id: string;
+    number: string;
+    date: string;
+    name: string;
+    price: string;
+    ingredients: string[];
 }

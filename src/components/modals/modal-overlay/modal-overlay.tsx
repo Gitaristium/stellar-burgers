@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import styles from "./modal-overlay.module.css";
+import styles from "./modal-overlay.module.scss";
 
 export default function ModalOverlay({
     closeModal,

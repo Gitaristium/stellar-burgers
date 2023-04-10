@@ -1,5 +1,5 @@
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from "./close-modal.module.css";
+import styles from "./close-modal.module.scss";
 
 export default function CloseModal({ closeModal }: { closeModal: () => void }) {
     return (

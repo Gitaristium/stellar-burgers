@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import ReactDOM from "react-dom";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import CloseModal from "../close-modal/close-modal";
-import styles from "./modal.module.css";
+import styles from "./modal.module.scss";
 import { useAppSelector } from "../../../services/store/hooks";
 import { getIsMobile } from "../../../services/mobile/selectors";
 
