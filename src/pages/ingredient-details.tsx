@@ -1,3 +1,4 @@
+import { FC } from "react";
 import IngredientDetails from "../components/ingredient-details/ingredient-details";
 import Loading from "../components/loading/loading";
 import { ErrorNotFoundPage } from ".";
@@ -10,7 +11,7 @@ import {
 } from "../services/ingredients-list/selectors";
 import { useParams } from "react-router-dom";
 
-export default function IngredientDetailsPages() {
+const IngredientDetailsPages: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);
     const requestSuccess: boolean = useAppSelector(
         getIngredientsRequestSuccess
@@ -43,4 +44,6 @@ export default function IngredientDetailsPages() {
             {requestSuccess && !ingredientDetails && <ErrorNotFoundPage />}
         </>
     );
-}
+};
+
+export default IngredientDetailsPages;

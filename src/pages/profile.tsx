@@ -1,8 +1,9 @@
+import { FC } from "react";
 import ProfileEdit from "../components/profile-edit/profile-edit";
 import { getIsMobile } from "../services/mobile/selectors";
 import { useAppSelector } from "../services/store/hooks";
 
-export default function ProfilePage() {
+const ProfilePage: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);
     return (
         <>
@@ -14,4 +15,6 @@ export default function ProfilePage() {
             <ProfileEdit />
         </>
     );
-}
+};
+
+export default ProfilePage;

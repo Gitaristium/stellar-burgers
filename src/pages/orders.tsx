@@ -1,8 +1,9 @@
+import { FC } from "react";
 import OrdersList from "../components/orders-list/order-list";
 import { getIsMobile } from "../services/mobile/selectors";
 import { useAppSelector } from "../services/store/hooks";
 
-export default function OrdersPage() {
+const OrdersPage: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);
     return (
         <>
@@ -14,4 +15,6 @@ export default function OrdersPage() {
             <OrdersList />
         </>
     );
-}
+};
+
+export default OrdersPage;

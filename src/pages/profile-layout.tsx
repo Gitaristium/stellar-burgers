@@ -1,10 +1,11 @@
+import { FC } from "react";
 import { Outlet } from "react-router-dom";
 import ProfileNav from "../components/profile-nav/profile-nav";
 import styles from "./profile-layout.module.scss";
 import { getIsMobile } from "../services/mobile/selectors";
 import { useAppSelector } from "../services/store/hooks";
 
-export default function ProfileLayoutPage() {
+const ProfileLayoutPage: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);
 
     return (
@@ -17,4 +18,6 @@ export default function ProfileLayoutPage() {
             <Outlet />
         </section>
     );
-}
+};
+
+export default ProfileLayoutPage;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import FeedList from "../components/feed/feed";
 import FeedStats from "../components/feed-stats/feed-stats";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -6,7 +6,7 @@ import { getIsMobile } from "../services/mobile/selectors";
 import { useAppSelector } from "../services/store/hooks";
 import { LIST, STATS } from "../utils/vars";
 
-export default function OrdersPage() {
+const OrdersPage: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);
 
     // активные табы
@@ -59,4 +59,6 @@ export default function OrdersPage() {
             </section>
         </>
     );
-}
+};
+
+export default OrdersPage;

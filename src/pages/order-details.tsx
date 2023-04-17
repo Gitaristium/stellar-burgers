@@ -1,5 +1,8 @@
+import { FC } from "react";
 import OrderDetails from "../components/order-details/order-details";
 
-export default function OrderDetailsPage() {
+const OrderDetailsPage: FC = () => {
     return <OrderDetails />;
-}
+};
+
+export default OrderDetailsPage;

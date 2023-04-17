@@ -1,8 +1,9 @@
+import { FC } from "react";
 import { Login } from "../components/auth";
 import { getIsMobile } from "../services/mobile/selectors";
 import { useAppSelector } from "../services/store/hooks";
 
-export default function LoginPage() {
+const LoginPage: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);
 
     return (
@@ -13,4 +14,6 @@ export default function LoginPage() {
             <Login />
         </section>
     );
-}
+};
+
+export default LoginPage;

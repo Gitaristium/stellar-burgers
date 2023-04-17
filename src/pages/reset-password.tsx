@@ -1,8 +1,9 @@
+import { FC } from "react";
 import { ResetPassword } from "../components/auth";
 import { getIsMobile } from "../services/mobile/selectors";
 import { useAppSelector } from "../services/store/hooks";
 
-export default function ResetPasswordPage() {
+const ResetPasswordPage: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);
 
     return (
@@ -13,4 +14,6 @@ export default function ResetPasswordPage() {
             <ResetPassword />
         </section>
     );
-}
+};
+
+export default ResetPasswordPage;
