@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { FC, useEffect, useMemo, useRef, useState } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredientsCategory from "../burger-ingredients-category/burger-ingredients-category";
 import Loading from "../loading/loading";
@@ -17,7 +17,7 @@ import {
 import { IngredientModel } from "../../utils/types";
 import { useAppSelector } from "../../services/store/hooks";
 
-export default function BurgerIngredients() {
+const BurgerIngredients: FC = () => {
     // булин для мобилок
     const isMobile: boolean = useAppSelector(getIsMobile);
     // список всех ингредиентов, полученных по API
@@ -184,4 +184,6 @@ export default function BurgerIngredients() {
             )}
         </>
     );
-}
+};
+
+export default BurgerIngredients;

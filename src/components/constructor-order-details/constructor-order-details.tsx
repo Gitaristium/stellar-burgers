@@ -1,3 +1,4 @@
+import { FC, useEffect, useState } from "react";
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./constructor-order-details.module.scss";
 import vector1 from "../../images/order-accpeted/vector1.svg";
@@ -5,7 +6,6 @@ import vector2 from "../../images/order-accpeted/vector2.svg";
 import vector3 from "../../images/order-accpeted/vector3.svg";
 import { getConstructorOrderNumber } from "../../services/constructor-order-details/selectors";
 import { useAppSelector } from "../../services/store/hooks";
-import { useEffect, useState } from "react";
 
 // ===чисто ради эксперимента===
 // может подскажете библиотечку для такой анимации? =)
@@ -38,7 +38,7 @@ const useAnim = () => {
 };
 // ===чисто ради эксперимента===
 
-export default function ConstructorOrderDetails() {
+const ConstructorOrderDetails: FC = () => {
     const animNumber = useAnim();
     return (
         <div className={`${styles.modal} p-10`}>
@@ -66,4 +66,6 @@ export default function ConstructorOrderDetails() {
             </>
         </div>
     );
-}
+};
+
+export default ConstructorOrderDetails;

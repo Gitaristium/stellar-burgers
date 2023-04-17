@@ -1,3 +1,4 @@
+import { FC } from "react";
 import {
     Button,
     EmailInput,
@@ -16,12 +17,12 @@ import { USER_RESET } from "../../services/auth/actions";
 import Notice from "../modals/notice/notice";
 import { LOGIN_PATH, RESET_PASS_PATH } from "../../utils/vars";
 
-export default function ResetPass() {
+const ResetPass: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);
+    const isLoading: boolean = useAppSelector(getUserResetIsLoading);
+    const hasError: boolean = useAppSelector(getUserResetHasError);
+    const requestSuccess: boolean = useAppSelector(getUserResetRequestSuccess);
     const dispatch = useAppDispatch();
-    const isLoading = useAppSelector(getUserResetIsLoading);
-    const hasError = useAppSelector(getUserResetHasError);
-    const requestSuccess = useAppSelector(getUserResetRequestSuccess);
 
     // работаем с формой
     const { formRef, formState, handleChange } = useForm();
@@ -82,4 +83,6 @@ export default function ResetPass() {
             {requestSuccess && <Navigate to={RESET_PASS_PATH} />}
         </>
     );
-}
+};
+
+export default ResetPass;

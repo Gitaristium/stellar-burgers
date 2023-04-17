@@ -1,5 +1,5 @@
 .header {
-    position: relative;
+    // position: relative;
     background: var(--bg-color-head);
     box-shadow: 0px 24px 32px rgba(0, 0, 0, 0.04), 0px 16px 24px rgba(0, 0, 0, 0.04), 0px 4px 8px rgba(0, 0, 0, 0.04),
         0px 0px 1px rgba(0, 0, 0, 0.04);
@@ -11,21 +11,20 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    // width: 100%;
     max-width: 1280px;
     margin: 0 auto;
 }
 
 .nav {
-    position: relative;
     width: 100%;
-    display: flex;
-    width: 100%;
-    flex-wrap: wrap;
-    align-items: center;
-    margin: 0 auto;
-    list-style: none;
-    padding: 0;
+    // position: relative;
+    // display: flex;
+    // flex-wrap: wrap;
+    // align-items: center;
+    // margin: 0 auto;
+    // list-style: none;
+    // padding: 0;
 
     // .nav__title
     &__title {
@@ -64,7 +63,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 1;
+    // z-index: 1;
 
     // .logo img
     // .logo svg
@@ -98,9 +97,9 @@
 
 .list {
     display: flex;
-    width: 100%;
-    flex-wrap: wrap;
-    align-items: center;
+    // width: 100%;
+    // flex-wrap: wrap;
+    // align-items: center;
     margin: 0 auto;
     list-style: none;
     padding: 0;
@@ -121,18 +120,23 @@
 
 .link {
     display: flex;
-    justify-items: center;
+    // justify-items: center;
     align-items: center;
-    cursor: pointer;
+    // cursor: pointer;
     transition: color 0.1s;
+
+    // .link svg
+    & svg {
+        transition: fill 0.1s;
+    }
 
     // .link span
     & span {
-        display: flex;
-        justify-items: center;
-        align-items: center;
-        cursor: pointer;
-        transition: color 0.1s;
+        // display: flex;
+        // justify-items: center;
+        // align-items: center;
+        // cursor: pointer;
+        // transition: color 0.1s;
     }
 
     // .link.active

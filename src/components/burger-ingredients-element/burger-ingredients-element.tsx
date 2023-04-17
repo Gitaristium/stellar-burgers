@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { FC, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { DragPreviewImage, useDrag } from "react-dnd";
 import {
@@ -13,13 +13,12 @@ import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import { getIsMobile } from "../../services/mobile/selectors";
 import { INGREDIENTS_PATH } from "../../utils/vars";
 
-export default function BurgerIngredientsElement({
-    item,
-    type,
-}: {
+interface IProps {
     item: IngredientModel;
     type: string;
-}) {
+}
+
+const BurgerIngredientsElement: FC<IProps> = ({ item, type }) => {
     const isMobile: boolean = useAppSelector(getIsMobile);
 
     // получаем список конструктора из стора
@@ -98,4 +97,6 @@ export default function BurgerIngredientsElement({
             </Link>
         </>
     );
-}
+};
+
+export default BurgerIngredientsElement;

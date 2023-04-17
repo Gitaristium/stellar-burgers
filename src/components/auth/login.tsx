@@ -1,3 +1,4 @@
+import { FC } from "react";
 import {
     Button,
     EmailInput,
@@ -16,7 +17,7 @@ import {
 import Notice from "../modals/notice/notice";
 import { FORGOT_PASS_PATH, REGISTER_PATH } from "../../utils/vars";
 
-export default function Login() {
+const Login: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);
     const dispatch = useAppDispatch();
     const isLoading = useAppSelector(getUserLoginIsLoading);
@@ -104,4 +105,6 @@ export default function Login() {
             )}
         </>
     );
-}
+};
+
+export default Login;

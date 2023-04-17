@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import { useDrop } from "react-dnd";
 import {
     Button,
@@ -28,7 +28,7 @@ import { getUser } from "../../services/auth/selectors";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getIsMobile } from "../../services/mobile/selectors";
 
-export default function BurgerConstructorView() {
+const BurgerConstructorView: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);
 
     // список всех ингредиентов, полученных по API
@@ -224,4 +224,6 @@ export default function BurgerConstructorView() {
             )}
         </>
     );
-}
+};
+
+export default BurgerConstructorView;

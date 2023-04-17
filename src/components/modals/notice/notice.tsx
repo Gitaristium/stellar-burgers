@@ -1,7 +1,13 @@
 import ReactDOM from "react-dom";
+import { FC } from "react";
 import styles from "./notice.module.scss";
 
-export default function Notice(props: { text: string; type?: "error" }) {
+interface IProps {
+    text: string;
+    type?: "error";
+}
+
+const Notice: FC<IProps> = (props) => {
     return ReactDOM.createPortal(
         <div
             className={`${styles.notice} ${
@@ -12,4 +18,6 @@ export default function Notice(props: { text: string; type?: "error" }) {
         </div>,
         document.getElementById("notices") as HTMLElement
     );
-}
+};
+
+export default Notice;

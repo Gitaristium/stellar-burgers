@@ -1,8 +1,9 @@
+import { FC } from "react";
 import { getIsMobile } from "../../services/mobile/selectors";
 import { useAppSelector } from "../../services/store/hooks";
 import styles from "./feed-stats.module.scss";
 
-export default function FeedStats() {
+const FeedStats: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);
 
     return (
@@ -59,4 +60,6 @@ export default function FeedStats() {
             </div>
         </section>
     );
-}
+};
+
+export default FeedStats;

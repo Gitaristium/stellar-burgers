@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { Link, NavLink, useMatch } from "react-router-dom";
 import {
     Logo,
@@ -16,7 +16,7 @@ import ProfileNav from "../profile-nav/profile-nav";
 import { FEED_PATH, HOME_PATH, PROFILE_PATH } from "../../utils/vars";
 import { getIsMobile } from "../../services/mobile/selectors";
 
-export default function AppHeader() {
+const AppHeader: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);
 
     // дла определения цвета иконов в меню
@@ -197,4 +197,6 @@ export default function AppHeader() {
             </div>
         </header>
     );
-}
+};
+
+export default AppHeader;

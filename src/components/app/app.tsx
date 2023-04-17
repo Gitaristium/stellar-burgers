@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useCallback } from "react";
+import { useEffect, useLayoutEffect, useCallback, FC } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import AppHeader from "../app-header/app-header";
 import {
@@ -43,7 +43,7 @@ import { getIsMobile } from "../../services/mobile/selectors";
 import { getIngredientsRequestSuccess } from "../../services/ingredients-list/selectors";
 import Loading from "../loading/loading";
 
-export default function App() {
+const App: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);
     const dispatch = useAppDispatch();
 
@@ -187,4 +187,6 @@ export default function App() {
             )}
         </>
     );
-}
+};
+
+export default App;

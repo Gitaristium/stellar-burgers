@@ -1,3 +1,4 @@
+import { FC } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import {
     CurrencyIcon,
@@ -14,7 +15,7 @@ import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import { IngredientModel } from "../../utils/types";
 import { getIsMobile } from "../../services/mobile/selectors";
 
-export default function BurgerConstructorElement(props: {
+interface IProps {
     ingredient: IngredientModel;
     isLocked?: boolean;
     position?: "top" | "bottom";
@@ -22,7 +23,9 @@ export default function BurgerConstructorElement(props: {
     type: string;
     moveItem: (id: string, to: number) => void;
     findItem: (id: string) => { index: number };
-}) {
+}
+
+const BurgerConstructorElement: FC<IProps> = (props) => {
     const isMobile: boolean = useAppSelector(getIsMobile);
 
     // ловим drag&drop из списка ингредиентов в конструктор
@@ -175,4 +178,6 @@ export default function BurgerConstructorElement(props: {
             </span>
         </>
     );
-}
+};
+
+export default BurgerConstructorElement;

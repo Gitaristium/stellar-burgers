@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import {
     CurrencyIcon,
     Button,
@@ -10,7 +10,7 @@ import styles from "./burger-constructor.module.scss";
 import { useAppSelector } from "../../services/store/hooks";
 import { getIsMobile } from "../../services/mobile/selectors";
 
-export default function BurgerConstructor() {
+const BurgerConstructor: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -24,7 +24,7 @@ export default function BurgerConstructor() {
                 <>
                     <section className={styles.section}>
                         <div className={`${styles.sum} mt-10`}>
-                            <TotalPrice className="text text_type_digits-default" />
+                            <TotalPrice extraClass="text text_type_digits-default" />
                             <CurrencyIcon type="primary" />
                             <Button
                                 htmlType="button"
@@ -50,4 +50,6 @@ export default function BurgerConstructor() {
             )}
         </>
     );
-}
+};
+
+export default BurgerConstructor;

@@ -1,10 +1,11 @@
+import { FC } from "react";
 import OrdersListElement from "../orders-list-element/orders-list-element";
 import { ordersData } from "../../utils/orders-data";
 import styles from "./order-list.module.scss";
 import { useAppSelector } from "../../services/store/hooks";
 import { getIsMobile } from "../../services/mobile/selectors";
 
-export default function OrdersList() {
+const OrdersList: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);
 
     return (
@@ -16,4 +17,6 @@ export default function OrdersList() {
             </div>
         </section>
     );
-}
+};
+
+export default OrdersList;

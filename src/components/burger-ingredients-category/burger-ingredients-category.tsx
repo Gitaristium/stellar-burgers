@@ -1,17 +1,18 @@
-import { forwardRef, ForwardedRef } from "react";
+import { forwardRef } from "react";
 import BurgerIngredientsItem from "../burger-ingredients-element/burger-ingredients-element";
 import styles from "./burger-ingredients-category.module.scss";
 import { IngredientModel } from "../../utils/types";
 
-const BurgerIngredientsCategory = forwardRef(
-    (
-        props: {
-            title: string;
-            items: IngredientModel[];
-            type: string;
-        },
-        ref: ForwardedRef<HTMLHeadingElement>
-    ) => {
+interface IProps {
+    title: string;
+    items: IngredientModel[];
+    type: string;
+}
+
+type TRef = HTMLHeadingElement;
+
+const BurgerIngredientsCategory = forwardRef<TRef, IProps>(
+    (props, ref): JSX.Element => {
         return (
             <>
                 <h2 className="text text_type_main-medium mb-6 pt-10" ref={ref}>

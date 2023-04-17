@@ -1,3 +1,4 @@
+import { FC } from "react";
 import { useParams } from "react-router-dom";
 import styles from "./ingredient-details.module.scss";
 import { IngredientModel } from "../../utils/types";
@@ -5,7 +6,7 @@ import { useAppSelector } from "../../services/store/hooks";
 import { getIngredientById } from "../../services/ingredients-list/selectors";
 import Loading from "../loading/loading";
 
-export default function IngredientDetails() {
+const IngredientDetails: FC = () => {
     const { id } = useParams();
 
     const ingredientDetails: IngredientModel = useAppSelector(
@@ -64,4 +65,6 @@ export default function IngredientDetails() {
             )}
         </>
     );
-}
+};
+
+export default IngredientDetails;

@@ -1,11 +1,11 @@
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
 import styles from "./modal-overlay.module.scss";
 
-export default function ModalOverlay({
-    closeModal,
-}: {
+interface IProps {
     closeModal: () => void;
-}) {
+}
+
+const ModalOverlay: FC<IProps> = ({ closeModal }) => {
     useEffect(() => {
         const onKeypress = (e: any) => {
             if (e.key === "Escape" && closeModal) {
@@ -21,4 +21,6 @@ export default function ModalOverlay({
     });
 
     return <div className={styles.overlay} onClick={closeModal}></div>;
-}
+};
+
+export default ModalOverlay;

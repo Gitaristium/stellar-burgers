@@ -1,3 +1,4 @@
+import { FC } from "react";
 import {
     Button,
     EmailInput,
@@ -18,7 +19,7 @@ import {
 import { USER_UPDATE } from "../../services/auth/actions";
 import Notice from "../modals/notice/notice";
 
-export default function ProfileEdit() {
+const ProfileEdit: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);
     const userName = useAppSelector(getUserName);
     const userEmail = useAppSelector(getUserEmail);
@@ -143,4 +144,6 @@ export default function ProfileEdit() {
             )}
         </>
     );
-}
+};
+
+export default ProfileEdit;

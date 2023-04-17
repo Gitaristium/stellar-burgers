@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import styles from "./loading.module.scss";
 
 const useAnim = () => {
@@ -15,14 +15,17 @@ const useAnim = () => {
     return toogle;
 };
 // ===чисто ради эксперимента===
+interface IProps {
+    children?: string;
+}
 
-export default function Loading({ children }: { children: string }) {
+const Loading: FC<IProps> = ({ children }) => {
     const toogle = useAnim();
 
     return (
         <div className={styles.loading}>
             <h1 className="text text_type_main-large">
-                {children}
+                {children ? children : "Загрузка"}
                 <div className={`${styles.dots} ${styles[toogle]}`}>
                     <span className={`${styles.dot} ${styles.z}`}></span>
                     <span className={`${styles.dot} ${styles.f}`}></span>
@@ -34,4 +37,6 @@ export default function Loading({ children }: { children: string }) {
             </h1>
         </div>
     );
-}
+};
+
+export default Loading;

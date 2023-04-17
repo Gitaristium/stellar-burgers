@@ -3,8 +3,13 @@ import OrderDetailsImg from "../order-details-img/order-details-img";
 import styles from "./order-details-element.module.scss";
 import { useAppSelector } from "../../services/store/hooks";
 import { getIngredientById } from "../../services/ingredients-list/selectors";
+import { FC } from "react";
 
-export default function OrderDetailsElement({ itemId }: { itemId: string }) {
+interface IProps {
+    itemId: string;
+}
+
+const OrderDetailsElement: FC<IProps> = ({ itemId }) => {
     const item = useAppSelector(getIngredientById(itemId));
 
     return (
@@ -22,4 +27,6 @@ export default function OrderDetailsElement({ itemId }: { itemId: string }) {
             </p>
         </article>
     );
-}
+};
+
+export default OrderDetailsElement;

@@ -1,15 +1,18 @@
+import { FC } from "react";
 import { useDrop } from "react-dnd";
 import { INGREDIENT_ADD } from "../../services/burger-constructor/actions";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import styles from "./burger-constructor-element.module.scss";
 import { getIsMobile } from "../../services/mobile/selectors";
 
-export default function BurgerConstructorElementEmpty(props: {
+interface IProps {
     isLocked?: boolean;
     position?: "top" | "bottom";
     extraClass?: string;
     type: string;
-}) {
+}
+
+const BurgerConstructorElementEmpty: FC<IProps> = (props) => {
     const isMobile: boolean = useAppSelector(getIsMobile);
 
     // ловим drag&drop
@@ -56,4 +59,6 @@ export default function BurgerConstructorElementEmpty(props: {
             </span>
         </>
     );
-}
+};
+
+export default BurgerConstructorElementEmpty;

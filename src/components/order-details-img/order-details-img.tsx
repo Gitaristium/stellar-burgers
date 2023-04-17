@@ -1,8 +1,13 @@
+import { FC } from "react";
 import { getIsMobile } from "../../services/mobile/selectors";
 import { useAppSelector } from "../../services/store/hooks";
 import styles from "./order-details-img.module.scss";
 
-export default function OrderDetailsImg({ img }: { img: string }) {
+interface IProps {
+    img: string;
+}
+
+const OrderDetailsImg: FC<IProps> = ({ img }) => {
     const isMobile: boolean = useAppSelector(getIsMobile);
 
     return (
@@ -12,4 +17,6 @@ export default function OrderDetailsImg({ img }: { img: string }) {
             className={`${styles.img} ${isMobile ? styles.img__mobile : ""}`}
         />
     );
-}
+};
+
+export default OrderDetailsImg;

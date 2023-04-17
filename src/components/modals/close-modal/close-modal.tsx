@@ -1,7 +1,12 @@
+import { FC } from "react";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./close-modal.module.scss";
 
-export default function CloseModal({ closeModal }: { closeModal: () => void }) {
+interface IProps {
+    closeModal: () => void;
+}
+
+const CloseModal: FC<IProps> = ({ closeModal }) => {
     return (
         <span
             className={`${styles.modal__close} remove-select`}
@@ -10,4 +15,6 @@ export default function CloseModal({ closeModal }: { closeModal: () => void }) {
             <CloseIcon type="primary" />
         </span>
     );
-}
+};
+
+export default CloseModal;

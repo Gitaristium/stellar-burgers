@@ -1,3 +1,4 @@
+import { FC } from "react";
 import {
     Button,
     Input,
@@ -18,7 +19,7 @@ import { USER_RESET_CONFIRM } from "../../services/auth/actions";
 import Notice from "../modals/notice/notice";
 import { FORGOT_PASS_PATH, LOGIN_PATH } from "../../utils/vars";
 
-export default function ResetPassword() {
+const ResetPassword: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);
     const dispatch = useAppDispatch();
     const isLoading = useAppSelector(getUserResetConfirmIsLoading);
@@ -109,4 +110,6 @@ export default function ResetPassword() {
             {resetConfirmRequestSuccess && <Navigate to={LOGIN_PATH} />}
         </>
     );
-}
+};
+
+export default ResetPassword;

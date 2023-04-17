@@ -1,4 +1,4 @@
-import { Key } from "react";
+import { FC, Key } from "react";
 import { Link } from "react-router-dom";
 import {
     CurrencyIcon,
@@ -10,7 +10,13 @@ import { useAppSelector } from "../../services/store/hooks";
 import { getIsMobile } from "../../services/mobile/selectors";
 import styles from "./orders-list-element.module.scss";
 
-export default function OrdersListElement({ item }: { item: any }) {
+interface IProps {
+    // если бы мы знали что это такое, но мы не знаем что это такое
+    // верный тип укажу, когда ТЗ дойдет до этой страницы и перепишу компонент под условия.
+    item: any;
+}
+
+const OrdersListElement: FC<IProps> = ({ item }) => {
     const isMobile: boolean = useAppSelector(getIsMobile);
     const images: any = useAppSelector(
         getImagesByIngredientId(item.ingredients)
@@ -57,4 +63,6 @@ export default function OrdersListElement({ item }: { item: any }) {
             </div>
         </Link>
     );
-}
+};
+
+export default OrdersListElement;

@@ -1,10 +1,11 @@
+import { FC } from "react";
 import OrdersListElement from "../orders-list-element/orders-list-element";
 import { feedData } from "../../utils/feed-data";
 import styles from "./feed.module.scss";
 import { useAppSelector } from "../../services/store/hooks";
 import { getIsMobile } from "../../services/mobile/selectors";
 
-export default function FeedList() {
+const FeedList: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);
 
     return (
@@ -20,4 +21,6 @@ export default function FeedList() {
             </div>
         </section>
     );
-}
+};
+
+export default FeedList;

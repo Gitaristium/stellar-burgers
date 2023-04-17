@@ -1,3 +1,4 @@
+import { FC } from "react";
 import { NavLink, useMatch } from "react-router-dom";
 import styles from "./profile-nav.module.scss";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
@@ -5,11 +6,11 @@ import { USER_LOGOUT } from "../../services/auth/actions";
 import { ORDERS_PATH, PROFILE_PATH } from "../../utils/vars";
 import { getIsMobile } from "../../services/mobile/selectors";
 
-export default function ProfileNav({
-    isSubMenuOpen,
-}: {
+interface IProps {
     isSubMenuOpen?: boolean;
-}) {
+}
+
+const ProfileNav: FC<IProps> = ({ isSubMenuOpen }) => {
     const isMobile: boolean = useAppSelector(getIsMobile);
     const dispatch = useAppDispatch();
     const logout = () => {
@@ -84,4 +85,6 @@ export default function ProfileNav({
             )}
         </nav>
     );
-}
+};
+
+export default ProfileNav;

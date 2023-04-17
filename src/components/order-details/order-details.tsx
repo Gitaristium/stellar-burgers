@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useMatch, useParams } from "react-router-dom";
 import { feedData } from "../../utils/feed-data";
 import { ordersData } from "../../utils/orders-data";
@@ -18,7 +18,7 @@ import {
 } from "../../utils/vars";
 import OrderDetailsElement from "../order-details-element/order-details-element";
 
-export default function OrderDetails() {
+const OrderDetails: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);
 
     const feedMatch = useMatch(FEED_PATH + ALL_PATH);
@@ -105,4 +105,6 @@ export default function OrderDetails() {
             )}
         </>
     );
-}
+};
+
+export default OrderDetails;
