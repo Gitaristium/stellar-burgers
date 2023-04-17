@@ -187,7 +187,7 @@ const BurgerConstructorView: FC = () => {
                 {/* итог по сумме и "оформить" */}
                 <div className={`${styles.sum} mt-10 mr-4`}>
                     <TotalPrice
-                        className={
+                        extraClass={
                             !isMobile
                                 ? "text text_type_digits-medium"
                                 : "text text_type_digits-default"
