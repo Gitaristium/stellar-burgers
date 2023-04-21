@@ -7,7 +7,7 @@ interface IProps {
 
 const ModalOverlay: FC<IProps> = ({ closeModal }) => {
     useEffect(() => {
-        const onKeypress = (e: any) => {
+        const onKeypress = (e: KeyboardEvent) => {
             if (e.key === "Escape" && closeModal) {
                 closeModal();
             }
