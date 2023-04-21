@@ -1,21 +1,21 @@
-import { FC } from "react";
 import {
     Button,
     EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { FC } from "react";
+import { Link, Navigate } from "react-router-dom";
+import { USER_RESET } from "../../services/auth/actions";
+import {
+    getUserResetHasError,
+    getUserResetIsLoading,
+    getUserResetRequestSuccess,
+} from "../../services/auth/selectors";
 import { getIsMobile } from "../../services/mobile/selectors";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import { useForm } from "../../utils/hooks";
-import { Link, Navigate } from "react-router-dom";
-import styles from "./auth.module.scss";
-import {
-    getUserResetIsLoading,
-    getUserResetHasError,
-    getUserResetRequestSuccess,
-} from "../../services/auth/selectors";
-import { USER_RESET } from "../../services/auth/actions";
-import Notice from "../modals/notice/notice";
 import { LOGIN_PATH, RESET_PASS_PATH } from "../../utils/vars";
+import Notice from "../modals/notice/notice";
+import styles from "./auth.module.scss";
 
 const ResetPass: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);

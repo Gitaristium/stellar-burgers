@@ -1,11 +1,11 @@
 import { forwardRef } from "react";
+import { TIngredient, TIngredientsList } from "../../utils/types";
 import BurgerIngredientsItem from "../burger-ingredients-element/burger-ingredients-element";
 import styles from "./burger-ingredients-category.module.scss";
-import { IngredientModel } from "../../utils/types";
 
 interface IProps {
     title: string;
-    items: IngredientModel[];
+    items: TIngredientsList;
     type: string;
 }
 
@@ -20,7 +20,7 @@ const BurgerIngredientsCategory = forwardRef<TRef, IProps>(
                 </h2>
                 <div className={`${styles.list} ml-4 mr-4 mb-2`}>
                     {/* пробегаемся по полученному из пропсов массиву, рендерим список ингредиентов */}
-                    {props.items.map((item: IngredientModel) => (
+                    {props.items.map((item: TIngredient) => (
                         <BurgerIngredientsItem
                             item={item}
                             type={props.type}

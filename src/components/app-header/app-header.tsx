@@ -1,20 +1,20 @@
-import { FC, useEffect, useState } from "react";
-import { Link, NavLink, useMatch } from "react-router-dom";
 import {
-    Logo,
+    ArrowDownIcon,
+    ArrowUpIcon,
     BurgerIcon,
     ListIcon,
+    Logo,
     ProfileIcon,
-    ArrowUpIcon,
-    ArrowDownIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import BurgerBtn from "./burger-btn";
+import { FC, useEffect, useState } from "react";
+import { Link, NavLink, useMatch } from "react-router-dom";
 import logoMobile from "../../images/logo__mobile.svg";
-import styles from "./app-header.module.scss";
-import { useAppSelector } from "../../services/store/hooks";
-import ProfileNav from "../profile-nav/profile-nav";
-import { FEED_PATH, HOME_PATH, PROFILE_PATH } from "../../utils/vars";
 import { getIsMobile } from "../../services/mobile/selectors";
+import { useAppSelector } from "../../services/store/hooks";
+import { FEED_PATH, HOME_PATH, PROFILE_PATH } from "../../utils/vars";
+import ProfileNav from "../profile-nav/profile-nav";
+import styles from "./app-header.module.scss";
+import BurgerBtn from "./burger-btn";
 
 const AppHeader: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);

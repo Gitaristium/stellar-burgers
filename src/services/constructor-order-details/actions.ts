@@ -3,10 +3,10 @@ import { requestApi } from "../../utils/request-api";
 import { ORDERS } from "../../utils/vars";
 import { INGREDIENTS_RESET } from "../burger-constructor/actions";
 
-const reducerName = "constructorOrderDetails";
+const REDUCER_NAME = "constructorOrderDetails";
 
 export const CONSTRUCTOR_ORDER_DETAILS_REQUEST = createAsyncThunk(
-    `${reducerName}/request`,
+    `${REDUCER_NAME}/request`,
     async (data: { ingredients: string[] }, { dispatch }) => {
         // Здесь только логика запроса и возврата данных
         // Никакой обработки ошибок
@@ -23,5 +23,5 @@ export const CONSTRUCTOR_ORDER_DETAILS_REQUEST = createAsyncThunk(
 );
 
 export const CONSTRUCTOR_ORDER_DETAILS_RESET = createAction(
-    `${reducerName}/reset`
+    `${REDUCER_NAME}/reset`
 );

@@ -1,7 +1,7 @@
-import { FC, useState } from "react";
-import FeedList from "../components/feed/feed";
-import FeedStats from "../components/feed-stats/feed-stats";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+import { FC, useState } from "react";
+import FeedStats from "../components/feed-stats/feed-stats";
+import FeedList from "../components/feed/feed";
 import { getIsMobile } from "../services/mobile/selectors";
 import { useAppSelector } from "../services/store/hooks";
 import { LIST, STATS } from "../utils/vars";

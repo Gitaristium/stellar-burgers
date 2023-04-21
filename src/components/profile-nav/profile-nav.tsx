@@ -1,10 +1,10 @@
 import { FC } from "react";
 import { NavLink, useMatch } from "react-router-dom";
-import styles from "./profile-nav.module.scss";
-import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import { USER_LOGOUT } from "../../services/auth/actions";
-import { ORDERS_PATH, PROFILE_PATH } from "../../utils/vars";
 import { getIsMobile } from "../../services/mobile/selectors";
+import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
+import { ORDERS_PATH, PROFILE_PATH } from "../../utils/vars";
+import styles from "./profile-nav.module.scss";
 
 interface IProps {
     isSubMenuOpen?: boolean;

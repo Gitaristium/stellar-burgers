@@ -1,16 +1,16 @@
 import { FC } from "react";
 import { useParams } from "react-router-dom";
-import styles from "./ingredient-details.module.scss";
-import { IngredientModel } from "../../utils/types";
-import { useAppSelector } from "../../services/store/hooks";
 import { getIngredientById } from "../../services/ingredients-list/selectors";
+import { useAppSelector } from "../../services/store/hooks";
+import { TIngredient } from "../../utils/types";
 import Loading from "../loading/loading";
+import styles from "./ingredient-details.module.scss";
 
 const IngredientDetails: FC = () => {
     const { id } = useParams();
 
-    const ingredientDetails: IngredientModel = useAppSelector(
-        getIngredientById(id)
+    const ingredientDetails: TIngredient | undefined = useAppSelector(
+        getIngredientById(id as string)
     );
 
     return (
@@ -61,7 +61,7 @@ const IngredientDetails: FC = () => {
                     </ul>
                 </div>
             ) : (
-                <Loading>Грузим детали</Loading>
+                <Loading />
             )}
         </>
     );

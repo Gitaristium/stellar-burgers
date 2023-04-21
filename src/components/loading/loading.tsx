@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, PropsWithChildren, useEffect, useState } from "react";
 import styles from "./loading.module.scss";
 
 const useAnim = () => {
@@ -15,11 +15,8 @@ const useAnim = () => {
     return toogle;
 };
 // ===чисто ради эксперимента===
-interface IProps {
-    children?: string;
-}
 
-const Loading: FC<IProps> = ({ children }) => {
+const Loading: FC<PropsWithChildren> = ({ children }) => {
     const toogle = useAnim();
 
     return (

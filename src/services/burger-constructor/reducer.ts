@@ -1,15 +1,16 @@
-import { createReducer } from "@reduxjs/toolkit";
+import { PayloadAction, createReducer } from "@reduxjs/toolkit";
 import {
     INGREDIENT_ADD,
     INGREDIENT_REMOVE,
     INGREDIENTS_RESET,
     INGREDIENT_MOVE,
 } from "./actions";
+import { TIngredient, TIngredientsList } from "../../utils/types";
 // import { IngredientModel } from "../../utils/types";
 
 const initialState = {
-    bun: null,
-    ingr: [],
+    bun: null as unknown as TIngredient,
+    ingr: [] as TIngredientsList,
 };
 
 export const burgerConstructorReducer = createReducer(
@@ -17,39 +18,48 @@ export const burgerConstructorReducer = createReducer(
     (builder) => {
         builder
             .addCase(INGREDIENTS_RESET, () => initialState)
-            .addCase(INGREDIENT_MOVE, (state, action) => {
-                state.ingr.splice(
-                    action.payload.toIndex,
-                    0,
-                    state.ingr.splice(action.payload.fromIndex, 1)[0]
-                );
-            })
+            .addCase(
+                INGREDIENT_MOVE,
+                (
+                    state,
+                    action: PayloadAction<{
+                        fromIndex: number;
+                        toIndex: number;
+                    }>
+                ) => {
+                    state.ingr.splice(
+                        action.payload.toIndex,
+                        0,
+                        state.ingr.splice(action.payload.fromIndex, 1)[0]
+                    );
+                }
+            )
             .addMatcher(
-                (action) =>
+                (action: PayloadAction<TIngredient>) =>
                     action.type === INGREDIENT_ADD.type &&
                     action.payload.type === "bun",
                 (state, action) => ({ ...state, bun: action.payload })
             )
             .addMatcher(
-                (action) =>
+                (action: PayloadAction<TIngredient>) =>
                     action.type === INGREDIENT_ADD.type &&
                     action.payload.type !== "bun",
-                (state, action) => ({
+                (state, action: PayloadAction<TIngredient>) => ({
                     ...state,
                     ingr: [...state.ingr, action.payload],
                 })
             )
             .addMatcher(
-                (action) =>
+                (action: PayloadAction<TIngredient>) =>
                     action.type === INGREDIENT_REMOVE.type &&
                     action.payload.type === "bun",
                 (state) => state
             )
             .addMatcher(
-                (action) =>
+                (action: PayloadAction<TIngredient>) =>
                     action.type === INGREDIENT_REMOVE.type &&
                     action.payload.type !== "bun",
-                (state, action) => ({
+                (state, action: PayloadAction<TIngredient>) => ({
                     ...state,
                     ingr: state.ingr.filter(
                         (el) => el.uuid !== action.payload.uuid

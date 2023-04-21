@@ -1,15 +1,14 @@
-import { FC, ReactNode } from "react";
+import { FC, PropsWithChildren } from "react";
 import ReactDOM from "react-dom";
-import ModalOverlay from "../modal-overlay/modal-overlay";
-import CloseModal from "../close-modal/close-modal";
-import styles from "./modal.module.scss";
-import { useAppSelector } from "../../../services/store/hooks";
 import { getIsMobile } from "../../../services/mobile/selectors";
+import { useAppSelector } from "../../../services/store/hooks";
+import CloseModal from "../close-modal/close-modal";
+import ModalOverlay from "../modal-overlay/modal-overlay";
+import styles from "./modal.module.scss";
 
-interface IProps {
+interface IProps extends PropsWithChildren {
     closeModal: () => void;
     title?: string;
-    children: ReactNode;
 }
 
 const Modal: FC<IProps> = (props) => {

@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useRef, useState } from "react";
-import { useAppSelector } from "../services/store/hooks";
 import { getUserEmail, getUserName } from "../services/auth/selectors";
+import { useAppSelector } from "../services/store/hooks";
 
 export const useForm = () => {
     const formRef = useRef<HTMLFormElement>(null);

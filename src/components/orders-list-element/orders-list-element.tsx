@@ -1,13 +1,13 @@
-import { FC, Key } from "react";
-import { Link } from "react-router-dom";
 import {
     CurrencyIcon,
     FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import OrderDetailsImg from "../order-details-img/order-details-img";
-import { getImagesByIngredientId } from "../../services/ingredients-list/selectors";
-import { useAppSelector } from "../../services/store/hooks";
+import { FC, Key } from "react";
+import { Link } from "react-router-dom";
+import { getImagesByIngredientIds } from "../../services/ingredients-list/selectors";
 import { getIsMobile } from "../../services/mobile/selectors";
+import { useAppSelector } from "../../services/store/hooks";
+import OrderDetailsImg from "../order-details-img/order-details-img";
 import styles from "./orders-list-element.module.scss";
 
 interface IProps {
@@ -18,10 +18,9 @@ interface IProps {
 
 const OrdersListElement: FC<IProps> = ({ item }) => {
     const isMobile: boolean = useAppSelector(getIsMobile);
-    const images: any = useAppSelector(
-        getImagesByIngredientId(item.ingredients)
+    const images = useAppSelector(
+        getImagesByIngredientIds(item.ingredients as string[])
     );
-
     return (
         <Link
             className={`${styles.item} ${!isMobile ? "p-6 mb-6" : "p-4 mb-4"}`}

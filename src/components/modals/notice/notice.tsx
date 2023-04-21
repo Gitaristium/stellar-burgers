@@ -1,5 +1,5 @@
-import ReactDOM from "react-dom";
 import { FC } from "react";
+import ReactDOM from "react-dom";
 import styles from "./notice.module.scss";
 
 interface IProps {

@@ -22,7 +22,7 @@ export const ingredientsListReducer = createReducer(initialState, (builder) => {
             },
         }))
         // Вызывается в том случае если запрос успешно выполнился
-        .addCase(INGREDIENTS_REQEST.fulfilled, (state, action) => ({
+        .addCase(INGREDIENTS_REQEST.fulfilled, (_, action) => ({
             // Добавляем пользователя
             items: action.payload,
             status: {

@@ -1,14 +1,14 @@
-import { FC, useState } from "react";
 import {
-    CurrencyIcon,
     Button,
+    CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { FC, useState } from "react";
+import { getIsMobile } from "../../services/mobile/selectors";
+import { useAppSelector } from "../../services/store/hooks";
 import BurgerConstructorView from "../burger-constructor-view/burger-constructor-view";
 import Modal from "../modals/modal/modal";
 import TotalPrice from "../total-price/total-price";
 import styles from "./burger-constructor.module.scss";
-import { useAppSelector } from "../../services/store/hooks";
-import { getIsMobile } from "../../services/mobile/selectors";
 
 const BurgerConstructor: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);

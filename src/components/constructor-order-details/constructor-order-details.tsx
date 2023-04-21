@@ -1,11 +1,11 @@
-import { FC, useEffect, useState } from "react";
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from "./constructor-order-details.module.scss";
-import vector1 from "../../images/order-accpeted/vector1.svg";
-import vector2 from "../../images/order-accpeted/vector2.svg";
-import vector3 from "../../images/order-accpeted/vector3.svg";
+import { FC, useEffect, useState } from "react";
+import vector1 from "../../images/order-accepted/vector1.svg";
+import vector2 from "../../images/order-accepted/vector2.svg";
+import vector3 from "../../images/order-accepted/vector3.svg";
 import { getConstructorOrderNumber } from "../../services/constructor-order-details/selectors";
 import { useAppSelector } from "../../services/store/hooks";
+import styles from "./constructor-order-details.module.scss";
 
 // ===чисто ради эксперимента===
 // может подскажете библиотечку для такой анимации? =)

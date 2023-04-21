@@ -1,47 +1,46 @@
-import { useEffect, useLayoutEffect, useCallback, FC } from "react";
+import { FC, useCallback, useEffect, useLayoutEffect } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import AppHeader from "../app-header/app-header";
 import {
-    HomePage,
     ErrorNotFoundPage,
     FeedPage,
-    ProfileLayoutPage,
+    ForgotPasswordPage,
+    HomePage,
     IngredientDetailsPages,
     LoginPage,
-    RegisterPage,
-    ForgotPasswordPage,
-    ResetPasswordPage,
-    ProfilePage,
-    OrdersPage,
     OrderDetailsPage,
+    OrdersPage,
+    ProfileLayoutPage,
+    ProfilePage,
+    RegisterPage,
+    ResetPasswordPage,
 } from "../../pages";
-import IngredientDetails from "../ingredient-details/ingredient-details";
-import Modal from "../modals/modal/modal";
-import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
 import { USER_CHECK_AUTH } from "../../services/auth/actions";
-import { MOBILE_TURN_ON, MOBILE_TURN_OFF } from "../../services/mobile/actions";
 import { INGREDIENTS_REQEST } from "../../services/ingredients-list/actions";
+import { getIngredientsRequestSuccess } from "../../services/ingredients-list/selectors";
+import { MOBILE_TURN_OFF, MOBILE_TURN_ON } from "../../services/mobile/actions";
+import { getIsMobile } from "../../services/mobile/selectors";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import {
-    INGREDIENTS,
-    MOBILE_BREAKPOINT,
     ALL_PATH,
-    HOME_PATH,
-    LOGIN_PATH,
-    REGISTER_PATH,
-    FORGOT_PASS_PATH,
-    RESET_PASS_PATH,
-    INGREDIENTS_PATH,
-    ID_PATH,
     FEED_PATH,
-    PROFILE_PATH,
-    _ORDERS_PATH,
-    _ALL_PATH,
+    FORGOT_PASS_PATH,
+    HOME_PATH,
+    ID_PATH,
+    INGREDIENTS_PATH,
+    LOGIN_PATH,
+    MOBILE_BREAKPOINT,
     ORDERS_PATH,
+    PROFILE_PATH,
+    REGISTER_PATH,
+    RESET_PASS_PATH,
+    _ALL_PATH,
+    _ORDERS_PATH,
 } from "../../utils/vars";
-import { getIsMobile } from "../../services/mobile/selectors";
-import { getIngredientsRequestSuccess } from "../../services/ingredients-list/selectors";
+import AppHeader from "../app-header/app-header";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 import Loading from "../loading/loading";
+import Modal from "../modals/modal/modal";
+import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
 
 const App: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);
@@ -81,7 +80,7 @@ const App: FC = () => {
         getIngredientsRequestSuccess
     );
     useEffect(() => {
-        if (!requestSuccess) dispatch(INGREDIENTS_REQEST(INGREDIENTS));
+        if (!requestSuccess) dispatch(INGREDIENTS_REQEST());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);
 
@@ -183,7 +182,7 @@ const App: FC = () => {
                     )}
                 </main>
             ) : (
-                <Loading>Загрузка</Loading>
+                <Loading />
             )}
         </>
     );

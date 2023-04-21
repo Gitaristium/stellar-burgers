@@ -1,22 +1,22 @@
-import { FC, useEffect, useState } from "react";
-import { useMatch, useParams } from "react-router-dom";
-import { feedData } from "../../utils/feed-data";
-import { ordersData } from "../../utils/orders-data";
-import { getIsMobile } from "../../services/mobile/selectors";
-import { useAppSelector } from "../../services/store/hooks";
-import styles from "./order-details.module.scss";
-import Loading from "../loading/loading";
 import {
     CurrencyIcon,
     FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { FC, Key } from "react";
+import { useMatch, useParams } from "react-router-dom";
+import { getIsMobile } from "../../services/mobile/selectors";
+import { useAppSelector } from "../../services/store/hooks";
+import { feedData } from "../../utils/feed-data";
+import { ordersData } from "../../utils/orders-data";
 import {
     ALL_PATH,
     FEED_PATH,
     ORDERS_PATH,
     PROFILE_PATH,
 } from "../../utils/vars";
+import Loading from "../loading/loading";
 import OrderDetailsElement from "../order-details-element/order-details-element";
+import styles from "./order-details.module.scss";
 
 const OrderDetails: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);
@@ -25,15 +25,14 @@ const OrderDetails: FC = () => {
     const ordersMatch = useMatch(PROFILE_PATH + ORDERS_PATH + ALL_PATH);
     const { id } = useParams();
 
+    // ЭТО ПРЯМ СИЛЬНО ВРЕМЕННОЕ РЕШЕНИЕ
     // когда дойдем до загрузки данных заказов по API -
     // надо будет перенести в селекторы
-    const [orderDetails, setOrderDetails] = useState(Object);
-    useEffect(() => {
-        let item = null;
-        if (feedMatch) item = feedData.find((el) => el.id === id);
-        if (ordersMatch) item = ordersData.find((el) => el.id === id);
-        return setOrderDetails(item);
-    }, [id, feedMatch, ordersMatch]);
+    const orderDetails = feedMatch
+        ? feedData.find((el) => el.id === id)
+        : ordersMatch
+        ? ordersData.find((el) => el.id === id)
+        : null;
 
     return (
         <>
@@ -80,9 +79,11 @@ const OrderDetails: FC = () => {
                                 : styles.ingredients__mobile
                         } custom-scroll`}
                     >
-                        {orderDetails.ingredients?.map((id: string) => (
-                            <OrderDetailsElement itemId={id} />
-                        ))}
+                        {orderDetails.ingredients.map(
+                            (id: string, index: Key) => (
+                                <OrderDetailsElement itemId={id} key={index} />
+                            )
+                        )}
                     </div>
                     <span
                         className={`${styles.footer} ${
@@ -101,7 +102,7 @@ const OrderDetails: FC = () => {
                     </span>
                 </section>
             ) : (
-                <Loading>Загрузка</Loading>
+                <Loading>Казна опустела, милорд</Loading>
             )}
         </>
     );

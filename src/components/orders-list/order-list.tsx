@@ -1,9 +1,9 @@
 import { FC } from "react";
-import OrdersListElement from "../orders-list-element/orders-list-element";
-import { ordersData } from "../../utils/orders-data";
-import styles from "./order-list.module.scss";
-import { useAppSelector } from "../../services/store/hooks";
 import { getIsMobile } from "../../services/mobile/selectors";
+import { useAppSelector } from "../../services/store/hooks";
+import { ordersData } from "../../utils/orders-data";
+import OrdersListElement from "../orders-list-element/orders-list-element";
+import styles from "./order-list.module.scss";
 
 const OrdersList: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);

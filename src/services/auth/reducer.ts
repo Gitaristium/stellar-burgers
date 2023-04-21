@@ -10,8 +10,13 @@ import {
     USER_UPDATE,
 } from "./actions";
 
+export type TUser = {
+    name: string;
+    email: string;
+};
+
 const initialState = {
-    user: null,
+    user: null as unknown as TUser,
     isAuthChecked: false,
     status: {
         get_info: {

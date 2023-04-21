@@ -1,5 +1,5 @@
-import { FC } from "react";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { FC } from "react";
 import styles from "./close-modal.module.scss";
 
 interface IProps {

@@ -1,22 +1,22 @@
-import { FC } from "react";
-import { useDrag, useDrop } from "react-dnd";
 import {
     CurrencyIcon,
     DeleteIcon,
     DragIcon,
     LockIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { FC } from "react";
+import { useDrag, useDrop } from "react-dnd";
 import {
     INGREDIENT_ADD,
     INGREDIENT_REMOVE,
 } from "../../services/burger-constructor/actions";
-import styles from "./burger-constructor-element.module.scss";
-import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
-import { IngredientModel } from "../../utils/types";
 import { getIsMobile } from "../../services/mobile/selectors";
+import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
+import { TIngredient } from "../../utils/types";
+import styles from "./burger-constructor-element.module.scss";
 
 interface IProps {
-    ingredient: IngredientModel;
+    ingredient: TIngredient;
     isLocked?: boolean;
     position?: "top" | "bottom";
     extraClass?: string;
@@ -37,7 +37,7 @@ const BurgerConstructorElement: FC<IProps> = (props) => {
             canDrop: monitor.canDrop(),
         }),
         drop(item) {
-            dispatch(INGREDIENT_ADD(item));
+            dispatch(INGREDIENT_ADD(item as TIngredient));
         },
     });
 

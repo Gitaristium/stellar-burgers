@@ -1,27 +1,27 @@
-import { FC, useEffect, useMemo, useRef, useState } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import BurgerIngredientsCategory from "../burger-ingredients-category/burger-ingredients-category";
-import Loading from "../loading/loading";
-import Modal from "../modals/modal/modal";
-import IngredientDetails from "../ingredient-details/ingredient-details";
-import { BUN, SAUCE, MAIN, INGREDIENTS } from "../../utils/vars";
-import styles from "./burger-ingredients.module.scss";
-import { getIsMobile } from "../../services/mobile/selectors";
+import { FC, useEffect, useMemo, useRef, useState } from "react";
 import {
     getIngredientsList,
-    getIngredientsIsLoading,
     getIngredientsHasError,
+    getIngredientsIsLoading,
     getIngredientsRequestSuccess,
 } from "../../services/ingredients-list/selectors";
+import { getIsMobile } from "../../services/mobile/selectors";
+import { BUN, INGREDIENTS, MAIN, SAUCE } from "../../utils/vars";
+import BurgerIngredientsCategory from "../burger-ingredients-category/burger-ingredients-category";
+import IngredientDetails from "../ingredient-details/ingredient-details";
+import Loading from "../loading/loading";
+import Modal from "../modals/modal/modal";
+import styles from "./burger-ingredients.module.scss";
 
-import { IngredientModel } from "../../utils/types";
 import { useAppSelector } from "../../services/store/hooks";
+import { TIngredientsList } from "../../utils/types";
 
 const BurgerIngredients: FC = () => {
     // булин для мобилок
     const isMobile: boolean = useAppSelector(getIsMobile);
     // список всех ингредиентов, полученных по API
-    const ingredientsList: IngredientModel[] =
+    const ingredientsList: TIngredientsList =
         useAppSelector(getIngredientsList);
     const isLoading: boolean = useAppSelector(getIngredientsIsLoading);
     const hasError: boolean = useAppSelector(getIngredientsHasError);
@@ -115,7 +115,7 @@ const BurgerIngredients: FC = () => {
                 </h1>
 
                 {/* стандартная вилка рендера */}
-                {isLoading && <Loading>Загрузка данных</Loading>}
+                {isLoading && <Loading />}
                 {hasError && <Loading>Ошибка загрузки Х_Х</Loading>}
                 {requestSuccess && ingredientsList?.length > 0 && (
                     <>

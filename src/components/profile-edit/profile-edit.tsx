@@ -1,14 +1,11 @@
-import { FC } from "react";
 import {
     Button,
     EmailInput,
     Input,
     PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { getIsMobile } from "../../services/mobile/selectors";
-import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
-import { useForm } from "../../utils/hooks";
-import styles from "./profile-edit.module.scss";
+import { FC } from "react";
+import { USER_UPDATE } from "../../services/auth/actions";
 import {
     getUserEmail,
     getUserName,
@@ -16,8 +13,11 @@ import {
     getUserUpdateIsLoading,
     getUserUpdateRequestSuccess,
 } from "../../services/auth/selectors";
-import { USER_UPDATE } from "../../services/auth/actions";
+import { getIsMobile } from "../../services/mobile/selectors";
+import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
+import { useForm } from "../../utils/hooks";
 import Notice from "../modals/notice/notice";
+import styles from "./profile-edit.module.scss";
 
 const ProfileEdit: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);

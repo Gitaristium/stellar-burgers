@@ -9,7 +9,7 @@ const initialState = {
         status: "",
         name: "",
         order: {
-            number: "",
+            number: 0,
         },
     },
     status: {
@@ -31,11 +31,12 @@ export const constructorOrderDetailsReducer = createReducer(
                     error: false,
                     success: false,
                 },
-            }))
+            }));
+        builder
             // Вызывается в том случае если запрос успешно выполнился
             .addCase(
                 CONSTRUCTOR_ORDER_DETAILS_REQUEST.fulfilled,
-                (state, action) => {
+                (_, action) => {
                     return {
                         // Добавляем пользователя
                         item: action.payload,
@@ -46,7 +47,8 @@ export const constructorOrderDetailsReducer = createReducer(
                         },
                     };
                 }
-            )
+            );
+        builder
             // Вызывается в случае ошибки
             .addCase(CONSTRUCTOR_ORDER_DETAILS_REQUEST.rejected, (state) => ({
                 // https://redux-toolkit.js.org/api/createAsyncThunk#handling-thunk-errors
@@ -56,8 +58,8 @@ export const constructorOrderDetailsReducer = createReducer(
                     error: true,
                     success: false,
                 },
-            }))
-            .addCase(CONSTRUCTOR_ORDER_DETAILS_RESET, () => initialState)
-            .addDefaultCase((state) => state);
+            }));
+        builder.addCase(CONSTRUCTOR_ORDER_DETAILS_RESET, () => initialState);
+        builder.addDefaultCase((state) => state);
     }
 );

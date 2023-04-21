@@ -1,9 +1,10 @@
 import { FC } from "react";
 import { useDrop } from "react-dnd";
 import { INGREDIENT_ADD } from "../../services/burger-constructor/actions";
+import { getIsMobile } from "../../services/mobile/selectors";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import styles from "./burger-constructor-element.module.scss";
-import { getIsMobile } from "../../services/mobile/selectors";
+import { TIngredient } from "../../utils/types";
 
 interface IProps {
     isLocked?: boolean;
@@ -24,7 +25,7 @@ const BurgerConstructorElementEmpty: FC<IProps> = (props) => {
             canDrop: monitor.canDrop(),
         }),
         drop(item) {
-            dispatch(INGREDIENT_ADD(item));
+            dispatch(INGREDIENT_ADD(item as TIngredient));
         },
     });
 
