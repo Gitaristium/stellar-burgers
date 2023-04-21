@@ -1,6 +1,6 @@
 import { ChangeEvent, useEffect, useRef, useState } from "react";
-import { useAppSelector } from "../services/store/hooks";
 import { getUserEmail, getUserName } from "../services/auth/selectors";
+import { useAppSelector } from "../services/store/hooks";
 
 export const useForm = () => {
     const formRef = useRef<HTMLFormElement>(null);
@@ -17,11 +17,13 @@ export const useForm = () => {
     };
 
     useEffect(() => {
-        setFormState({
-            ...formState,
-            name: userName,
-            email: userEmail,
-        });
+        if (userName && userEmail) {
+            setFormState({
+                ...formState,
+                name: userName,
+                email: userEmail,
+            });
+        }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [userEmail, userName]);
 

@@ -1,29 +1,31 @@
-import { NavLink } from "react-router-dom";
-import styles from "./profile-nav.module.css";
-import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
+import { FC } from "react";
+import { NavLink, useMatch } from "react-router-dom";
 import { USER_LOGOUT } from "../../services/auth/actions";
-import { ORDERS_PATH, PROFILE_PATH } from "../../utils/vars";
 import { getIsMobile } from "../../services/mobile/selectors";
+import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
+import { ORDERS_PATH, PROFILE_PATH } from "../../utils/vars";
+import styles from "./profile-nav.module.scss";
 
-export default function ProfileNav({
-    isSubMenuOpen,
-}: {
+interface IProps {
     isSubMenuOpen?: boolean;
-}) {
+}
+
+const ProfileNav: FC<IProps> = ({ isSubMenuOpen }) => {
     const isMobile: boolean = useAppSelector(getIsMobile);
     const dispatch = useAppDispatch();
     const logout = () => {
         dispatch(USER_LOGOUT());
     };
+    const isProfile = useMatch("/profile");
     return (
         <nav
             className={`${styles.nav} mr-15 ${
-                isMobile ? styles.nav__submenu : ""
+                isMobile ? styles.nav__submenu : "mt-20"
             } ${isMobile ? "ml-8" : ""} ${isSubMenuOpen ? styles.active : ""}`}
         >
             <ul className={styles.nav__list}>
                 <li
-                    className={`${styles.nav__list_item} ${
+                    className={`${styles.nav__list__item} ${
                         isMobile ? styles.mobile : ""
                     }`}
                 >
@@ -44,7 +46,7 @@ export default function ProfileNav({
                         Профиль
                     </NavLink>
                 </li>
-                <li className={`${styles.nav__list_item}`}>
+                <li className={`${styles.nav__list__item}`}>
                     <NavLink
                         className={({ isActive }) =>
                             `${
@@ -61,7 +63,7 @@ export default function ProfileNav({
                         История заказов
                     </NavLink>
                 </li>
-                <li className={`${styles.nav__list_item}  mb-20`}>
+                <li className={`${styles.nav__list__item}  mb-20`}>
                     <span
                         className={`${styles.link} text_color_inactive  text ${
                             !isMobile
@@ -76,9 +78,13 @@ export default function ProfileNav({
             </ul>
             {!isMobile && (
                 <span className="text text_type_main-default text_color_inactive">
-                    В этом разделе вы можете изменить свои персональные данные
+                    {isProfile
+                        ? "В этом разделе вы можете изменить свои персональные данные"
+                        : "В этом разделе вы можете просмотреть свою историю заказов"}
                 </span>
             )}
         </nav>
     );
-}
+};
+
+export default ProfileNav;

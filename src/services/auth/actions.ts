@@ -4,44 +4,55 @@ import {
     createAction,
     createAsyncThunk,
 } from "@reduxjs/toolkit";
+import { fetchWithRefresh, requestApi } from "../../utils/request-api";
 import {
     AUTH_LOGIN,
+    AUTH_LOGOUT,
     AUTH_REGISTER,
     AUTH_RESET,
     AUTH_RESET_CONFIRM,
     AUTH_USER,
-    AUTH_LOGOUT,
 } from "../../utils/vars";
-import { fetchWithRefresh, requestApi } from "../../utils/request-api";
+import {
+    TApiGetUser,
+    TApiAuthUser,
+    TApiLogoutUser,
+    TApiForgotUser,
+    TApiResetUser,
+} from "../../utils/types";
 
-const reducerName = "user";
+const REDUCER_NAME = "user";
+
+type TBodySend = {
+    email?: string;
+    password?: string;
+    name?: string;
+    token?: string;
+};
 
 // ================================
 // ===== чекаем пользователя ======
 // ================================
 export const USER_CHECK_AUTH = () => {
     return (dispatch: Dispatch<AnyAction>) => {
-        if (
-            localStorage.getItem("accessToken") &&
-            localStorage.getItem("accessToken") !== "undefined"
-        ) {
-            dispatch(USER_GET_INFO());
-        } else {
-            dispatch(USER_CHECKED());
-        }
+        localStorage.getItem("accessToken") &&
+        localStorage.getItem("accessToken") !== undefined &&
+        localStorage.getItem("accessToken") !== "undefined"
+            ? dispatch(USER_GET_INFO())
+            : dispatch(USER_CHECKED());
     };
 };
 
 // =========================================
 // ===== маркер проверки пользователя ======
 // =========================================
-export const USER_CHECKED = createAction(`${reducerName}/user_checked`);
+export const USER_CHECKED = createAction(`${REDUCER_NAME}/user_checked`);
 
 // =========================================
 // ===== получаем данные пользователя ======
 // =========================================
-export const USER_GET_INFO = createAsyncThunk(
-    `${reducerName}/get_info`,
+export const USER_GET_INFO = createAsyncThunk<TApiGetUser>(
+    `${REDUCER_NAME}/get_info`,
     async () => {
         // Здесь только логика запроса и возврата данных
         // Никакой обработки ошибок
@@ -49,7 +60,7 @@ export const USER_GET_INFO = createAsyncThunk(
             method: "GET",
             headers: {
                 "Content-Type": "application/json;charset=utf-8",
-                authorization: localStorage.getItem("accessToken"),
+                authorization: localStorage.getItem("accessToken") as string,
             },
         });
         return response;
@@ -59,9 +70,10 @@ export const USER_GET_INFO = createAsyncThunk(
 // ======================================
 // ===== регистрируем пользователя ======
 // ======================================
-export const USER_REGISTER = createAsyncThunk(
-    `${reducerName}/register`,
-    async (bodySend: { email: string; password: string; name: string }) => {
+
+export const USER_REGISTER = createAsyncThunk<TApiAuthUser, TBodySend>(
+    `${REDUCER_NAME}/register`,
+    async (bodySend: TBodySend) => {
         // Здесь только логика запроса и возврата данных
         // Никакой обработки ошибок
         const response = await requestApi(AUTH_REGISTER, {
@@ -71,16 +83,16 @@ export const USER_REGISTER = createAsyncThunk(
             },
             body: JSON.stringify(bodySend),
         });
-        return response;
+        return response as TApiAuthUser;
     }
 );
 
 // ====================================
 // ===== авторизация пользователя =====
 // ====================================
-export const USER_LOGIN = createAsyncThunk(
-    `${reducerName}/login`,
-    async (bodySend: { email: string; password: string }) => {
+export const USER_LOGIN = createAsyncThunk<TApiAuthUser, TBodySend>(
+    `${REDUCER_NAME}/login`,
+    async (bodySend: TBodySend) => {
         // Здесь только логика запроса и возврата данных
         // Никакой обработки ошибок
         const response = await requestApi(AUTH_LOGIN, {
@@ -98,9 +110,9 @@ export const USER_LOGIN = createAsyncThunk(
 // ==================================================================================
 // ====== ресет пароля - запрашиваем совпадение на сервере, пишем ответ в стор ======
 // ==================================================================================
-export const USER_RESET = createAsyncThunk(
-    `${reducerName}/reset`,
-    async (bodySend: { email: string }) => {
+export const USER_RESET = createAsyncThunk<TApiForgotUser, TBodySend>(
+    `${REDUCER_NAME}/reset`,
+    async (bodySend: TBodySend) => {
         // Здесь только логика запроса и возврата данных
         // Никакой обработки ошибок
         const response = await requestApi(AUTH_RESET, {
@@ -117,9 +129,9 @@ export const USER_RESET = createAsyncThunk(
 // ========================================================================
 // ===== ресет пароля - отправка нового пароля пользователя на сервер =====
 // ========================================================================
-export const USER_RESET_CONFIRM = createAsyncThunk(
-    `${reducerName}/reset_confirm`,
-    async (bodySend: { password: string; token: string }) => {
+export const USER_RESET_CONFIRM = createAsyncThunk<TApiResetUser, TBodySend>(
+    `${REDUCER_NAME}/reset_confirm`,
+    async (bodySend: TBodySend) => {
         // Здесь только логика запроса и возврата данных
         // Никакой обработки ошибок
         const response = await requestApi(AUTH_RESET_CONFIRM, {
@@ -136,8 +148,8 @@ export const USER_RESET_CONFIRM = createAsyncThunk(
 // ===============================
 // ===== логаут пользователя =====
 // ===============================
-export const USER_LOGOUT = createAsyncThunk(
-    `${reducerName}/logout`,
+export const USER_LOGOUT = createAsyncThunk<TApiLogoutUser>(
+    `${REDUCER_NAME}/logout`,
     async () => {
         // Здесь только логика запроса и возврата данных
         // Никакой обработки ошибок
@@ -157,16 +169,16 @@ export const USER_LOGOUT = createAsyncThunk(
 // ======================================================================
 // ====== отправка отредактированных данных пользователя на сервер ======
 // ======================================================================
-export const USER_UPDATE = createAsyncThunk(
-    `${reducerName}/update`,
-    async (bodySend: { name: string; email: string; password: string }) => {
+export const USER_UPDATE = createAsyncThunk<TApiGetUser, TBodySend>(
+    `${REDUCER_NAME}/update`,
+    async (bodySend: TBodySend) => {
         // Здесь только логика запроса и возврата данных
         // Никакой обработки ошибок
         const response = await fetchWithRefresh(AUTH_USER, {
             method: "PATCH",
             headers: {
                 "Content-Type": "application/json;charset=utf-8",
-                authorization: localStorage.getItem("accessToken"),
+                authorization: localStorage.getItem("accessToken") as string,
             },
             body: JSON.stringify(bodySend),
         });

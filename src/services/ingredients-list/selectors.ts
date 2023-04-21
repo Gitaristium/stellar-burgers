@@ -1,0 +1,43 @@
+import { createSelector } from "@reduxjs/toolkit";
+import { TIngredient, TIngredientsList } from "../../utils/types";
+import { RootState } from "../store/hooks";
+
+// список всех игредиентов
+const storeIngredientsList = (store: RootState): TIngredientsList =>
+    store.ingredientsList.items;
+
+export const getIngredientsList = createSelector(
+    storeIngredientsList,
+    (data): TIngredientsList => data
+);
+
+// получаем игредиент из общего списка по id
+export const getIngredientById = (id: string) =>
+    createSelector(storeIngredientsList, (data): TIngredient | undefined =>
+        data.find((el: TIngredient): boolean => el._id === id)
+    );
+
+// получаем массив картинок игредиенов из общего списка по id
+export const getImagesByIngredientIds = (ids: string[]) =>
+    createSelector(storeIngredientsList, (data): string[] =>
+        ids.map(
+            (id): string =>
+                data.find((el: TIngredient) => el._id === id)!
+                    .image_mobile as string
+        )
+    );
+
+export const getIngredientsIsLoading = createSelector(
+    (store: RootState): boolean => store.ingredientsList.status.loading,
+    (data): boolean => data
+);
+
+export const getIngredientsHasError = createSelector(
+    (store: RootState): boolean => store.ingredientsList.status.error,
+    (data): boolean => data
+);
+
+export const getIngredientsRequestSuccess = createSelector(
+    (store: RootState): boolean => store.ingredientsList.status.success,
+    (data): boolean => data
+);

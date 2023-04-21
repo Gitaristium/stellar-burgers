@@ -1,49 +1,53 @@
-import { useState } from "react";
-import { useDrop } from "react-dnd";
 import {
     Button,
     CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import Modal from "../modals/modal/modal";
-import OrderDetails from "../modals/order-details/order-details";
-import TotalPrice from "../total-price/total-price";
-import Loading from "../loading/loading";
+import { FC, useState } from "react";
+import { useDrop } from "react-dnd";
+import { useLocation, useNavigate } from "react-router-dom";
+import { getUser } from "../../services/auth/selectors";
+import { INGREDIENT_MOVE } from "../../services/burger-constructor/actions";
+import { getСonstructorList } from "../../services/burger-constructor/selectors";
+import {
+    CONSTRUCTOR_ORDER_DETAILS_REQUEST,
+    CONSTRUCTOR_ORDER_DETAILS_RESET,
+} from "../../services/constructor-order-details/actions";
+import {
+    getConstructorOrderDetailsHasError,
+    getConstructorOrderDetailsIsLoading,
+    getConstructorOrderDetailsRequestSuccess,
+} from "../../services/constructor-order-details/selectors";
+import { getIsMobile } from "../../services/mobile/selectors";
+import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
+import { TConstructor, TIngredient } from "../../utils/types";
 import BurgerConstructorElement from "../burger-constructor-element/burger-constructor-element";
 import BurgerConstructorElementEmpty from "../burger-constructor-element/burger-constructor-element-empty";
-import {
-    ORDER_DETAILS_REQUEST,
-    ORDER_DETAILS_RESET,
-} from "../../services/order-details/actions";
-import { INGREDIENT_MOVE } from "../../services/burger-constructor/actions";
-import styles from "./burger-constructor-view.module.css";
-import {
-    getOrderDetailsHasError,
-    getOrderDetailsIsLoading,
-    getOrderDetailsRequestSuccess,
-} from "../../services/order-details/selectors";
-import { getСonstructorList } from "../../services/burger-constructor/selectors";
-import { ConstructorModel, IngredientModel } from "../../utils/types";
-import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
-import { getUser } from "../../services/auth/selectors";
-import { useLocation, useNavigate } from "react-router-dom";
-import { getIsMobile } from "../../services/mobile/selectors";
+import ConstructorOrderDetails from "../constructor-order-details/constructor-order-details";
+import Loading from "../loading/loading";
+import Modal from "../modals/modal/modal";
+import TotalPrice from "../total-price/total-price";
+import styles from "./burger-constructor-view.module.scss";
+import { LOGIN_PATH } from "../../utils/vars";
 
-export default function BurgerConstructorView() {
+const BurgerConstructorView: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);
 
     // список всех ингредиентов, полученных по API
-    const isLoading: boolean[] = useAppSelector(getOrderDetailsIsLoading);
-    const hasError: boolean[] = useAppSelector(getOrderDetailsHasError);
-    const requestSuccess: boolean[] = useAppSelector(
-        getOrderDetailsRequestSuccess
+    const isLoading: boolean = useAppSelector(
+        getConstructorOrderDetailsIsLoading
+    );
+    const hasError: boolean = useAppSelector(
+        getConstructorOrderDetailsHasError
+    );
+    const requestSuccess: boolean = useAppSelector(
+        getConstructorOrderDetailsRequestSuccess
     );
 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const dispatch = useAppDispatch();
 
     // получаем список конструктора из стора
-    const constructorList: ConstructorModel =
-        useAppSelector(getСonstructorList);
+    const constructorList: TConstructor = useAppSelector(getСonstructorList);
     const BUN = constructorList.bun;
     const INGR = constructorList.ingr;
 
@@ -57,21 +61,19 @@ export default function BurgerConstructorView() {
         !user &&
             BUN &&
             INGR.length > 0 &&
-            navigate("/login", { state: { from: location } });
-        user && BUN && INGR.length > 0 && getOrderDetails();
+            navigate(LOGIN_PATH, { state: { from: location } });
+        user && BUN && INGR.length > 0 && getConstructorOrderDetails();
         setIsModalOpen(true);
     };
 
     const closeModal = () => {
         setIsModalOpen(false);
-        dispatch(ORDER_DETAILS_RESET());
+        dispatch(CONSTRUCTOR_ORDER_DETAILS_RESET());
     };
 
     //сортировка списка в конструкторе
     const findItem = (id: string) => {
-        const item = INGR.filter(
-            (c) => `${c.uuid}` === id
-        )[0] as IngredientModel;
+        const item = INGR.filter((c) => `${c.uuid}` === id)[0] as TIngredient;
         return {
             item,
             index: INGR.indexOf(item),
@@ -86,25 +88,27 @@ export default function BurgerConstructorView() {
     const [, drop] = useDrop(() => ({ accept: "ingr" }));
 
     // получаем данные заказа по API
-    const getOrderDetails = () => {
-        let ids: string[] = INGR.map((x: IngredientModel) => x._id);
+    const getConstructorOrderDetails = () => {
+        let ids: string[] = INGR.map((x: TIngredient) => x._id);
 
         ids.push(BUN._id, BUN._id);
 
         let sendData = {
             ingredients: ids,
         };
-        dispatch(ORDER_DETAILS_REQUEST(sendData));
+        dispatch(CONSTRUCTOR_ORDER_DETAILS_REQUEST(sendData));
     };
 
     return (
         <>
             <section
-                className={`${styles.constructor__container} ${
-                    !isMobile ? `${styles.desktop} pt-15 pb-10` : styles.mobile
+                className={`${styles.section} ${
+                    !isMobile
+                        ? `${styles.desktop} pt-15 pb-10`
+                        : styles.section__mobile
                 }`}
             >
-                <div className={styles.constructor__list}>
+                <div className={styles.list}>
                     {/* фиксированная верхняя булка */}
                     {BUN ? (
                         <BurgerConstructorElement
@@ -124,21 +128,19 @@ export default function BurgerConstructorView() {
                     )}
                     <div
                         className={`${styles.stuff} ${
-                            !isMobile
-                                ? "custom-scroll mt-4 mb-4 pr-4 pl-10"
-                                : ""
-                        }`}
+                            !isMobile ? "mt-4 mb-4 pr-4 pl-10" : ""
+                        } custom-scroll`}
                     >
                         {/* список конструктора */}
                         <div className={styles.stuff__inner}>
                             {INGR.length > 0 ? (
                                 <>
                                     <span
-                                        className={styles.stuff__inner_span}
+                                        className={styles.stuff__inner__span}
                                         ref={drop}
                                     >
                                         {/* пробегаемся по массиву ингредиентов и рендерим список */}
-                                        {INGR.map((e: IngredientModel) => (
+                                        {INGR.map((e: TIngredient) => (
                                             <BurgerConstructorElement
                                                 key={e.uuid}
                                                 ingredient={e}
@@ -183,7 +185,7 @@ export default function BurgerConstructorView() {
                 {/* итог по сумме и "оформить" */}
                 <div className={`${styles.sum} mt-10 mr-4`}>
                     <TotalPrice
-                        className={
+                        extraClass={
                             !isMobile
                                 ? "text text_type_digits-medium"
                                 : "text text_type_digits-default"
@@ -211,13 +213,15 @@ export default function BurgerConstructorView() {
                     {!isLoading && !hasError && !requestSuccess && (
                         <Loading>Добавь ингредиентов</Loading>
                     )}
-                    {isLoading && <Loading>Загрузка данных</Loading>}
+                    {isLoading && <Loading />}
                     {hasError && <Loading>Ошибка загрузки Х_Х</Loading>}
                     {!isLoading && !hasError && requestSuccess && (
-                        <OrderDetails />
+                        <ConstructorOrderDetails />
                     )}
                 </Modal>
             )}
         </>
     );
-}
+};
+
+export default BurgerConstructorView;

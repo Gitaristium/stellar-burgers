@@ -1,25 +1,22 @@
-import { configureStore } from "@reduxjs/toolkit";
-import type {} from "redux-thunk/extend-redux";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
-import logger from "redux-logger";
-import { mobileReducer } from "../mobile/reducer";
-import { ingredientsListReducer } from "../ingredients-list/reducer";
-import { burgerConstructorReducer } from "../burger-constructor/reducer";
-import { orderDetailsReducer } from "../order-details/reducer";
+// import logger from "redux-logger";
 import { userReducer } from "../auth/reducer";
+import { burgerConstructorReducer } from "../burger-constructor/reducer";
+import { constructorOrderDetailsReducer } from "../constructor-order-details/reducer";
+import { ingredientsListReducer } from "../ingredients-list/reducer";
+import { mobileReducer } from "../mobile/reducer";
 
-export const store = configureStore({
-    reducer: {
-        mobile: mobileReducer,
-        ingredientsList: ingredientsListReducer,
-        constructorList: burgerConstructorReducer,
-        orderDetails: orderDetailsReducer,
-        user: userReducer,
-    },
-    middleware: [thunk, logger],
+export const rootReducer = combineReducers({
+    mobile: mobileReducer,
+    ingredientsList: ingredientsListReducer,
+    constructorList: burgerConstructorReducer,
+    constructorOrderDetails: constructorOrderDetailsReducer,
+    user: userReducer,
 });
 
-// Infer the `RootState` and `AppDispatch` types from the store itself
-export type RootState = ReturnType<typeof store.getState>;
-// Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
-export type AppDispatch = typeof store.dispatch;
+export const store = configureStore({
+    reducer: rootReducer,
+    // middleware: [thunk, logger],
+    middleware: [thunk],
+});

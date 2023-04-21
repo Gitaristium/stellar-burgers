@@ -1,8 +1,9 @@
+import { FC } from "react";
 import { Register } from "../components/auth/";
 import { getIsMobile } from "../services/mobile/selectors";
 import { useAppSelector } from "../services/store/hooks";
 
-export default function RegisterPage() {
+const RegisterPage: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);
 
     return (
@@ -13,4 +14,6 @@ export default function RegisterPage() {
             <Register />
         </section>
     );
-}
+};
+
+export default RegisterPage;

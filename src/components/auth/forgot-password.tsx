@@ -2,26 +2,27 @@ import {
     Button,
     EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { FC } from "react";
+import { Link, Navigate } from "react-router-dom";
+import { USER_RESET } from "../../services/auth/actions";
+import {
+    getUserResetHasError,
+    getUserResetIsLoading,
+    getUserResetRequestSuccess,
+} from "../../services/auth/selectors";
 import { getIsMobile } from "../../services/mobile/selectors";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import { useForm } from "../../utils/hooks";
-import { Link, Navigate } from "react-router-dom";
-import styles from "./auth.module.css";
-import {
-    getUserResetIsLoading,
-    getUserResetHasError,
-    getUserResetRequestSuccess,
-} from "../../services/auth/selectors";
-import { USER_RESET } from "../../services/auth/actions";
-import Notice from "../modals/notice/notice";
 import { LOGIN_PATH, RESET_PASS_PATH } from "../../utils/vars";
+import Notice from "../modals/notice/notice";
+import styles from "./auth.module.scss";
 
-export default function ResetPass() {
+const ResetPass: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);
+    const isLoading: boolean = useAppSelector(getUserResetIsLoading);
+    const hasError: boolean = useAppSelector(getUserResetHasError);
+    const requestSuccess: boolean = useAppSelector(getUserResetRequestSuccess);
     const dispatch = useAppDispatch();
-    const isLoading = useAppSelector(getUserResetIsLoading);
-    const hasError = useAppSelector(getUserResetHasError);
-    const requestSuccess = useAppSelector(getUserResetRequestSuccess);
 
     // работаем с формой
     const { formRef, formState, handleChange } = useForm();
@@ -82,4 +83,6 @@ export default function ResetPass() {
             {requestSuccess && <Navigate to={RESET_PASS_PATH} />}
         </>
     );
-}
+};
+
+export default ResetPass;

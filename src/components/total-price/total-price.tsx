@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { getTotalPrice } from "../../services/burger-constructor/selectors";
 import { useAppSelector } from "../../services/store/hooks";
 
@@ -36,7 +36,13 @@ const useAnim = () => {
 };
 // ===чисто ради эксперимента===
 
-export default function TotalPrice({ className }: { className: string }) {
-    const animPrice = useAnim();
-    return <span className={className}>{animPrice}</span>;
+interface IProps {
+    extraClass: string;
 }
+
+const TotalPrice: FC<IProps> = ({ extraClass }) => {
+    const animPrice = useAnim();
+    return <span className={extraClass}>{animPrice}</span>;
+};
+
+export default TotalPrice;

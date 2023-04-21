@@ -1,16 +1,17 @@
-import { ReactNode } from "react";
+import { FC, PropsWithChildren } from "react";
 import ReactDOM from "react-dom";
-import ModalOverlay from "../modal-overlay/modal-overlay";
-import CloseModal from "../close-modal/close-modal";
-import styles from "./modal.module.css";
-import { useAppSelector } from "../../../services/store/hooks";
 import { getIsMobile } from "../../../services/mobile/selectors";
+import { useAppSelector } from "../../../services/store/hooks";
+import CloseModal from "../close-modal/close-modal";
+import ModalOverlay from "../modal-overlay/modal-overlay";
+import styles from "./modal.module.scss";
 
-export default function Modal(props: {
+interface IProps extends PropsWithChildren {
     closeModal: () => void;
     title?: string;
-    children: ReactNode;
-}) {
+}
+
+const Modal: FC<IProps> = (props) => {
     const isMobile: boolean = useAppSelector(getIsMobile);
 
     return ReactDOM.createPortal(
@@ -28,4 +29,6 @@ export default function Modal(props: {
         </>,
         document.getElementById("modals") as HTMLElement
     );
-}
+};
+
+export default Modal;

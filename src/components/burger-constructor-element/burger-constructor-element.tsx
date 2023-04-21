@@ -1,28 +1,31 @@
-import { useDrag, useDrop } from "react-dnd";
 import {
     CurrencyIcon,
     DeleteIcon,
     DragIcon,
     LockIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { FC } from "react";
+import { useDrag, useDrop } from "react-dnd";
 import {
     INGREDIENT_ADD,
     INGREDIENT_REMOVE,
 } from "../../services/burger-constructor/actions";
-import styles from "./burger-constructor-element.module.css";
-import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
-import { IngredientModel } from "../../utils/types";
 import { getIsMobile } from "../../services/mobile/selectors";
+import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
+import { TIngredient } from "../../utils/types";
+import styles from "./burger-constructor-element.module.scss";
 
-export default function BurgerConstructorElement(props: {
-    ingredient: IngredientModel;
+interface IProps {
+    ingredient: TIngredient;
     isLocked?: boolean;
     position?: "top" | "bottom";
     extraClass?: string;
     type: string;
     moveItem: (id: string, to: number) => void;
     findItem: (id: string) => { index: number };
-}) {
+}
+
+const BurgerConstructorElement: FC<IProps> = (props) => {
     const isMobile: boolean = useAppSelector(getIsMobile);
 
     // ловим drag&drop из списка ингредиентов в конструктор
@@ -34,7 +37,7 @@ export default function BurgerConstructorElement(props: {
             canDrop: monitor.canDrop(),
         }),
         drop(item) {
-            dispatch(INGREDIENT_ADD(item));
+            dispatch(INGREDIENT_ADD(item as TIngredient));
         },
     });
 
@@ -91,7 +94,7 @@ export default function BurgerConstructorElement(props: {
                     {!props.isLocked && props.ingredient && (
                         <span
                             className={`${styles.drag__icon} ${
-                                isMobile && styles.drag__icon_mobile
+                                isMobile && styles.drag__icon__mobile
                             }`}
                         >
                             <DragIcon type="secondary" />
@@ -100,14 +103,14 @@ export default function BurgerConstructorElement(props: {
                     {/* в мобильной версии рендерим эконку замка у булки */}
                     {props.isLocked && isMobile && props.ingredient && (
                         <span
-                            className={`${styles.drag__icon} ${styles.drag__icon_mobile}`}
+                            className={`${styles.drag__icon} ${styles.drag__icon__mobile}`}
                         >
                             <LockIcon type="secondary" />
                         </span>
                     )}
                     {/* в мобильной версии рендерим скрытую иконку-кнопку удаления элемента из конструктора (открывается свайпом влево) */}
                     {!props.isLocked && isMobile && props.ingredient && (
-                        <span className={styles.delete__icon_mobile}>
+                        <span className={styles.delete__icon__mobile}>
                             <DeleteIcon
                                 type="primary"
                                 onClick={removeIngredient}
@@ -175,4 +178,6 @@ export default function BurgerConstructorElement(props: {
             </span>
         </>
     );
-}
+};
+
+export default BurgerConstructorElement;

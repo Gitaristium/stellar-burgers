@@ -1,12 +1,12 @@
+import { FC } from "react";
 import styles from "./burger-btn.module.css";
 
-export default function BurgerBtn({
-    isMenuOpen,
-    click,
-}: {
+interface IProps {
     isMenuOpen: boolean;
     click: Function;
-}) {
+}
+
+const BurgerBtn: FC<IProps> = ({ isMenuOpen, click }) => {
     return (
         <div
             className={`${styles.burger} ${
@@ -17,4 +17,6 @@ export default function BurgerBtn({
             <div className={styles.burger__btn}></div>
         </div>
     );
-}
+};
+
+export default BurgerBtn;

@@ -1,47 +1,48 @@
-import { useEffect, useLayoutEffect, useCallback } from "react";
+import { FC, useCallback, useEffect, useLayoutEffect } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import AppHeader from "../app-header/app-header";
 import {
-    HomePage,
     ErrorNotFoundPage,
     FeedPage,
-    ProfileLayoutPage,
+    ForgotPasswordPage,
+    HomePage,
     IngredientDetailsPages,
     LoginPage,
-    RegisterPage,
-    ForgotPasswordPage,
-    ResetPasswordPage,
-    ProfilePage,
-    OrdersPage,
     OrderDetailsPage,
+    OrdersPage,
+    ProfileLayoutPage,
+    ProfilePage,
+    RegisterPage,
+    ResetPasswordPage,
 } from "../../pages";
-import IngredientDetails from "../modals/ingredient-details/ingredient-details";
-import Modal from "../modals/modal/modal";
-import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
 import { USER_CHECK_AUTH } from "../../services/auth/actions";
-import { MOBILE_TURN_ON, MOBILE_TURN_OFF } from "../../services/mobile/actions";
 import { INGREDIENTS_REQEST } from "../../services/ingredients-list/actions";
+import { getIngredientsRequestSuccess } from "../../services/ingredients-list/selectors";
+import { MOBILE_TURN_OFF, MOBILE_TURN_ON } from "../../services/mobile/actions";
+import { getIsMobile } from "../../services/mobile/selectors";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import {
-    INGREDIENTS,
-    MOBILE_BREAKPOINT,
     ALL_PATH,
-    HOME_PATH,
-    LOGIN_PATH,
-    REGISTER_PATH,
-    FORGOT_PASS_PATH,
-    RESET_PASS_PATH,
-    INGREDIENTS_PATH,
-    ID_PATH,
     FEED_PATH,
+    FORGOT_PASS_PATH,
+    HOME_PATH,
+    ID_PATH,
+    INGREDIENTS_PATH,
+    LOGIN_PATH,
+    MOBILE_BREAKPOINT,
+    ORDERS_PATH,
     PROFILE_PATH,
-    _ORDERS_PATH,
+    REGISTER_PATH,
+    RESET_PASS_PATH,
     _ALL_PATH,
+    _ORDERS_PATH,
 } from "../../utils/vars";
-import { getIsMobile } from "../../services/mobile/selectors";
-import { getIngredientsRequestSuccess } from "../../services/ingredients-list/selectors";
+import AppHeader from "../app-header/app-header";
+import IngredientDetails from "../ingredient-details/ingredient-details";
+import Loading from "../loading/loading";
+import Modal from "../modals/modal/modal";
+import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
 
-export default function App() {
+const App: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);
     const dispatch = useAppDispatch();
 
@@ -79,13 +80,13 @@ export default function App() {
         getIngredientsRequestSuccess
     );
     useEffect(() => {
-        if (!requestSuccess) dispatch(INGREDIENTS_REQEST(INGREDIENTS));
+        if (!requestSuccess) dispatch(INGREDIENTS_REQEST());
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [dispatch]);
 
     // лайфак из документации для модалок
-    let location = useLocation();
-    let state = location.state as { backgroundLocation?: Location };
+    const location = useLocation();
+    const state = location.state as { backgroundLocation?: Location };
 
     // закрытие модалки
     let navigate = useNavigate();
@@ -96,73 +97,95 @@ export default function App() {
     return (
         <>
             <AppHeader />
-            <main className={isMobile ? "pt-4 pl-4 pr-4" : "pt-10 pl-5 pr-5"}>
-                <Routes location={state?.backgroundLocation || location}>
-                    <Route path={HOME_PATH} element={<HomePage />} />
-                    <Route
-                        path={LOGIN_PATH}
-                        element={<OnlyUnAuth component={<LoginPage />} />}
-                    />
-                    <Route
-                        path={REGISTER_PATH}
-                        element={<OnlyUnAuth component={<RegisterPage />} />}
-                    />
-                    <Route
-                        path={FORGOT_PASS_PATH}
-                        element={
-                            <OnlyUnAuth component={<ForgotPasswordPage />} />
-                        }
-                    />
-                    <Route
-                        path={RESET_PASS_PATH}
-                        element={
-                            <OnlyUnAuth component={<ResetPasswordPage />} />
-                        }
-                    />
-                    <Route
-                        path={INGREDIENTS_PATH + ID_PATH}
-                        element={<IngredientDetailsPages />}
-                    />
-                    <Route path={FEED_PATH} element={<FeedPage />} />
-                    <Route
-                        path={FEED_PATH + ID_PATH}
-                        element={<ErrorNotFoundPage />}
-                    />
-                    <Route
-                        path={PROFILE_PATH + ALL_PATH}
-                        element={<OnlyAuth component={<ProfileLayoutPage />} />}
-                    >
-                        <Route index element={<ProfilePage />} />
-                        <Route path={_ORDERS_PATH} element={<OrdersPage />} />
+
+            {requestSuccess ? (
+                <main
+                    className={isMobile ? "pt-4 pl-4 pr-4" : "pt-10 pl-5 pr-5"}
+                >
+                    <Routes location={state?.backgroundLocation || location}>
+                        <Route path={HOME_PATH} element={<HomePage />} />
                         <Route
-                            path={_ORDERS_PATH + ID_PATH}
+                            path={LOGIN_PATH}
+                            element={<OnlyUnAuth component={<LoginPage />} />}
+                        />
+                        <Route
+                            path={REGISTER_PATH}
+                            element={
+                                <OnlyUnAuth component={<RegisterPage />} />
+                            }
+                        />
+                        <Route
+                            path={FORGOT_PASS_PATH}
+                            element={
+                                <OnlyUnAuth
+                                    component={<ForgotPasswordPage />}
+                                />
+                            }
+                        />
+                        <Route
+                            path={RESET_PASS_PATH}
+                            element={
+                                <OnlyUnAuth component={<ResetPasswordPage />} />
+                            }
+                        />
+                        <Route
+                            path={INGREDIENTS_PATH + ID_PATH}
+                            element={<IngredientDetailsPages />}
+                        />
+                        <Route path={FEED_PATH} element={<FeedPage />} />
+                        <Route
+                            path={FEED_PATH + ID_PATH}
                             element={<OrderDetailsPage />}
                         />
                         <Route
-                            path={_ALL_PATH}
+                            path={PROFILE_PATH}
+                            element={
+                                <OnlyAuth component={<ProfileLayoutPage />} />
+                            }
+                        >
+                            <Route index element={<ProfilePage />} />
+                            <Route
+                                path={_ORDERS_PATH}
+                                element={<OrdersPage />}
+                            />
+
+                            <Route
+                                path={_ALL_PATH}
+                                element={<ErrorNotFoundPage />}
+                            />
+                        </Route>
+                        <Route
+                            path={PROFILE_PATH + ORDERS_PATH + ID_PATH}
+                            element={<OrderDetailsPage />}
+                        />
+                        <Route
+                            path={ALL_PATH}
                             element={<ErrorNotFoundPage />}
                         />
-                    </Route>
-                    <Route path={ALL_PATH} element={<ErrorNotFoundPage />} />
-                </Routes>
-
-                {/* показываем модалку, если есть `backgroundLocation` */}
-                {state?.backgroundLocation && (
-                    <Routes>
-                        <Route
-                            path={INGREDIENTS_PATH + ID_PATH}
-                            element={
-                                <Modal
-                                    closeModal={() => closeModal()}
-                                    title="Детали ингредиента"
-                                >
-                                    <IngredientDetails />
-                                </Modal>
-                            }
-                        />
                     </Routes>
-                )}
-            </main>
+
+                    {/* показываем модалку, если есть `backgroundLocation` */}
+                    {state?.backgroundLocation && (
+                        <Routes>
+                            <Route
+                                path={INGREDIENTS_PATH + ID_PATH}
+                                element={
+                                    <Modal
+                                        closeModal={() => closeModal()}
+                                        title="Детали ингредиента"
+                                    >
+                                        <IngredientDetails />
+                                    </Modal>
+                                }
+                            />
+                        </Routes>
+                    )}
+                </main>
+            ) : (
+                <Loading />
+            )}
         </>
     );
-}
+};
+
+export default App;

@@ -4,20 +4,21 @@ import {
     Input,
     PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { FC } from "react";
+import { Link } from "react-router-dom";
+import { USER_REGISTER } from "../../services/auth/actions";
+import {
+    getUserRegisterHasError,
+    getUserRegisterIsLoading,
+} from "../../services/auth/selectors";
 import { getIsMobile } from "../../services/mobile/selectors";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import { useForm } from "../../utils/hooks";
-import { Link } from "react-router-dom";
-import styles from "./auth.module.css";
-import { USER_REGISTER } from "../../services/auth/actions";
-import {
-    getUserRegisterIsLoading,
-    getUserRegisterHasError,
-} from "../../services/auth/selectors";
-import Notice from "../modals/notice/notice";
 import { LOGIN_PATH } from "../../utils/vars";
+import Notice from "../modals/notice/notice";
+import styles from "./auth.module.scss";
 
-export default function Register() {
+const Register: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);
     const dispatch = useAppDispatch();
     const isLoading = useAppSelector(getUserRegisterIsLoading);
@@ -104,4 +105,6 @@ export default function Register() {
             )}
         </>
     );
-}
+};
+
+export default Register;

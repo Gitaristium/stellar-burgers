@@ -1,36 +1,34 @@
-import { useMemo } from "react";
-import { Link, useLocation } from "react-router-dom";
-import { DragPreviewImage, useDrag } from "react-dnd";
 import {
     Counter,
     CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { FC, useMemo } from "react";
+import { DragPreviewImage, useDrag } from "react-dnd";
+import { Link, useLocation } from "react-router-dom";
 import { INGREDIENT_ADD } from "../../services/burger-constructor/actions";
-import styles from "./burger-ingredients-element.module.css";
-import { ConstructorModel, IngredientModel } from "../../utils/types";
 import { getСonstructorList } from "../../services/burger-constructor/selectors";
-import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import { getIsMobile } from "../../services/mobile/selectors";
+import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
+import { TConstructor, TIngredient } from "../../utils/types";
 import { INGREDIENTS_PATH } from "../../utils/vars";
+import styles from "./burger-ingredients-element.module.scss";
 
-export default function BurgerIngredientsElement({
-    item,
-    type,
-}: {
-    item: IngredientModel;
+interface IProps {
+    item: TIngredient;
     type: string;
-}) {
+}
+
+const BurgerIngredientsElement: FC<IProps> = ({ item, type }) => {
     const isMobile: boolean = useAppSelector(getIsMobile);
 
     // получаем список конструктора из стора
-    const constructorList: ConstructorModel =
-        useAppSelector(getСonstructorList);
+    const constructorList: TConstructor = useAppSelector(getСonstructorList);
     const location = useLocation();
     const dispatch = useAppDispatch();
 
     // добавляем игридиент в конструктор
     // модалка откроется из компонента <App/>
-    const addIngredient = (item: IngredientModel) => {
+    const addIngredient = (item: TIngredient) => {
         dispatch(INGREDIENT_ADD(item));
     };
 
@@ -52,7 +50,7 @@ export default function BurgerIngredientsElement({
         if (item.type === "bun" && constructorList.bun) {
             constructorList.bun._id === item._id ? (count = 2) : (count = 0);
         } else if (item.type !== "bun" && constructorList.ingr.length > 0) {
-            constructorList.ingr.map((elem: IngredientModel) =>
+            constructorList.ingr.map((elem: TIngredient) =>
                 elem._id === item._id ? (count += 1) : count
             );
         } else if (item.type !== "bun" && constructorList.ingr.length === 0) {
@@ -98,4 +96,6 @@ export default function BurgerIngredientsElement({
             </Link>
         </>
     );
-}
+};
+
+export default BurgerIngredientsElement;

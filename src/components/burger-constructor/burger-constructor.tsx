@@ -1,16 +1,16 @@
-import { useState } from "react";
 import {
-    CurrencyIcon,
     Button,
+    CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { FC, useState } from "react";
+import { getIsMobile } from "../../services/mobile/selectors";
+import { useAppSelector } from "../../services/store/hooks";
 import BurgerConstructorView from "../burger-constructor-view/burger-constructor-view";
 import Modal from "../modals/modal/modal";
 import TotalPrice from "../total-price/total-price";
-import styles from "./burger-constructor.module.css";
-import { useAppSelector } from "../../services/store/hooks";
-import { getIsMobile } from "../../services/mobile/selectors";
+import styles from "./burger-constructor.module.scss";
 
-export default function BurgerConstructor() {
+const BurgerConstructor: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -22,9 +22,9 @@ export default function BurgerConstructor() {
             ) : (
                 // для мобилки
                 <>
-                    <section className={styles.constructor__container}>
+                    <section className={styles.section}>
                         <div className={`${styles.sum} mt-10`}>
-                            <TotalPrice className="text text_type_digits-default" />
+                            <TotalPrice extraClass="text text_type_digits-default" />
                             <CurrencyIcon type="primary" />
                             <Button
                                 htmlType="button"
@@ -50,4 +50,6 @@ export default function BurgerConstructor() {
             )}
         </>
     );
-}
+};
+
+export default BurgerConstructor;

@@ -1,16 +1,17 @@
-import IngredientDetails from "../components/modals/ingredient-details/ingredient-details";
-import Loading from "../components/loading/loading";
+import { FC } from "react";
+import { useParams } from "react-router-dom";
 import { ErrorNotFoundPage } from ".";
-import { getIsMobile } from "../services/mobile/selectors";
-import { useAppSelector } from "../services/store/hooks";
-import { IngredientModel } from "../utils/types";
+import IngredientDetails from "../components/ingredient-details/ingredient-details";
+import Loading from "../components/loading/loading";
 import {
     getIngredientById,
     getIngredientsRequestSuccess,
 } from "../services/ingredients-list/selectors";
-import { useParams } from "react-router-dom";
+import { getIsMobile } from "../services/mobile/selectors";
+import { useAppSelector } from "../services/store/hooks";
+import { TIngredient } from "../utils/types";
 
-export default function IngredientDetailsPages() {
+const IngredientDetailsPages: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);
     const requestSuccess: boolean = useAppSelector(
         getIngredientsRequestSuccess
@@ -18,14 +19,14 @@ export default function IngredientDetailsPages() {
 
     const { id } = useParams();
 
-    const ingredientDetails: IngredientModel = useAppSelector(
-        getIngredientById(id)
+    const ingredientDetails: TIngredient | undefined = useAppSelector(
+        getIngredientById(id as string)
     );
 
     return (
         <>
             {/* если данные по API еще не получены, то рендерим прелоадер */}
-            {!requestSuccess && <Loading>Грузим детали</Loading>}
+            {!requestSuccess && <Loading />}
             {/* если данные по API получены, то находим нужный ингредиент*/}
             {requestSuccess && ingredientDetails && (
                 <>
@@ -43,4 +44,6 @@ export default function IngredientDetailsPages() {
             {requestSuccess && !ingredientDetails && <ErrorNotFoundPage />}
         </>
     );
-}
+};
+
+export default IngredientDetailsPages;

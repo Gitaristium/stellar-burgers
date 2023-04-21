@@ -3,20 +3,21 @@ import {
     EmailInput,
     PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { getIsMobile } from "../../services/mobile/selectors";
-import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
-import { useForm } from "../../utils/hooks";
+import { FC } from "react";
 import { Link } from "react-router-dom";
-import styles from "./auth.module.css";
 import { USER_LOGIN } from "../../services/auth/actions";
 import {
     getUserLoginHasError,
     getUserLoginIsLoading,
 } from "../../services/auth/selectors";
-import Notice from "../modals/notice/notice";
+import { getIsMobile } from "../../services/mobile/selectors";
+import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
+import { useForm } from "../../utils/hooks";
 import { FORGOT_PASS_PATH, REGISTER_PATH } from "../../utils/vars";
+import Notice from "../modals/notice/notice";
+import styles from "./auth.module.scss";
 
-export default function Login() {
+const Login: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);
     const dispatch = useAppDispatch();
     const isLoading = useAppSelector(getUserLoginIsLoading);
@@ -104,4 +105,6 @@ export default function Login() {
             )}
         </>
     );
-}
+};
+
+export default Login;
