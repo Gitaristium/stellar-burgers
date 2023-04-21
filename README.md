@@ -1,12 +1,10 @@
-![](https://github.com/Gitaristium/stellar-burgers/blob/main/src/images/github/logo.svg)
-
-# Stellar Burgers
+# ![Stellar Burgers](https://github.com/Gitaristium/stellar-burgers/blob/main/src/images/github/logo.svg)
 
 ### «Даже в крайнем космосе есть свой Бургер-Кинг»
 
-Это проектная работа курса React-разработчик от Яндекс.Практикум
+Это выполненная мною проектная работа курса React-разработчик от Яндекс.Практикум
 
-[Тык, чтобы открыть рабочий билд](https://gitaristium.github.io/stellar-burgers/).
+[Тык, чтобы открыть рабочий билд](https://gitaristium.github.io/stellar-burgers/)
 
 ### Десктопная версия
 
@@ -14,7 +12,8 @@
 
 ### Мобильная версия
 
-![](https://github.com/Gitaristium/stellar-burgers/blob/main/src/images/github/screenshot-mobile.png)
+\
+<img src="https://github.com/Gitaristium/stellar-burgers/blob/main/src/images/github/screenshot-mobile.png" width=300/>
 
 ## Доступные команды
 
