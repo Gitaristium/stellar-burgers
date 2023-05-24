@@ -1,5 +1,5 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { FC, useEffect, useState } from "react";
+import { FC, memo, useEffect, useState } from "react";
 import FeedStats from "../components/feed-stats/feed-stats";
 import FeedList from "../components/feed/feed";
 import { getIsMobile } from "../services/mobile/selectors";
@@ -92,4 +92,4 @@ const OrdersPage: FC = () => {
     );
 };
 
-export default OrdersPage;
+export default memo(OrdersPage);

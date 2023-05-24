@@ -6,7 +6,7 @@ import {
     Logo,
     ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { FC, useEffect, useState } from "react";
+import { FC, memo, useEffect, useState } from "react";
 import { Link, NavLink, useMatch } from "react-router-dom";
 import logoMobile from "../../images/logo__mobile.svg";
 import { getIsMobile } from "../../services/mobile/selectors";
@@ -199,4 +199,4 @@ const AppHeader: FC = () => {
     );
 };
 
-export default AppHeader;
+export default memo(AppHeader);

@@ -1,5 +1,5 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { FC, useMemo } from "react";
+import { FC, memo, useMemo } from "react";
 import { getIngredientById } from "../../services/ingredients-list/selectors";
 import { useAppSelector } from "../../services/store/hooks";
 import Loading from "../loading/loading";
@@ -48,4 +48,4 @@ const OrderDetailsElement: FC<IProps> = ({ itemId, ingredientsList }) => {
     );
 };
 
-export default OrderDetailsElement;
+export default memo(OrderDetailsElement);

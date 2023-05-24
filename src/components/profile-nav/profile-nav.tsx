@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import { NavLink, useMatch } from "react-router-dom";
 import { USER_LOGOUT } from "../../services/auth/actions";
 import { getIsMobile } from "../../services/mobile/selectors";
@@ -87,4 +87,4 @@ const ProfileNav: FC<IProps> = ({ isSubMenuOpen }) => {
     );
 };
 
-export default ProfileNav;
+export default memo(ProfileNav);

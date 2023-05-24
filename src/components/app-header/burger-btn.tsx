@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import styles from "./burger-btn.module.css";
 
 interface IProps {
@@ -19,4 +19,4 @@ const BurgerBtn: FC<IProps> = ({ isMenuOpen, click }) => {
     );
 };
 
-export default BurgerBtn;
+export default memo(BurgerBtn);

@@ -1,4 +1,4 @@
-import { FC, useMemo } from "react";
+import { FC, memo, useMemo } from "react";
 import { getIsMobile } from "../../services/mobile/selectors";
 import { useAppSelector } from "../../services/store/hooks";
 import styles from "./feed-stats.module.scss";
@@ -139,4 +139,4 @@ const FeedStats: FC = () => {
     );
 };
 
-export default FeedStats;
+export default memo(FeedStats);

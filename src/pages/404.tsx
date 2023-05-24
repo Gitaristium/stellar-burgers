@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import img404 from "../images/error-404.svg";
 
 const ErrorNotFoundPage: FC = () => {
@@ -9,4 +9,4 @@ const ErrorNotFoundPage: FC = () => {
     );
 };
 
-export default ErrorNotFoundPage;
+export default memo(ErrorNotFoundPage);

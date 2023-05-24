@@ -2,7 +2,7 @@ import {
     CurrencyIcon,
     FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { FC, Key, useEffect, useMemo } from "react";
+import { FC, Key, memo, useEffect, useMemo } from "react";
 import { useMatch, useParams } from "react-router-dom";
 import { getIsMobile } from "../../services/mobile/selectors";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
@@ -188,4 +188,4 @@ const OrderDetails: FC<IProps> = ({ modal }) => {
     );
 };
 
-export default OrderDetails;
+export default memo(OrderDetails);

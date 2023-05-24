@@ -1,5 +1,5 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { FC, useEffect, useMemo, useRef, useState } from "react";
+import { FC, memo, useEffect, useMemo, useRef, useState } from "react";
 import {
     getIngredientsList,
     getIngredientsHasError,
@@ -186,4 +186,4 @@ const BurgerIngredients: FC = () => {
     );
 };
 
-export default BurgerIngredients;
+export default memo(BurgerIngredients);

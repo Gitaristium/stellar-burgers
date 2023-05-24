@@ -3,7 +3,7 @@ import {
     Input,
     PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { USER_RESET_CONFIRM } from "../../services/auth/actions";
 import {
@@ -112,4 +112,4 @@ const ResetPassword: FC = () => {
     );
 };
 
-export default ResetPassword;
+export default memo(ResetPassword);

@@ -1,4 +1,4 @@
-import { FC, useCallback, useEffect, useLayoutEffect } from "react";
+import { FC, memo, useCallback, useEffect, useLayoutEffect } from "react";
 import {
     Route,
     Routes,
@@ -233,4 +233,4 @@ const App: FC = () => {
     );
 };
 
-export default App;
+export default memo(App);

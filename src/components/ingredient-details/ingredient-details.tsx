@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import { useParams } from "react-router-dom";
 import { getIngredientById } from "../../services/ingredients-list/selectors";
 import { useAppSelector } from "../../services/store/hooks";
@@ -67,4 +67,4 @@ const IngredientDetails: FC = () => {
     );
 };
 
-export default IngredientDetails;
+export default memo(IngredientDetails);

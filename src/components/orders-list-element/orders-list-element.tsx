@@ -2,7 +2,7 @@ import {
     CurrencyIcon,
     FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { FC, Key, useMemo } from "react";
+import { FC, Key, memo, useMemo } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { getImagesByIngredientIds } from "../../services/ingredients-list/selectors";
 import { getIsMobile } from "../../services/mobile/selectors";
@@ -78,4 +78,4 @@ const OrdersListElement: FC<IProps> = ({ item }) => {
     );
 };
 
-export default OrdersListElement;
+export default memo(OrdersListElement);

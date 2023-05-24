@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren } from "react";
+import { FC, PropsWithChildren, memo } from "react";
 import ReactDOM from "react-dom";
 import { getIsMobile } from "../../../services/mobile/selectors";
 import { useAppSelector } from "../../../services/store/hooks";
@@ -41,4 +41,4 @@ const Modal: FC<IProps> = (props) => {
     );
 };
 
-export default Modal;
+export default memo(Modal);

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import { useDrop } from "react-dnd";
 import { INGREDIENT_ADD } from "../../services/burger-constructor/actions";
 import { getIsMobile } from "../../services/mobile/selectors";
@@ -62,4 +62,4 @@ const BurgerConstructorElementEmpty: FC<IProps> = (props) => {
     );
 };
 
-export default BurgerConstructorElementEmpty;
+export default memo(BurgerConstructorElementEmpty);

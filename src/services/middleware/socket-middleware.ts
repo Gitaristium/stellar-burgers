@@ -5,6 +5,8 @@ import {
 } from "@reduxjs/toolkit";
 import { RootState } from "../store/hooks";
 import { TFeedOrdersAll } from "../../utils/types";
+import { TOKEN_DEAD } from "../../utils/vars";
+import { USER_GET_INFO } from "../auth/actions";
 
 export type TWsActionTypes = {
     WS_CONNECT: ActionCreatorWithPayload<string>;
@@ -59,6 +61,10 @@ export const socketMiddleware = (
                     const parsedData = JSON.parse(data);
                     if (parsedData.success === true) {
                         dispatch(WS_MESSAGE(parsedData));
+                    } else if (parsedData.message === TOKEN_DEAD) {
+                        dispatch(USER_GET_INFO()).then(() => {
+                            dispatch(WS_CONNECT(action.payload));
+                        });
                     } else {
                         dispatch(WS_ERROR(parsedData.message));
                     }

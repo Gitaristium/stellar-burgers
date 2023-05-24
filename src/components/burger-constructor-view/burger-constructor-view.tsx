@@ -2,7 +2,7 @@ import {
     Button,
     CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { FC, useState } from "react";
+import { FC, memo, useState } from "react";
 import { useDrop } from "react-dnd";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getUser } from "../../services/auth/selectors";
@@ -224,4 +224,4 @@ const BurgerConstructorView: FC = () => {
     );
 };
 
-export default BurgerConstructorView;
+export default memo(BurgerConstructorView);

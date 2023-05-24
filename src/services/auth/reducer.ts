@@ -9,6 +9,7 @@ import {
     USER_LOGOUT,
     USER_UPDATE,
 } from "./actions";
+import { ACCESS_TOKEN, REFRESH_TOKEN } from "../../utils/vars";
 
 export type TUser = {
     name: string;
@@ -101,8 +102,8 @@ export const userReducer = createReducer(initialState, (builder) => {
         }))
         // Вызывается в случае ошибки
         .addCase(USER_GET_INFO.rejected, (state) => {
-            localStorage.removeItem("accessToken");
-            localStorage.removeItem("refreshToken");
+            localStorage.removeItem(ACCESS_TOKEN);
+            localStorage.removeItem(REFRESH_TOKEN);
             return {
                 ...state,
                 user: initialState.user,
@@ -136,8 +137,8 @@ export const userReducer = createReducer(initialState, (builder) => {
         // Вызывается в том случае если запрос успешно выполнился
         .addCase(USER_LOGIN.fulfilled, (state, action) => {
             // пишем токены в localStorage
-            localStorage.setItem("accessToken", action.payload.accessToken);
-            localStorage.setItem("refreshToken", action.payload.refreshToken);
+            localStorage.setItem(ACCESS_TOKEN, action.payload.accessToken);
+            localStorage.setItem(REFRESH_TOKEN, action.payload.refreshToken);
             return {
                 // Добавляем пользователя
                 user: action.payload.user,
@@ -184,8 +185,8 @@ export const userReducer = createReducer(initialState, (builder) => {
         // Вызывается в том случае если запрос успешно выполнился
         .addCase(USER_REGISTER.fulfilled, (state, action) => {
             // пишем токены в localStorage
-            localStorage.setItem("accessToken", action.payload.accessToken);
-            localStorage.setItem("refreshToken", action.payload.refreshToken);
+            localStorage.setItem(ACCESS_TOKEN, action.payload.accessToken);
+            localStorage.setItem(REFRESH_TOKEN, action.payload.refreshToken);
             return {
                 // Добавляем пользователя
                 user: action.payload.user,
@@ -323,8 +324,8 @@ export const userReducer = createReducer(initialState, (builder) => {
         }))
         // Вызывается в том случае если запрос успешно выполнился
         .addCase(USER_LOGOUT.fulfilled, (state, action) => {
-            localStorage.removeItem("accessToken");
-            localStorage.removeItem("refreshToken");
+            localStorage.removeItem(ACCESS_TOKEN);
+            localStorage.removeItem(REFRESH_TOKEN);
             return {
                 ...state,
                 user: initialState.user,

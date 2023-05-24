@@ -2,7 +2,7 @@ import {
     Button,
     EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { USER_RESET } from "../../services/auth/actions";
 import {
@@ -85,4 +85,4 @@ const ResetPass: FC = () => {
     );
 };
 
-export default ResetPass;
+export default memo(ResetPass);

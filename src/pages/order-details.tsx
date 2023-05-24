@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import OrderDetails from "../components/order-details/order-details";
 
 interface IProps {
@@ -9,4 +9,4 @@ const OrderDetailsPage: FC<IProps> = ({ modal }) => {
     return <OrderDetails modal={modal} />;
 };
 
-export default OrderDetailsPage;
+export default memo(OrderDetailsPage);

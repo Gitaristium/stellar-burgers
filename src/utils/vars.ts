@@ -13,9 +13,15 @@ export const AUTH_TOKEN = "auth/token";
 export const AUTH_RESET = "password-reset";
 export const AUTH_RESET_CONFIRM = "password-reset/reset";
 
+export const ACCESS_TOKEN = "accessToken";
+export const REFRESH_TOKEN = "refreshToken";
+export const CONTENT_TYPE_DATA = "application/json;charset=utf-8";
+
 // WebSocket
 export const NORMA_WEBSOCKET = "wss://norma.nomoreparties.space/orders";
 export const _ALL = "/all";
+
+export const TOKEN_DEAD = "Invalid or missing token";
 
 // маршруты
 export const _ALL_PATH = "/*";

@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, memo, useEffect, useState } from "react";
 import { getTotalPrice } from "../../services/burger-constructor/selectors";
 import { useAppSelector } from "../../services/store/hooks";
 
@@ -45,4 +45,4 @@ const BurgerConstructorTotalPrice: FC<IProps> = ({ extraClass }) => {
     return <span className={extraClass}>{animPrice}</span>;
 };
 
-export default BurgerConstructorTotalPrice;
+export default memo(BurgerConstructorTotalPrice);

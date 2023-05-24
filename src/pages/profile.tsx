@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import ProfileEdit from "../components/profile-edit/profile-edit";
 import { getIsMobile } from "../services/mobile/selectors";
 import { useAppSelector } from "../services/store/hooks";
@@ -17,4 +17,4 @@ const ProfilePage: FC = () => {
     );
 };
 
-export default ProfilePage;
+export default memo(ProfilePage);

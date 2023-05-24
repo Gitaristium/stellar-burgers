@@ -1,5 +1,11 @@
 import { TApiRefreshToken } from "./types";
-import { NORMA_API, AUTH_TOKEN } from "./vars";
+import {
+    NORMA_API,
+    AUTH_TOKEN,
+    REFRESH_TOKEN,
+    ACCESS_TOKEN,
+    CONTENT_TYPE_DATA,
+} from "./vars";
 
 const checkResponse = (res: Response) => {
     return res.ok ? res.json() : res.json().then((err) => Promise.reject(err));
@@ -16,7 +22,7 @@ export const refreshToken = async (): Promise<TApiRefreshToken> => {
     const res = await fetch(NORMA_API + AUTH_TOKEN, {
         method: "POST",
         headers: {
-            "Content-Type": "application/json;charset=utf-8",
+            "Content-Type": CONTENT_TYPE_DATA,
         },
         body: JSON.stringify({
             token: localStorage.getItem("refreshToken"),
@@ -35,13 +41,13 @@ export const fetchWithRefresh = async (url: string, options: RequestInit) => {
             if (!refreshData.success) {
                 return Promise.reject(refreshData);
             }
-            localStorage.setItem("refreshToken", refreshData.refreshToken);
-            localStorage.setItem("accessToken", refreshData.accessToken);
+            localStorage.setItem(REFRESH_TOKEN, refreshData.refreshToken);
+            localStorage.setItem(ACCESS_TOKEN, refreshData.accessToken);
             // options.headers.authorization = refreshData.accessToken;
             const res = await fetch(NORMA_API + url, {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json;charset=utf-8",
+                    "Content-Type": CONTENT_TYPE_DATA,
                     authorization: refreshData.accessToken,
                 },
             }); //повторяем запрос

@@ -4,7 +4,7 @@ import {
     DragIcon,
     LockIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { useDrag, useDrop } from "react-dnd";
 import {
     INGREDIENT_ADD,
@@ -180,4 +180,4 @@ const BurgerConstructorElement: FC<IProps> = (props) => {
     );
 };
 
-export default BurgerConstructorElement;
+export default memo(BurgerConstructorElement);

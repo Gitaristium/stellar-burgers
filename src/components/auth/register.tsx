@@ -4,7 +4,7 @@ import {
     Input,
     PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { Link } from "react-router-dom";
 import { USER_REGISTER } from "../../services/auth/actions";
 import {
@@ -107,4 +107,4 @@ const Register: FC = () => {
     );
 };
 
-export default Register;
+export default memo(Register);

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import BurgerConstructor from "../components/burger-constructor/burger-constructor";
@@ -15,4 +15,4 @@ const HomePage: FC = () => {
     );
 };
 
-export default HomePage;
+export default memo(HomePage);

@@ -1,7 +1,7 @@
-import { FC, useEffect } from "react";
+import { FC, memo, useEffect } from "react";
 import { getIsMobile } from "../services/mobile/selectors";
 import { useAppDispatch, useAppSelector } from "../services/store/hooks";
-import { NORMA_WEBSOCKET } from "../utils/vars";
+import { ACCESS_TOKEN, NORMA_WEBSOCKET } from "../utils/vars";
 import {
     PROFILE_WS_CONNECT,
     PROFILE_WS_DISCONNECT,
@@ -19,8 +19,7 @@ const OrdersPage: FC = () => {
     const dispatch = useAppDispatch();
     const socketStatus = useAppSelector(getProfileOrdersSocketStatus);
     const socketError = useAppSelector(getProfileOrdersSocketError);
-    const accessToken = localStorage.getItem("accessToken")?.split(" ")[1];
-    // const accessToken = localStorage.getItem("accessToken");
+    const accessToken = localStorage.getItem(ACCESS_TOKEN)?.split(" ")[1];
 
     useEffect(() => {
         dispatch(PROFILE_WS_CONNECT(NORMA_WEBSOCKET + `?token=${accessToken}`));
@@ -50,4 +49,4 @@ const OrdersPage: FC = () => {
     );
 };
 
-export default OrdersPage;
+export default memo(OrdersPage);

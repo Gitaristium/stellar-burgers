@@ -2,7 +2,7 @@ import {
     Button,
     CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { FC, useState } from "react";
+import { FC, memo, useState } from "react";
 import { getIsMobile } from "../../services/mobile/selectors";
 import { useAppSelector } from "../../services/store/hooks";
 import BurgerConstructorView from "../burger-constructor-view/burger-constructor-view";
@@ -52,4 +52,4 @@ const BurgerConstructor: FC = () => {
     );
 };
 
-export default BurgerConstructor;
+export default memo(BurgerConstructor);

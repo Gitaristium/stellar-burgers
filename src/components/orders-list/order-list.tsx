@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import { getIsMobile } from "../../services/mobile/selectors";
 import { useAppSelector } from "../../services/store/hooks";
 import OrdersListElement from "../orders-list-element/orders-list-element";
@@ -25,4 +25,4 @@ const OrdersList: FC = () => {
     );
 };
 
-export default OrdersList;
+export default memo(OrdersList);

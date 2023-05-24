@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import { getOrderTotalPrice } from "../../services/ingredients-list/selectors";
 import { useAppSelector } from "../../services/store/hooks";
 
@@ -11,4 +11,4 @@ const OrderTotalPrice: FC<IProps> = ({ ingredients }) => {
     return <span className="mr-2">{sum}</span>;
 };
 
-export default OrderTotalPrice;
+export default memo(OrderTotalPrice);

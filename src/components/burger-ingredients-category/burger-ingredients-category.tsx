@@ -1,4 +1,4 @@
-import { forwardRef } from "react";
+import { forwardRef, memo } from "react";
 import { TIngredient, TIngredientsList } from "../../utils/types";
 import BurgerIngredientsItem from "../burger-ingredients-element/burger-ingredients-element";
 import styles from "./burger-ingredients-category.module.scss";
@@ -33,4 +33,4 @@ const BurgerIngredientsCategory = forwardRef<TRef, IProps>(
     }
 );
 
-export default BurgerIngredientsCategory;
+export default memo(BurgerIngredientsCategory);

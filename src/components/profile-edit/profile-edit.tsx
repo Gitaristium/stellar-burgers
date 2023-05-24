@@ -4,7 +4,7 @@ import {
     Input,
     PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { USER_UPDATE } from "../../services/auth/actions";
 import {
     getUserEmail,
@@ -146,4 +146,4 @@ const ProfileEdit: FC = () => {
     );
 };
 
-export default ProfileEdit;
+export default memo(ProfileEdit);

@@ -2,7 +2,7 @@ import {
     Counter,
     CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { FC, useMemo } from "react";
+import { FC, memo, useMemo } from "react";
 import { DragPreviewImage, useDrag } from "react-dnd";
 import { Link, useLocation } from "react-router-dom";
 import { INGREDIENT_ADD } from "../../services/burger-constructor/actions";
@@ -98,4 +98,4 @@ const BurgerIngredientsElement: FC<IProps> = ({ item, type }) => {
     );
 };
 
-export default BurgerIngredientsElement;
+export default memo(BurgerIngredientsElement);

@@ -1,6 +1,6 @@
 import { createAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { requestApi } from "../../utils/request-api";
-import { ORDERS } from "../../utils/vars";
+import { ACCESS_TOKEN, CONTENT_TYPE_DATA, ORDERS } from "../../utils/vars";
 import { INGREDIENTS_RESET } from "../burger-constructor/actions";
 
 const REDUCER_NAME = "constructorOrderDetails";
@@ -13,8 +13,8 @@ export const CONSTRUCTOR_ORDER_DETAILS_REQUEST = createAsyncThunk(
         const response = await requestApi(ORDERS, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json;charset=utf-8",
-                authorization: localStorage.getItem("accessToken") as string,
+                "Content-Type": CONTENT_TYPE_DATA,
+                authorization: localStorage.getItem(ACCESS_TOKEN) as string,
             },
             body: JSON.stringify(data),
         });
