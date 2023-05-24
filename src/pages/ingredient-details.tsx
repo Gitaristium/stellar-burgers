@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import { useParams } from "react-router-dom";
 import { ErrorNotFoundPage } from ".";
 import IngredientDetails from "../components/ingredient-details/ingredient-details";
@@ -46,4 +46,4 @@ const IngredientDetailsPages: FC = () => {
     );
 };
 
-export default IngredientDetailsPages;
+export default memo(IngredientDetailsPages);

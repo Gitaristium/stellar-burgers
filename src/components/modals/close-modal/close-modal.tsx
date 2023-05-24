@@ -1,5 +1,5 @@
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { FC } from "react";
+import { FC, memo } from "react";
 import styles from "./close-modal.module.scss";
 
 interface IProps {
@@ -17,4 +17,4 @@ const CloseModal: FC<IProps> = ({ closeModal }) => {
     );
 };
 
-export default CloseModal;
+export default memo(CloseModal);

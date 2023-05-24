@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import ReactDOM from "react-dom";
 import styles from "./notice.module.scss";
 
@@ -20,4 +20,4 @@ const Notice: FC<IProps> = (props) => {
     );
 };
 
-export default Notice;
+export default memo(Notice);

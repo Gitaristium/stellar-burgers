@@ -6,12 +6,14 @@ import {
 } from "@reduxjs/toolkit";
 import { fetchWithRefresh, requestApi } from "../../utils/request-api";
 import {
+    ACCESS_TOKEN,
     AUTH_LOGIN,
     AUTH_LOGOUT,
     AUTH_REGISTER,
     AUTH_RESET,
     AUTH_RESET_CONFIRM,
     AUTH_USER,
+    CONTENT_TYPE_DATA,
 } from "../../utils/vars";
 import {
     TApiGetUser,
@@ -35,9 +37,9 @@ type TBodySend = {
 // ================================
 export const USER_CHECK_AUTH = () => {
     return (dispatch: Dispatch<AnyAction>) => {
-        localStorage.getItem("accessToken") &&
-        localStorage.getItem("accessToken") !== undefined &&
-        localStorage.getItem("accessToken") !== "undefined"
+        localStorage.getItem(ACCESS_TOKEN) &&
+        localStorage.getItem(ACCESS_TOKEN) !== undefined &&
+        localStorage.getItem(ACCESS_TOKEN) !== "undefined"
             ? dispatch(USER_GET_INFO())
             : dispatch(USER_CHECKED());
     };
@@ -59,8 +61,8 @@ export const USER_GET_INFO = createAsyncThunk<TApiGetUser>(
         const response = await fetchWithRefresh(AUTH_USER, {
             method: "GET",
             headers: {
-                "Content-Type": "application/json;charset=utf-8",
-                authorization: localStorage.getItem("accessToken") as string,
+                "Content-Type": CONTENT_TYPE_DATA,
+                authorization: localStorage.getItem(ACCESS_TOKEN) as string,
             },
         });
         return response;
@@ -79,7 +81,7 @@ export const USER_REGISTER = createAsyncThunk<TApiAuthUser, TBodySend>(
         const response = await requestApi(AUTH_REGISTER, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
+                "Content-Type": CONTENT_TYPE_DATA,
             },
             body: JSON.stringify(bodySend),
         });
@@ -98,7 +100,7 @@ export const USER_LOGIN = createAsyncThunk<TApiAuthUser, TBodySend>(
         const response = await requestApi(AUTH_LOGIN, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
+                "Content-Type": CONTENT_TYPE_DATA,
             },
             body: JSON.stringify(bodySend),
         });
@@ -118,7 +120,7 @@ export const USER_RESET = createAsyncThunk<TApiForgotUser, TBodySend>(
         const response = await requestApi(AUTH_RESET, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
+                "Content-Type": CONTENT_TYPE_DATA,
             },
             body: JSON.stringify(bodySend),
         });
@@ -137,7 +139,7 @@ export const USER_RESET_CONFIRM = createAsyncThunk<TApiResetUser, TBodySend>(
         const response = await requestApi(AUTH_RESET_CONFIRM, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
+                "Content-Type": CONTENT_TYPE_DATA,
             },
             body: JSON.stringify(bodySend),
         });
@@ -156,7 +158,7 @@ export const USER_LOGOUT = createAsyncThunk<TApiLogoutUser>(
         const response = await requestApi(AUTH_LOGOUT, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
+                "Content-Type": CONTENT_TYPE_DATA,
             },
             body: JSON.stringify({
                 token: localStorage.getItem("refreshToken"),
@@ -177,8 +179,8 @@ export const USER_UPDATE = createAsyncThunk<TApiGetUser, TBodySend>(
         const response = await fetchWithRefresh(AUTH_USER, {
             method: "PATCH",
             headers: {
-                "Content-Type": "application/json;charset=utf-8",
-                authorization: localStorage.getItem("accessToken") as string,
+                "Content-Type": CONTENT_TYPE_DATA,
+                authorization: localStorage.getItem(ACCESS_TOKEN) as string,
             },
             body: JSON.stringify(bodySend),
         });

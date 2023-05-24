@@ -2,41 +2,55 @@ import {
     CurrencyIcon,
     FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { FC, Key } from "react";
-import { Link } from "react-router-dom";
+import { FC, Key, memo, useMemo } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { getImagesByIngredientIds } from "../../services/ingredients-list/selectors";
 import { getIsMobile } from "../../services/mobile/selectors";
 import { useAppSelector } from "../../services/store/hooks";
 import OrderDetailsImg from "../order-details-img/order-details-img";
 import styles from "./orders-list-element.module.scss";
+import { OrderStatus, TFeedOrder } from "../../utils/types";
+import OrderTotalPrice from "../order-total-price/order-total-price";
 
 interface IProps {
-    // если бы мы знали что это такое, но мы не знаем что это такое
-    // верный тип укажу, когда ТЗ дойдет до этой страницы и перепишу компонент под условия.
-    item: any;
+    item: TFeedOrder;
 }
 
 const OrdersListElement: FC<IProps> = ({ item }) => {
     const isMobile: boolean = useAppSelector(getIsMobile);
-    const images = useAppSelector(
-        getImagesByIngredientIds(item.ingredients as string[])
+    const images: string[] = useAppSelector(
+        getImagesByIngredientIds(item.ingredients)
     );
+    const location = useLocation();
+
+    const status = useMemo(() => {
+        switch (item.status) {
+            case OrderStatus.DONE:
+                return "Готов";
+            case OrderStatus.PENDING:
+                return "Готовится";
+            case OrderStatus.CANCELED:
+                return "Отменен";
+            default:
+                return "Создан";
+        }
+    }, [item.status]);
+
     return (
         <Link
             className={`${styles.item} ${!isMobile ? "p-6 mb-6" : "p-4 mb-4"}`}
-            to={item.id}
+            to={item.number.toString()}
+            state={{ backgroundLocation: location }}
         >
             <div className={`${styles.header} mb-6`}>
                 <p className="text text_type_digits-default">#{item.number}</p>
                 <p className="text text_type_main-default text_color_inactive">
-                    <FormattedDate date={new Date(item.date)} />
+                    <FormattedDate date={new Date(item.createdAt)} />
                 </p>
             </div>
             <h3 className="text text_type_main-medium">{item.name}</h3>
             {item.status && (
-                <p className="text text_type_main-default mt-2">
-                    {item.status}
-                </p>
+                <p className="text text_type_main-default mt-2">{status}</p>
             )}
             <div className={`${styles.footer} mt-6`}>
                 <span className={styles.footer__images}>
@@ -56,7 +70,7 @@ const OrdersListElement: FC<IProps> = ({ item }) => {
                 <p
                     className={`${styles.price} text text_type_digits-default ml-6`}
                 >
-                    <span className="mr-2">{item.price}</span>
+                    <OrderTotalPrice ingredients={item.ingredients} />
                     <CurrencyIcon type="primary" />
                 </p>
             </div>
@@ -64,4 +78,4 @@ const OrdersListElement: FC<IProps> = ({ item }) => {
     );
 };
 
-export default OrdersListElement;
+export default memo(OrdersListElement);

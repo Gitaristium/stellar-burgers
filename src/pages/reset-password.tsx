@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import { ResetPassword } from "../components/auth";
 import { getIsMobile } from "../services/mobile/selectors";
 import { useAppSelector } from "../services/store/hooks";
@@ -16,4 +16,4 @@ const ResetPasswordPage: FC = () => {
     );
 };
 
-export default ResetPasswordPage;
+export default memo(ResetPasswordPage);

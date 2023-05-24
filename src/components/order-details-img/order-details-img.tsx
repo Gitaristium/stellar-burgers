@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import { getIsMobile } from "../../services/mobile/selectors";
 import { useAppSelector } from "../../services/store/hooks";
 import styles from "./order-details-img.module.scss";
@@ -19,4 +19,4 @@ const OrderDetailsImg: FC<IProps> = ({ img }) => {
     );
 };
 
-export default OrderDetailsImg;
+export default memo(OrderDetailsImg);

@@ -3,13 +3,14 @@ import { TConstructor, TIngredient, TIngredientsList } from "../../utils/types";
 import { RootState } from "../store/hooks";
 
 // список конструктора
-const selectors = (store: RootState): TIngredient => store.constructorList.bun;
+const storeConstructorBun = (store: RootState): TIngredient =>
+    store.constructorList.bun;
 
 const storeConstructorIngr = (store: RootState): TIngredientsList =>
     store.constructorList.ingr;
 
 export const getСonstructorList = createSelector(
-    selectors,
+    storeConstructorBun,
     storeConstructorIngr,
     (bun, ingr): TConstructor => ({
         bun,
@@ -18,7 +19,7 @@ export const getСonstructorList = createSelector(
 );
 
 export const getTotalPrice = createSelector(
-    selectors,
+    storeConstructorBun,
     storeConstructorIngr,
     (bun, ingr): number => {
         return (

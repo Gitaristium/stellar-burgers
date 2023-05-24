@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import { Outlet } from "react-router-dom";
 import ProfileNav from "../components/profile-nav/profile-nav";
 import { getIsMobile } from "../services/mobile/selectors";
@@ -20,4 +20,4 @@ const ProfileLayoutPage: FC = () => {
     );
 };
 
-export default ProfileLayoutPage;
+export default memo(ProfileLayoutPage);

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import { ForgotPassword } from "../components/auth";
 import { getIsMobile } from "../services/mobile/selectors";
 import { useAppSelector } from "../services/store/hooks";
@@ -16,4 +16,4 @@ const ForgotPasswordPage: FC = () => {
     );
 };
 
-export default ForgotPasswordPage;
+export default memo(ForgotPasswordPage);

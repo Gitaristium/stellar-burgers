@@ -2,7 +2,7 @@ import {
     Button,
     CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { FC, useState } from "react";
+import { FC, memo, useState } from "react";
 import { useDrop } from "react-dnd";
 import { useLocation, useNavigate } from "react-router-dom";
 import { getUser } from "../../services/auth/selectors";
@@ -25,9 +25,9 @@ import BurgerConstructorElementEmpty from "../burger-constructor-element/burger-
 import ConstructorOrderDetails from "../constructor-order-details/constructor-order-details";
 import Loading from "../loading/loading";
 import Modal from "../modals/modal/modal";
-import TotalPrice from "../total-price/total-price";
+import BurgerConstructorTotalPrice from "../burger-constructor-total-price/burger-constructor-total-price";
 import styles from "./burger-constructor-view.module.scss";
-import { LOGIN_PATH } from "../../utils/vars";
+import { _LOGIN_PATH } from "../../utils/vars";
 
 const BurgerConstructorView: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);
@@ -61,7 +61,7 @@ const BurgerConstructorView: FC = () => {
         !user &&
             BUN &&
             INGR.length > 0 &&
-            navigate(LOGIN_PATH, { state: { from: location } });
+            navigate(_LOGIN_PATH, { state: { from: location } });
         user && BUN && INGR.length > 0 && getConstructorOrderDetails();
         setIsModalOpen(true);
     };
@@ -90,8 +90,8 @@ const BurgerConstructorView: FC = () => {
     // получаем данные заказа по API
     const getConstructorOrderDetails = () => {
         let ids: string[] = INGR.map((x: TIngredient) => x._id);
-
-        ids.push(BUN._id, BUN._id);
+        ids.unshift(BUN._id);
+        ids.push(BUN._id);
 
         let sendData = {
             ingredients: ids,
@@ -184,7 +184,7 @@ const BurgerConstructorView: FC = () => {
 
                 {/* итог по сумме и "оформить" */}
                 <div className={`${styles.sum} mt-10 mr-4`}>
-                    <TotalPrice
+                    <BurgerConstructorTotalPrice
                         extraClass={
                             !isMobile
                                 ? "text text_type_digits-medium"
@@ -213,7 +213,7 @@ const BurgerConstructorView: FC = () => {
                     {!isLoading && !hasError && !requestSuccess && (
                         <Loading>Добавь ингредиентов</Loading>
                     )}
-                    {isLoading && <Loading />}
+                    {isLoading && <Loading>Создание заказа</Loading>}
                     {hasError && <Loading>Ошибка загрузки Х_Х</Loading>}
                     {!isLoading && !hasError && requestSuccess && (
                         <ConstructorOrderDetails />
@@ -224,4 +224,4 @@ const BurgerConstructorView: FC = () => {
     );
 };
 
-export default BurgerConstructorView;
+export default memo(BurgerConstructorView);

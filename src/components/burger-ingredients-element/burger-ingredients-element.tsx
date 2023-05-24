@@ -2,7 +2,7 @@ import {
     Counter,
     CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { FC, useMemo } from "react";
+import { FC, memo, useMemo } from "react";
 import { DragPreviewImage, useDrag } from "react-dnd";
 import { Link, useLocation } from "react-router-dom";
 import { INGREDIENT_ADD } from "../../services/burger-constructor/actions";
@@ -10,7 +10,7 @@ import { getСonstructorList } from "../../services/burger-constructor/selectors
 import { getIsMobile } from "../../services/mobile/selectors";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import { TConstructor, TIngredient } from "../../utils/types";
-import { INGREDIENTS_PATH } from "../../utils/vars";
+import { _INGREDIENTS_PATH } from "../../utils/vars";
 import styles from "./burger-ingredients-element.module.scss";
 
 interface IProps {
@@ -64,7 +64,7 @@ const BurgerIngredientsElement: FC<IProps> = ({ item, type }) => {
         <>
             <DragPreviewImage connect={dragPreview} src={item.image} />
             <Link
-                to={INGREDIENTS_PATH + "/" + item._id}
+                to={_INGREDIENTS_PATH + "/" + item._id}
                 state={{ backgroundLocation: location }}
                 className={`${styles.item} mb-8 remove-select`}
                 key={item._id}
@@ -98,4 +98,4 @@ const BurgerIngredientsElement: FC<IProps> = ({ item, type }) => {
     );
 };
 
-export default BurgerIngredientsElement;
+export default memo(BurgerIngredientsElement);

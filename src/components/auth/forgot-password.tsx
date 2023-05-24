@@ -2,7 +2,7 @@ import {
     Button,
     EmailInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { USER_RESET } from "../../services/auth/actions";
 import {
@@ -13,7 +13,7 @@ import {
 import { getIsMobile } from "../../services/mobile/selectors";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import { useForm } from "../../utils/hooks";
-import { LOGIN_PATH, RESET_PASS_PATH } from "../../utils/vars";
+import { _LOGIN_PATH, _RESET_PASS_PATH } from "../../utils/vars";
 import Notice from "../modals/notice/notice";
 import styles from "./auth.module.scss";
 
@@ -67,7 +67,7 @@ const ResetPass: FC = () => {
                     >
                         Вспомнили пароль?
                     </span>
-                    <Link to={LOGIN_PATH} className="text_type_main-default ">
+                    <Link to={_LOGIN_PATH} className="text_type_main-default ">
                         Войти
                     </Link>
                 </span>
@@ -80,9 +80,9 @@ const ResetPass: FC = () => {
                 />
             )}
 
-            {requestSuccess && <Navigate to={RESET_PASS_PATH} />}
+            {requestSuccess && <Navigate to={_RESET_PASS_PATH} />}
         </>
     );
 };
 
-export default ResetPass;
+export default memo(ResetPass);

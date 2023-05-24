@@ -3,7 +3,7 @@ import {
     EmailInput,
     PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { Link } from "react-router-dom";
 import { USER_LOGIN } from "../../services/auth/actions";
 import {
@@ -13,7 +13,7 @@ import {
 import { getIsMobile } from "../../services/mobile/selectors";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import { useForm } from "../../utils/hooks";
-import { FORGOT_PASS_PATH, REGISTER_PATH } from "../../utils/vars";
+import { _FORGOT_PASS_PATH, _REGISTER_PATH } from "../../utils/vars";
 import Notice from "../modals/notice/notice";
 import styles from "./auth.module.scss";
 
@@ -77,7 +77,7 @@ const Login: FC = () => {
                         Вы — новый пользователь?
                     </span>
                     <Link
-                        to={REGISTER_PATH}
+                        to={_REGISTER_PATH}
                         className="text_type_main-default "
                     >
                         Зарегистрироваться
@@ -92,7 +92,7 @@ const Login: FC = () => {
                         Забыли пароль?
                     </span>
                     <Link
-                        to={FORGOT_PASS_PATH}
+                        to={_FORGOT_PASS_PATH}
                         className="text_type_main-default"
                     >
                         Восстановить пароль
@@ -107,4 +107,4 @@ const Login: FC = () => {
     );
 };
 
-export default Login;
+export default memo(Login);

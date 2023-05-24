@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, memo } from "react";
 import { Login } from "../components/auth";
 import { getIsMobile } from "../services/mobile/selectors";
 import { useAppSelector } from "../services/store/hooks";
@@ -16,4 +16,4 @@ const LoginPage: FC = () => {
     );
 };
 
-export default LoginPage;
+export default memo(LoginPage);

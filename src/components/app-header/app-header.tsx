@@ -6,12 +6,12 @@ import {
     Logo,
     ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { FC, useEffect, useState } from "react";
+import { FC, memo, useEffect, useState } from "react";
 import { Link, NavLink, useMatch } from "react-router-dom";
 import logoMobile from "../../images/logo__mobile.svg";
 import { getIsMobile } from "../../services/mobile/selectors";
 import { useAppSelector } from "../../services/store/hooks";
-import { FEED_PATH, HOME_PATH, PROFILE_PATH } from "../../utils/vars";
+import { _FEED_PATH, _HOME_PATH, _PROFILE_PATH } from "../../utils/vars";
 import ProfileNav from "../profile-nav/profile-nav";
 import styles from "./app-header.module.scss";
 import BurgerBtn from "./burger-btn";
@@ -47,7 +47,7 @@ const AppHeader: FC = () => {
                             className={`${styles.logo__mobile} ml-3 mr-3 ${
                                 isMenuOpen ? styles.hide : ""
                             }`}
-                            to={HOME_PATH}
+                            to={_HOME_PATH}
                         >
                             <img src={logoMobile} alt="logo" />
                         </Link>
@@ -58,7 +58,7 @@ const AppHeader: FC = () => {
                     </>
                 ) : (
                     // лого для десктопа
-                    <Link className={styles.logo} to={HOME_PATH}>
+                    <Link className={styles.logo} to={_HOME_PATH}>
                         <Logo />
                     </Link>
                 )}
@@ -136,7 +136,7 @@ const AppHeader: FC = () => {
                                         styles.link
                                     } text text_type_main-default  mt-4 mb-4 ml-5 mr-5`
                                 }
-                                to={HOME_PATH}
+                                to={_HOME_PATH}
                             >
                                 <BurgerIcon
                                     type={
@@ -159,7 +159,7 @@ const AppHeader: FC = () => {
                                         styles.link
                                     } text text_type_main-default  mt-4 mb-4 ml-5 mr-5`
                                 }
-                                to={FEED_PATH}
+                                to={_FEED_PATH}
                             >
                                 <ListIcon
                                     type={matchFeed ? "primary" : "secondary"}
@@ -179,7 +179,7 @@ const AppHeader: FC = () => {
                                             styles.link
                                         } text text_type_main-default  mt-4 mb-4 ml-5 mr-5`
                                     }
-                                    to={PROFILE_PATH}
+                                    to={_PROFILE_PATH}
                                 >
                                     <ProfileIcon
                                         type={
@@ -199,4 +199,4 @@ const AppHeader: FC = () => {
     );
 };
 
-export default AppHeader;
+export default memo(AppHeader);

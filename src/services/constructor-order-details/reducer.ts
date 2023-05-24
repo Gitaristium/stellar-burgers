@@ -31,8 +31,8 @@ export const constructorOrderDetailsReducer = createReducer(
                     error: false,
                     success: false,
                 },
-            }));
-        builder
+            }))
+
             // Вызывается в том случае если запрос успешно выполнился
             .addCase(
                 CONSTRUCTOR_ORDER_DETAILS_REQUEST.fulfilled,
@@ -47,8 +47,7 @@ export const constructorOrderDetailsReducer = createReducer(
                         },
                     };
                 }
-            );
-        builder
+            )
             // Вызывается в случае ошибки
             .addCase(CONSTRUCTOR_ORDER_DETAILS_REQUEST.rejected, (state) => ({
                 // https://redux-toolkit.js.org/api/createAsyncThunk#handling-thunk-errors
@@ -58,8 +57,8 @@ export const constructorOrderDetailsReducer = createReducer(
                     error: true,
                     success: false,
                 },
-            }));
-        builder.addCase(CONSTRUCTOR_ORDER_DETAILS_RESET, () => initialState);
-        builder.addDefaultCase((state) => state);
+            }))
+            .addCase(CONSTRUCTOR_ORDER_DETAILS_RESET, () => initialState)
+            .addDefaultCase((state) => state);
     }
 );

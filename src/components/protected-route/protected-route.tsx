@@ -2,7 +2,7 @@ import { FC, ReactElement } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { getIsAuthChecked, getUser } from "../../services/auth/selectors";
 import { useAppSelector } from "../../services/store/hooks";
-import { LOGIN_PATH } from "../../utils/vars";
+import { _LOGIN_PATH } from "../../utils/vars";
 import Loading from "../loading/loading";
 
 interface IProps {
@@ -29,7 +29,7 @@ const ProtectedRoute: FC<IProps> = ({ onlyAuth = true, component }) => {
 
     if (!user && onlyAuth) {
         // пользователь неавторизован, но роут для авторизованных пользователей
-        return <Navigate to={LOGIN_PATH} state={{ from: location }} />;
+        return <Navigate to={_LOGIN_PATH} state={{ from: location }} />;
     }
 
     // авторизация пользователя и доступ к роуту совпадают`

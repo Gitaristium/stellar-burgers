@@ -1,5 +1,5 @@
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { FC } from "react";
+import { FC, memo, useMemo } from "react";
 import { getIngredientById } from "../../services/ingredients-list/selectors";
 import { useAppSelector } from "../../services/store/hooks";
 import Loading from "../loading/loading";
@@ -8,10 +8,20 @@ import styles from "./order-details-element.module.scss";
 
 interface IProps {
     itemId: string;
+    ingredientsList: string[];
 }
 
-const OrderDetailsElement: FC<IProps> = ({ itemId }) => {
+const OrderDetailsElement: FC<IProps> = ({ itemId, ingredientsList }) => {
     const item = useAppSelector(getIngredientById(itemId as string));
+
+    // счетчик кол-ва игредиентов в заказе
+    const count = useMemo(() => {
+        let count = 0;
+        ingredientsList.map((elem: string) =>
+            elem === item?._id ? (count += 1) : count
+        );
+        return count;
+    }, [ingredientsList, item]);
 
     return (
         <>
@@ -28,7 +38,7 @@ const OrderDetailsElement: FC<IProps> = ({ itemId }) => {
                     <p
                         className={`${styles.price} text text_type_digits-default`}
                     >
-                        <span className="mr-2">2 x</span>
+                        <span className="mr-2">{count} x</span>
                         <span className="mr-2"> {item.price}</span>
                         <CurrencyIcon type="primary" />
                     </p>
@@ -38,4 +48,4 @@ const OrderDetailsElement: FC<IProps> = ({ itemId }) => {
     );
 };
 
-export default OrderDetailsElement;
+export default memo(OrderDetailsElement);

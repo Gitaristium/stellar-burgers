@@ -1,5 +1,5 @@
 import { CheckMarkIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { FC, useEffect, useState } from "react";
+import { FC, memo, useEffect, useState } from "react";
 import vector1 from "../../images/order-accepted/vector1.svg";
 import vector2 from "../../images/order-accepted/vector2.svg";
 import vector3 from "../../images/order-accepted/vector3.svg";
@@ -68,4 +68,4 @@ const ConstructorOrderDetails: FC = () => {
     );
 };
 
-export default ConstructorOrderDetails;
+export default memo(ConstructorOrderDetails);

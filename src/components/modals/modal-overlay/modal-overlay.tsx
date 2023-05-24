@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, memo, useEffect } from "react";
 import styles from "./modal-overlay.module.scss";
 
 interface IProps {
@@ -23,4 +23,4 @@ const ModalOverlay: FC<IProps> = ({ closeModal }) => {
     return <div className={styles.overlay} onClick={closeModal}></div>;
 };
 
-export default ModalOverlay;
+export default memo(ModalOverlay);

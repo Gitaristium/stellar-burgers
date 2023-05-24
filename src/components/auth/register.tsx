@@ -4,7 +4,7 @@ import {
     Input,
     PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { Link } from "react-router-dom";
 import { USER_REGISTER } from "../../services/auth/actions";
 import {
@@ -14,7 +14,7 @@ import {
 import { getIsMobile } from "../../services/mobile/selectors";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import { useForm } from "../../utils/hooks";
-import { LOGIN_PATH } from "../../utils/vars";
+import { _LOGIN_PATH } from "../../utils/vars";
 import Notice from "../modals/notice/notice";
 import styles from "./auth.module.scss";
 
@@ -92,7 +92,7 @@ const Register: FC = () => {
                     >
                         Уже зарегистрированы?
                     </span>
-                    <Link to={LOGIN_PATH} className="text_type_main-default ">
+                    <Link to={_LOGIN_PATH} className="text_type_main-default ">
                         Войти
                     </Link>
                 </span>
@@ -107,4 +107,4 @@ const Register: FC = () => {
     );
 };
 
-export default Register;
+export default memo(Register);

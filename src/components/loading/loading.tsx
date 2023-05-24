@@ -1,4 +1,4 @@
-import { FC, PropsWithChildren, useEffect, useState } from "react";
+import { FC, PropsWithChildren, memo, useEffect, useState } from "react";
 import styles from "./loading.module.scss";
 
 const useAnim = () => {
@@ -36,4 +36,4 @@ const Loading: FC<PropsWithChildren> = ({ children }) => {
     );
 };
 
-export default Loading;
+export default memo(Loading);
