@@ -15,7 +15,7 @@ import {
 import { getIsMobile } from "../../services/mobile/selectors";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import { useForm } from "../../utils/hooks";
-import { FORGOT_PASS_PATH, LOGIN_PATH } from "../../utils/vars";
+import { _FORGOT_PASS_PATH, _LOGIN_PATH } from "../../utils/vars";
 import Notice from "../modals/notice/notice";
 import styles from "./auth.module.scss";
 
@@ -45,7 +45,7 @@ const ResetPassword: FC = () => {
 
     return (
         <>
-            {!resetRequestSuccess && <Navigate to={FORGOT_PASS_PATH} />}
+            {!resetRequestSuccess && <Navigate to={_FORGOT_PASS_PATH} />}
 
             {resetRequestSuccess && (
                 <form
@@ -93,7 +93,7 @@ const ResetPassword: FC = () => {
                             Вспомнили пароль?
                         </span>
                         <Link
-                            to={LOGIN_PATH}
+                            to={_LOGIN_PATH}
                             className="text_type_main-default "
                         >
                             Войти
@@ -107,7 +107,7 @@ const ResetPassword: FC = () => {
             )}
             {hasError && <Notice text="Указан неверный код" type="error" />}
 
-            {resetConfirmRequestSuccess && <Navigate to={LOGIN_PATH} />}
+            {resetConfirmRequestSuccess && <Navigate to={_LOGIN_PATH} />}
         </>
     );
 };

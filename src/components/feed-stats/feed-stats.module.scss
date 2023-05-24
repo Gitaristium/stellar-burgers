@@ -30,3 +30,13 @@
         width: 100%;
     }
 }
+
+.order_list {
+    display: flex;
+    justify-content: space-between;
+
+    // .order_list__column
+    &__column {
+        // margin-right: 36px;
+    }
+}

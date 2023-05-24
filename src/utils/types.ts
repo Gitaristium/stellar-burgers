@@ -69,3 +69,37 @@ export type TConstructorOrderDetails = {
         number: number;
     };
 };
+
+// =====================
+// ===== WebSocket =====
+// =====================
+
+export type TFeedOrder = {
+    ingredients: string[];
+    _id: string;
+    status: string;
+    name: string;
+    number: number;
+    createdAt: string;
+    updatedAt: string;
+};
+
+export type TFeedOrdersAll = TApiSuccess & {
+    orders: TFeedOrder[];
+    total: number;
+    totalToday: number;
+};
+
+export enum WebSocketStatus {
+    ONLINE = "online",
+    OFFLINE = "offline",
+    CONNECTING = "connecting",
+    ERROR = "error",
+}
+
+export enum OrderStatus {
+    DONE = "done",
+    PENDING = "pending",
+    CREATED = "created",
+    CANCELED = "canceled",
+}

@@ -13,26 +13,33 @@ export const AUTH_TOKEN = "auth/token";
 export const AUTH_RESET = "password-reset";
 export const AUTH_RESET_CONFIRM = "password-reset/reset";
 
+// WebSocket
+export const NORMA_WEBSOCKET = "wss://norma.nomoreparties.space/orders";
+export const _ALL = "/all";
+
+// маршруты
+export const _ALL_PATH = "/*";
+export const ALL_PATH = "*";
+export const _HOME_PATH = "/";
+export const _LOGIN_PATH = "/login";
+export const _REGISTER_PATH = "/register";
+export const _FORGOT_PASS_PATH = "/forgot-password";
+export const _RESET_PASS_PATH = "/reset-password";
+export const _INGREDIENTS_PATH = "/ingredients";
+export const _ID_PATH = "/:id";
+export const _FEED_PATH = "/feed";
+export const _PROFILE_PATH = "/profile";
+export const _ORDERS_PATH = "/orders";
+export const ORDERS_PATH = "orders";
+
 // табы - ингрединеты и конструктор
 export const BUN = "bun";
 export const SAUCE = "sauce";
 export const MAIN = "main";
 
-// маршруты
-export const ALL_PATH = "/*";
-export const _ALL_PATH = "*";
-export const HOME_PATH = "/";
-export const LOGIN_PATH = "/login";
-export const REGISTER_PATH = "/register";
-export const FORGOT_PASS_PATH = "/forgot-password";
-export const RESET_PASS_PATH = "/reset-password";
-export const INGREDIENTS_PATH = "/ingredients";
-export const ID_PATH = "/:id";
-export const FEED_PATH = "/feed";
-export const PROFILE_PATH = "/profile";
-export const ORDERS_PATH = "/orders";
-export const _ORDERS_PATH = "orders";
-
 // табы - лента заказов для мобилки
 export const LIST = "list";
 export const STATS = "stats";
+
+// navigationType
+export const PUSH = "PUSH";

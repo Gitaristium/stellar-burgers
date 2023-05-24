@@ -3,7 +3,7 @@ import { NavLink, useMatch } from "react-router-dom";
 import { USER_LOGOUT } from "../../services/auth/actions";
 import { getIsMobile } from "../../services/mobile/selectors";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
-import { ORDERS_PATH, PROFILE_PATH } from "../../utils/vars";
+import { _ORDERS_PATH, _PROFILE_PATH } from "../../utils/vars";
 import styles from "./profile-nav.module.scss";
 
 interface IProps {
@@ -40,7 +40,7 @@ const ProfileNav: FC<IProps> = ({ isSubMenuOpen }) => {
                                     : "text_type_main-default   mt-4 mb-4 ml-5 mr-5"
                             }`
                         }
-                        to={PROFILE_PATH}
+                        to={_PROFILE_PATH}
                         end={true}
                     >
                         Профиль
@@ -58,7 +58,7 @@ const ProfileNav: FC<IProps> = ({ isSubMenuOpen }) => {
                                     : "text_type_main-default   mt-4 mb-4 ml-5 mr-5"
                             }`
                         }
-                        to={PROFILE_PATH + ORDERS_PATH}
+                        to={_PROFILE_PATH + _ORDERS_PATH}
                     >
                         История заказов
                     </NavLink>

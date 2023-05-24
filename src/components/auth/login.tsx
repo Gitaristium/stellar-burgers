@@ -13,7 +13,7 @@ import {
 import { getIsMobile } from "../../services/mobile/selectors";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import { useForm } from "../../utils/hooks";
-import { FORGOT_PASS_PATH, REGISTER_PATH } from "../../utils/vars";
+import { _FORGOT_PASS_PATH, _REGISTER_PATH } from "../../utils/vars";
 import Notice from "../modals/notice/notice";
 import styles from "./auth.module.scss";
 
@@ -77,7 +77,7 @@ const Login: FC = () => {
                         Вы — новый пользователь?
                     </span>
                     <Link
-                        to={REGISTER_PATH}
+                        to={_REGISTER_PATH}
                         className="text_type_main-default "
                     >
                         Зарегистрироваться
@@ -92,7 +92,7 @@ const Login: FC = () => {
                         Забыли пароль?
                     </span>
                     <Link
-                        to={FORGOT_PASS_PATH}
+                        to={_FORGOT_PASS_PATH}
                         className="text_type_main-default"
                     >
                         Восстановить пароль

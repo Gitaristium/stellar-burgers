@@ -79,7 +79,7 @@ export const USER_REGISTER = createAsyncThunk<TApiAuthUser, TBodySend>(
         const response = await requestApi(AUTH_REGISTER, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
+                "Content-Type": "application/json;charset=utf-8",
             },
             body: JSON.stringify(bodySend),
         });
@@ -98,7 +98,7 @@ export const USER_LOGIN = createAsyncThunk<TApiAuthUser, TBodySend>(
         const response = await requestApi(AUTH_LOGIN, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
+                "Content-Type": "application/json;charset=utf-8",
             },
             body: JSON.stringify(bodySend),
         });
@@ -118,7 +118,7 @@ export const USER_RESET = createAsyncThunk<TApiForgotUser, TBodySend>(
         const response = await requestApi(AUTH_RESET, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
+                "Content-Type": "application/json;charset=utf-8",
             },
             body: JSON.stringify(bodySend),
         });
@@ -137,7 +137,7 @@ export const USER_RESET_CONFIRM = createAsyncThunk<TApiResetUser, TBodySend>(
         const response = await requestApi(AUTH_RESET_CONFIRM, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
+                "Content-Type": "application/json;charset=utf-8",
             },
             body: JSON.stringify(bodySend),
         });
@@ -156,7 +156,7 @@ export const USER_LOGOUT = createAsyncThunk<TApiLogoutUser>(
         const response = await requestApi(AUTH_LOGOUT, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
+                "Content-Type": "application/json;charset=utf-8",
             },
             body: JSON.stringify({
                 token: localStorage.getItem("refreshToken"),

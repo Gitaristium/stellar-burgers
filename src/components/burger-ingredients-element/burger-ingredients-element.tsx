@@ -10,7 +10,7 @@ import { getСonstructorList } from "../../services/burger-constructor/selectors
 import { getIsMobile } from "../../services/mobile/selectors";
 import { useAppDispatch, useAppSelector } from "../../services/store/hooks";
 import { TConstructor, TIngredient } from "../../utils/types";
-import { INGREDIENTS_PATH } from "../../utils/vars";
+import { _INGREDIENTS_PATH } from "../../utils/vars";
 import styles from "./burger-ingredients-element.module.scss";
 
 interface IProps {
@@ -64,7 +64,7 @@ const BurgerIngredientsElement: FC<IProps> = ({ item, type }) => {
         <>
             <DragPreviewImage connect={dragPreview} src={item.image} />
             <Link
-                to={INGREDIENTS_PATH + "/" + item._id}
+                to={_INGREDIENTS_PATH + "/" + item._id}
                 state={{ backgroundLocation: location }}
                 className={`${styles.item} mb-8 remove-select`}
                 key={item._id}

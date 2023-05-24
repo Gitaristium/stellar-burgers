@@ -40,9 +40,9 @@ interface IProps {
     extraClass: string;
 }
 
-const TotalPrice: FC<IProps> = ({ extraClass }) => {
+const BurgerConstructorTotalPrice: FC<IProps> = ({ extraClass }) => {
     const animPrice = useAnim();
     return <span className={extraClass}>{animPrice}</span>;
 };
 
-export default TotalPrice;
+export default BurgerConstructorTotalPrice;

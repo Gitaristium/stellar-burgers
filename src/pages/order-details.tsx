@@ -1,8 +1,12 @@
 import { FC } from "react";
 import OrderDetails from "../components/order-details/order-details";
 
-const OrderDetailsPage: FC = () => {
-    return <OrderDetails />;
+interface IProps {
+    modal?: boolean;
+}
+
+const OrderDetailsPage: FC<IProps> = ({ modal }) => {
+    return <OrderDetails modal={modal} />;
 };
 
 export default OrderDetailsPage;

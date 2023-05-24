@@ -13,7 +13,8 @@ export const CONSTRUCTOR_ORDER_DETAILS_REQUEST = createAsyncThunk(
         const response = await requestApi(ORDERS, {
             method: "POST",
             headers: {
-                "Content-Type": "application/json",
+                "Content-Type": "application/json;charset=utf-8",
+                authorization: localStorage.getItem("accessToken") as string,
             },
             body: JSON.stringify(data),
         });

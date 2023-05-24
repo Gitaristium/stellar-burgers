@@ -7,7 +7,7 @@ import { getIsMobile } from "../../services/mobile/selectors";
 import { useAppSelector } from "../../services/store/hooks";
 import BurgerConstructorView from "../burger-constructor-view/burger-constructor-view";
 import Modal from "../modals/modal/modal";
-import TotalPrice from "../total-price/total-price";
+import BurgerConstructorTotalPrice from "../burger-constructor-total-price/burger-constructor-total-price";
 import styles from "./burger-constructor.module.scss";
 
 const BurgerConstructor: FC = () => {
@@ -24,7 +24,7 @@ const BurgerConstructor: FC = () => {
                 <>
                     <section className={styles.section}>
                         <div className={`${styles.sum} mt-10`}>
-                            <TotalPrice extraClass="text text_type_digits-default" />
+                            <BurgerConstructorTotalPrice extraClass="text text_type_digits-default" />
                             <CurrencyIcon type="primary" />
                             <Button
                                 htmlType="button"

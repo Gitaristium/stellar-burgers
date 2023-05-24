@@ -22,7 +22,7 @@ export const getImagesByIngredientIds = (ids: string[]) =>
     createSelector(storeIngredientsList, (data): string[] =>
         ids.map(
             (id): string =>
-                data.find((el: TIngredient) => el._id === id)!
+                data!.find((el: TIngredient) => el._id === id)!
                     .image_mobile as string
         )
     );
@@ -41,3 +41,13 @@ export const getIngredientsRequestSuccess = createSelector(
     (store: RootState): boolean => store.ingredientsList.status.success,
     (data): boolean => data
 );
+
+// прайс заказа для ленты
+export const getOrderTotalPrice = (ids: string[]) =>
+    createSelector(storeIngredientsList, (data): number =>
+        ids.reduce(
+            (acc, id): number =>
+                acc + data.find((el: TIngredient) => el._id === id)!.price,
+            0
+        )
+    );
