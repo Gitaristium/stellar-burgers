@@ -19,11 +19,11 @@ export const getIngredientById = (id: string) =>
 
 // получаем массив картинок игредиенов из общего списка по id
 export const getImagesByIngredientIds = (ids: string[]) =>
-    createSelector(storeIngredientsList, (data): string[] =>
+    createSelector(storeIngredientsList, (data): (string | undefined)[] =>
         ids.map(
-            (id): string =>
-                data!.find((el: TIngredient) => el._id === id)!
-                    .image_mobile as string
+            (id: string): string | undefined =>
+                data.find((el: TIngredient): boolean => el._id === id)
+                    ?.image_mobile
         )
     );
 
