@@ -7,7 +7,6 @@ import { getProfileOrdersList } from "../../services/profile-orders/selectors";
 
 const OrdersList: FC = () => {
     const isMobile: boolean = useAppSelector(getIsMobile);
-    // ЗАМЕНИТЬ
     const ordersList = useAppSelector(getProfileOrdersList);
 
     return (

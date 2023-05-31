@@ -4,7 +4,7 @@ import { useAppSelector } from "../../services/store/hooks";
 import styles from "./order-details-img.module.scss";
 
 interface IProps {
-    img: string;
+    img: string | undefined;
 }
 
 const OrderDetailsImg: FC<IProps> = ({ img }) => {
