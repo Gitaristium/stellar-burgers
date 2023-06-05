@@ -89,6 +89,7 @@ const BurgerConstructorElement: FC<IProps> = (props) => {
           ${props.isLocked ? "mr-4 ml-10" : ""} 
         `}
                     ref={dropTarget}
+                    data-test={`constructor-${props.type}`}
                 >
                     {/* если это не булка - рендерим иконку перетаскивания слева от элемента */}
                     {!props.isLocked && props.ingredient && (

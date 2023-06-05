@@ -11,6 +11,7 @@ const CloseModal: FC<IProps> = ({ closeModal }) => {
         <span
             className={`${styles.modal__close} remove-select`}
             onClick={closeModal}
+            data-test="close-modal"
         >
             <CloseIcon type="primary" />
         </span>

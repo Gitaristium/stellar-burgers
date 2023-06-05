@@ -8,7 +8,7 @@ import {
     PROFILE_WS_OPEN,
 } from "./actions";
 
-const initialState = {
+export const initialState = {
     status: WebSocketStatus.OFFLINE,
     error: "",
     orders: [] as TFeedOrder[],

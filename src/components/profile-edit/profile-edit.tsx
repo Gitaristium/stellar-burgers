@@ -56,7 +56,7 @@ const ProfileEdit: FC = () => {
                 password: formState.password,
             };
             dispatch(USER_UPDATE(sendData));
-            // а это число для очистики инпута пароля - для красоты
+            // а это чисто для очистики инпута пароля - для красоты
             handleReset(e);
         }
     };

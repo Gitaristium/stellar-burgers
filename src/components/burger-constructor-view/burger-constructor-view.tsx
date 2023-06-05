@@ -202,6 +202,7 @@ const BurgerConstructorView: FC = () => {
                                 ? "remove-select ml-10"
                                 : "remove-select ml-4"
                         }
+                        data-test="order-btn"
                     >
                         Оформить заказ
                     </Button>

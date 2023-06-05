@@ -4,7 +4,7 @@ import {
     CONSTRUCTOR_ORDER_DETAILS_RESET,
 } from "./actions";
 
-const initialState = {
+export const initialState = {
     item: {
         status: "",
         name: "",

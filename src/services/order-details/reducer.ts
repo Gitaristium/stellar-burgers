@@ -2,7 +2,7 @@ import { createReducer } from "@reduxjs/toolkit";
 import { ORDER_REQEST, ORDER_RESET } from "./actions";
 import { TFeedOrder } from "../../utils/types";
 
-const initialState = {
+export const initialState = {
     order: null as unknown as TFeedOrder,
     status: {
         loading: false,
