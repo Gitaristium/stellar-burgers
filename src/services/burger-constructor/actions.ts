@@ -2,13 +2,15 @@ import { createAction } from "@reduxjs/toolkit";
 import uuid from "react-uuid";
 import { TIngredient } from "../../utils/types";
 
-const REDUCER_NAME = "burgerConstructor";
+export const REDUCER_NAME = "burgerConstructor";
 
-type TPayloadIngredient = {
+export type TPayloadIngredient = {
     payload: TIngredient;
 };
 
-type TPayloadSorting = { payload: { fromIndex: number; toIndex: number } };
+export type TPayloadSorting = {
+    payload: { fromIndex: number; toIndex: number };
+};
 
 export const INGREDIENT_ADD = createAction(
     `${REDUCER_NAME}/add`,

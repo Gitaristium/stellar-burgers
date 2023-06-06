@@ -8,7 +8,7 @@ import {
 import { TIngredient, TIngredientsList } from "../../utils/types";
 // import { IngredientModel } from "../../utils/types";
 
-const initialState = {
+export const initialState = {
     bun: null as unknown as TIngredient,
     ingr: [] as TIngredientsList,
 };

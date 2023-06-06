@@ -16,7 +16,7 @@ export type TUser = {
     email: string;
 };
 
-const initialState = {
+export const initialState = {
     user: null as unknown as TUser,
     isAuthChecked: false,
     status: {

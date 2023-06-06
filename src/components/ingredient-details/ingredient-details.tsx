@@ -22,7 +22,10 @@ const IngredientDetails: FC = () => {
                         alt={ingredientDetails.name}
                         className={`mt-4 mb-4 ${styles.img}`}
                     />
-                    <p className="text text_type_main-medium mb-8">
+                    <p
+                        className="text text_type_main-medium mb-8"
+                        data-test="title"
+                    >
                         {ingredientDetails.name}
                     </p>
                     <ul className={styles.desc}>

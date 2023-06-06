@@ -31,7 +31,7 @@ const BurgerConstructorElementEmpty: FC<IProps> = (props) => {
 
     return (
         <>
-            <span ref={dropTarget}>
+            <span ref={dropTarget} data-test={`constructor-${props.type}`}>
                 <article
                     className={`
           ${isMobile ? styles.item : ""} 

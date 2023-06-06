@@ -23,9 +23,9 @@ import {
     TApiResetUser,
 } from "../../utils/types";
 
-const REDUCER_NAME = "user";
+export const REDUCER_NAME = "user";
 
-type TBodySend = {
+export type TBodySend = {
     email?: string;
     password?: string;
     name?: string;

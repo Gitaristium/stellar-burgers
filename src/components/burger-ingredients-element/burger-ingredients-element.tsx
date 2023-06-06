@@ -71,6 +71,8 @@ const BurgerIngredientsElement: FC<IProps> = ({ item, type }) => {
                 onClick={isMobile ? () => addIngredient(item) : undefined}
                 style={{ opacity }}
                 ref={dragRef}
+                data-test="ingredient"
+                data-test-type={item.type}
             >
                 {count > 0 && (
                     <Counter

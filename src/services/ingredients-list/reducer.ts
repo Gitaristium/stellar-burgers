@@ -1,8 +1,9 @@
 import { createReducer } from "@reduxjs/toolkit";
 import { INGREDIENTS_REQEST } from "./actions";
+import { TIngredientsList } from "../../utils/types";
 
-const initialState = {
-    items: [],
+export const initialState = {
+    items: [] as TIngredientsList,
     status: {
         loading: false,
         error: false,
